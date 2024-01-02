@@ -121,6 +121,8 @@ export const DotEditor = (props: Props) => {
     "3C",
   ]
 
+  const usedColors = new Set(grid.flat().map((cell) => cell.color))
+
   return (
     <div className="p-4 space-y-4">
       <div className="flex space-x-2 overflow-hidden">
@@ -175,6 +177,25 @@ export const DotEditor = (props: Props) => {
             ))}
           </Card>
         </div>
+      </div>
+      <div className="flex flex-wrap space-x-2">
+        {colorKeys
+          .filter((colorKey) => usedColors.has(colorKey))
+          .map((colorKey) => (
+            <div key={colorKey} className="flex items-center gap-2">
+              <Button
+                className="gap-x-2 items-center"
+                variant={"outline"}
+                onClick={() => setColorId(colorKey)}
+              >
+                <div
+                  className="w-4 h-4"
+                  style={{ backgroundColor: colors.get(colorKey) }}
+                />
+                {colorKey}
+              </Button>
+            </div>
+          ))}
       </div>
     </div>
   )
