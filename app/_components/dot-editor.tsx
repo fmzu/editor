@@ -144,6 +144,8 @@ export const DotEditor = (props: Props) => {
     setGrid(createEmptyGrid())
   }
 
+  const [selectedSize, setSelectedSize] = useState(8)
+
   // グリッドのサイズを変更する関数を追加します
   const resizeGrid = (size: number) => {
     setRowsCount(size)
@@ -156,10 +158,16 @@ export const DotEditor = (props: Props) => {
       newGrid.push(row)
     }
     setGrid(newGrid)
+
+    setSelectedSize(size)
   }
+
+  // 選択中のドットの大きさを表す状態を作成します
+  const [selectedDotSize, setSelectedDotSize] = useState(32)
 
   const resizeDot = (size: number) => {
     setDotSize(size)
+    setSelectedDotSize(size)
   }
 
   return (
@@ -249,18 +257,74 @@ export const DotEditor = (props: Props) => {
           <div className="flex space-x-2 overflow-hidden">
             {/* ...既存のコード... */}
             {/* サイズを変更するボタンを追加します */}
-            <Button onClick={() => resizeGrid(8)}>{"8x8"}</Button>
-            <Button onClick={() => resizeGrid(16)}>{"16x16"}</Button>
-            <Button onClick={() => resizeGrid(32)}>{"32x32"}</Button>
-            <Button onClick={() => resizeGrid(64)}>{"64x64"}</Button>
+            <Button
+              onClick={() => resizeGrid(8)}
+              style={{
+                border: selectedSize === 8 ? "4px solid black" : "none",
+              }}
+            >
+              {"8x8"}
+            </Button>
+            <Button
+              onClick={() => resizeGrid(16)}
+              style={{
+                border: selectedSize === 16 ? "4px solid black" : "none",
+              }}
+            >
+              {"16x16"}
+            </Button>
+            <Button
+              onClick={() => resizeGrid(32)}
+              style={{
+                border: selectedSize === 32 ? "4px solid black" : "none",
+              }}
+            >
+              {"32x32"}
+            </Button>
+            <Button
+              onClick={() => resizeGrid(64)}
+              style={{
+                border: selectedSize === 64 ? "4px solid black" : "none",
+              }}
+            >
+              {"64x64"}
+            </Button>
           </div>
           <div className="flex space-x-2 overflow-hidden">
             {/* ...既存のコード... */}
             {/* ドットの大きさを変更するボタンを追加します */}
-            <Button onClick={() => resizeDot(8)}>{"8px"}</Button>
-            <Button onClick={() => resizeDot(16)}>{"16px"}</Button>
-            <Button onClick={() => resizeDot(32)}>{"32px"}</Button>
-            <Button onClick={() => resizeDot(64)}>{"64px"}</Button>
+            <Button
+              onClick={() => resizeDot(8)}
+              style={{
+                border: selectedDotSize === 8 ? "4px solid black" : "none",
+              }}
+            >
+              {"8px"}
+            </Button>
+            <Button
+              onClick={() => resizeDot(16)}
+              style={{
+                border: selectedDotSize === 16 ? "4px solid black" : "none",
+              }}
+            >
+              {"16px"}
+            </Button>
+            <Button
+              onClick={() => resizeDot(32)}
+              style={{
+                border: selectedDotSize === 32 ? "4px solid black" : "none",
+              }}
+            >
+              {"32px"}
+            </Button>
+            <Button
+              onClick={() => resizeDot(64)}
+              style={{
+                border: selectedDotSize === 64 ? "4px solid black" : "none",
+              }}
+            >
+              {"64px"}
+            </Button>
           </div>
         </div>
       </div>
