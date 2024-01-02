@@ -1,7 +1,9 @@
+import { DotEditor } from "@/app/_components/dot-editor"
+
 export default function Home() {
   return (
     <main>
-      <p>{"ああああああああああああああ"}</p>
+      <DotEditor />
     </main>
   )
 }
