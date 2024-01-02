@@ -9,8 +9,6 @@ import { useState } from "react"
 import { toast } from "sonner"
 
 // セルの数と色を定義します
-const NUM_ROWS = 10
-const NUM_COLS = 10
 const DEFAULT_COLOR = "#000000" // 黒
 
 // セルの型を定義します
@@ -18,31 +16,44 @@ type Cell = {
   color: string | null
 }
 
-// グリッドの初期状態を作成します
-const createEmptyGrid = (): Cell[][] => {
-  const rows: Cell[][] = []
-  for (let i = 0; i < NUM_ROWS; i++) {
-    rows.push([])
-    for (let j = 0; j < NUM_COLS; j++) {
-      rows[i].push({ color: null })
-    }
-  }
-  return rows
-}
-
 type Props = {
   code?: string
 }
 
 export const DotEditor = (props: Props) => {
+  const [rowsCount, setRowsCount] = useState(8)
+
+  // グリッドの初期状態を作成します
+  const createEmptyGrid = (): Cell[][] => {
+    const rows: Cell[][] = []
+    for (let i = 0; i < rowsCount; i++) {
+      rows.push([])
+      for (let j = 0; j < rowsCount; j++) {
+        rows[i].push({ color: null })
+      }
+    }
+    return rows
+  }
+
+  /**
+   * 文字列をグリッドに変換する
+   * @param str
+   * @returns
+   */
   const stringToGrid = (str: string): Cell[][] => {
     const colors = str.split("-")
     const grid: Cell[][] = []
 
-    for (let i = 0; i < 10; i++) {
+    // ドットの数を計算します
+    const dotsCount = colors.length
+
+    // ドットの数から行の数を計算します
+    const rowsCount = Math.sqrt(dotsCount)
+
+    for (let i = 0; i < rowsCount; i++) {
       const row: Cell[] = []
-      for (let j = 0; j < 10; j++) {
-        row.push({ color: colors[i * 10 + j] })
+      for (let j = 0; j < rowsCount; j++) {
+        row.push({ color: colors[i * rowsCount + j] })
       }
       grid.push(row)
     }
@@ -50,13 +61,14 @@ export const DotEditor = (props: Props) => {
     return grid
   }
 
+  // ドットの大きさを管理するための状態を作成します
+  const [dotSize, setDotSize] = useState(32)
+
   const [grid, setGrid] = useState(
     props.code ? stringToGrid(props.code) : createEmptyGrid(),
   )
 
   const [colorId, setColorId] = useState("00")
-
-  const COLORS = Array.from(colors.keys())
 
   const handleCellClick = (rowIndex: number, colIndex: number) => {
     const newGrid = [...grid]
@@ -134,6 +146,7 @@ export const DotEditor = (props: Props) => {
 
   // グリッドのサイズを変更する関数を追加します
   const resizeGrid = (size: number) => {
+    setRowsCount(size)
     const newGrid: Cell[][] = []
     for (let i = 0; i < size; i++) {
       const row: Cell[] = []
@@ -143,6 +156,10 @@ export const DotEditor = (props: Props) => {
       newGrid.push(row)
     }
     setGrid(newGrid)
+  }
+
+  const resizeDot = (size: number) => {
+    setDotSize(size)
   }
 
   return (
@@ -191,8 +208,10 @@ export const DotEditor = (props: Props) => {
                     key={colIndex}
                     type="button"
                     onClick={() => handleCellClick(rowIndex, colIndex)}
-                    className={cn("w-8 h-8 border")}
+                    className={cn("border")}
                     style={{
+                      width: `${dotSize}px`,
+                      height: `${dotSize}px`,
                       backgroundColor:
                         cell.color !== null ? colors.get(cell.color) : "white",
                     }}
@@ -230,10 +249,18 @@ export const DotEditor = (props: Props) => {
           <div className="flex space-x-2 overflow-hidden">
             {/* ...既存のコード... */}
             {/* サイズを変更するボタンを追加します */}
-            <Button onClick={() => resizeGrid(8)}>8x8</Button>
-            <Button onClick={() => resizeGrid(16)}>16x16</Button>
-            <Button onClick={() => resizeGrid(32)}>32x32</Button>
-            <Button onClick={() => resizeGrid(64)}>64x64</Button>
+            <Button onClick={() => resizeGrid(8)}>{"8x8"}</Button>
+            <Button onClick={() => resizeGrid(16)}>{"16x16"}</Button>
+            <Button onClick={() => resizeGrid(32)}>{"32x32"}</Button>
+            <Button onClick={() => resizeGrid(64)}>{"64x64"}</Button>
+          </div>
+          <div className="flex space-x-2 overflow-hidden">
+            {/* ...既存のコード... */}
+            {/* ドットの大きさを変更するボタンを追加します */}
+            <Button onClick={() => resizeDot(8)}>{"8px"}</Button>
+            <Button onClick={() => resizeDot(16)}>{"16px"}</Button>
+            <Button onClick={() => resizeDot(32)}>{"32px"}</Button>
+            <Button onClick={() => resizeDot(64)}>{"64px"}</Button>
           </div>
         </div>
       </div>
