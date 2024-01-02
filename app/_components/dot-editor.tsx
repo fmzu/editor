@@ -4,6 +4,7 @@ import { colors } from "@/app/_utils/colors"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { cn } from "@/lib/utils"
+import { CircleDashed, Eraser } from "lucide-react"
 import { useState } from "react"
 import { toast } from "sonner"
 
@@ -127,6 +128,23 @@ export const DotEditor = (props: Props) => {
 
   const [eraserMode, setEraserMode] = useState(false)
 
+  const handleClearClick = () => {
+    setGrid(createEmptyGrid())
+  }
+
+  // グリッドのサイズを変更する関数を追加します
+  const resizeGrid = (size: number) => {
+    const newGrid: Cell[][] = []
+    for (let i = 0; i < size; i++) {
+      const row: Cell[] = []
+      for (let j = 0; j < size; j++) {
+        row.push({ color: null })
+      }
+      newGrid.push(row)
+    }
+    setGrid(newGrid)
+  }
+
   return (
     <div className="p-4 space-y-4">
       <div className="flex space-x-2 overflow-hidden">
@@ -184,14 +202,39 @@ export const DotEditor = (props: Props) => {
             ))}
           </Card>
         </div>
-        <div className="flex space-x-2 overflow-hidden">
-          {/* 消しゴムモードのトグルボタンを追加します */}
-          <Button onClick={() => setEraserMode(!eraserMode)}>
-            {eraserMode
-              ? "消しゴムモードをオフにする"
-              : "消しゴムモードをオンにする"}
-          </Button>
-          {/* ...既存のコード... */}
+        <div className="flex flex-col space-y-2">
+          <div className="flex space-x-2">
+            <div className="flex space-x-2 overflow-hidden">
+              {/* 消しゴムモードのトグルボタンを追加します */}
+              <Button
+                className="items-stretch space-x-2"
+                onClick={() => setEraserMode(!eraserMode)}
+              >
+                <Eraser className=" w-4 mr-2" />
+                {eraserMode
+                  ? "消しゴムモードをオフにする"
+                  : "消しゴムモードをオンにする"}
+              </Button>
+            </div>
+            <div className="flex space-x-2 overflow-hidden">
+              {/* クリアボタンを追加します */}
+              <Button
+                className="items-stretch space-x-2"
+                onClick={handleClearClick}
+              >
+                <CircleDashed className=" w-4 mr-2" />
+                {"クリア"}
+              </Button>
+            </div>
+          </div>
+          <div className="flex space-x-2 overflow-hidden">
+            {/* ...既存のコード... */}
+            {/* サイズを変更するボタンを追加します */}
+            <Button onClick={() => resizeGrid(8)}>8x8</Button>
+            <Button onClick={() => resizeGrid(16)}>16x16</Button>
+            <Button onClick={() => resizeGrid(32)}>32x32</Button>
+            <Button onClick={() => resizeGrid(64)}>64x64</Button>
+          </div>
         </div>
       </div>
       <div className="flex flex-wrap space-x-2">
