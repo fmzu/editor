@@ -1,6 +1,7 @@
 import { cn } from "@/lib/utils"
 import "./globals.css"
 
+import { Toaster } from "@/components/ui/sonner"
 import type { Metadata } from "next"
 import { Hachi_Maru_Pop } from "next/font/google"
 
@@ -29,6 +30,7 @@ export default function RootLayout(props: Props) {
         )}
       >
         {props.children}
+        <Toaster />
       </body>
     </html>
   )

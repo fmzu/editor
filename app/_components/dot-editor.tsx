@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { cn } from "@/lib/utils"
 import { useState } from "react"
+import { toast } from "sonner"
 
 // セルの数と色を定義します
 const NUM_ROWS = 10
@@ -135,7 +136,10 @@ export const DotEditor = (props: Props) => {
           </pre>
         </Card>
         <Button
-          onClick={() => navigator.clipboard.writeText(window.location.href)}
+          onClick={() => {
+            navigator.clipboard.writeText(window.location.href)
+            toast("コピーしました")
+          }}
         >
           {"コピー"}
         </Button>
