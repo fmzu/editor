@@ -1,13 +1,13 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-# 開発
+## 開発
 
 ```
 $ npm i
 $ npm run dev
 ```
 
-# 機能
+## 機能
 
 - [x] NESのカラーパレット
 - [ ] URLの共有
