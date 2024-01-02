@@ -66,6 +66,61 @@ export const DotEditor = (props: Props) => {
     return grid.map((row) => row.map((cell) => cell.color).join("-")).join("-")
   }
 
+  const colorKeys: string[] = [
+    "0D",
+    "00",
+    "10",
+    "20",
+    "01",
+    "11",
+    "21",
+    "31",
+    "02",
+    "12",
+    "22",
+    "32",
+    "03",
+    "13",
+    "23",
+    "33",
+    "04",
+    "14",
+    "24",
+    "34",
+    "05",
+    "15",
+    "25",
+    "35",
+    "06",
+    "16",
+    "26",
+    "36",
+    "07",
+    "17",
+    "27",
+    "37",
+    "08",
+    "18",
+    "28",
+    "38",
+    "09",
+    "19",
+    "29",
+    "39",
+    "0A",
+    "1A",
+    "2A",
+    "3A",
+    "0B",
+    "1B",
+    "2B",
+    "3B",
+    "0C",
+    "1C",
+    "2C",
+    "3C",
+  ]
+
   return (
     <div className="p-4 space-y-4">
       <div className="flex space-x-2 overflow-hidden">
@@ -85,7 +140,7 @@ export const DotEditor = (props: Props) => {
       </div>
       <div className="flex gap-4">
         <div className="grid grid-cols-4 gap-2">
-          {COLORS.map((color) => (
+          {colorKeys.map((color) => (
             <div key={color} className="flex gap-2">
               <div
                 className="w-2"
