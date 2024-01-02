@@ -68,9 +68,21 @@ export const DotEditor = (props: Props) => {
 
   return (
     <div className="p-4 space-y-4">
-      <Card>
-        <pre>{gridToString(grid)}</pre>
-      </Card>
+      <div className="flex space-x-2 overflow-hidden">
+        <Card className="flex-1 overflow-hidden items-center">
+          <pre
+            className="whitespace-nowrap overflow-hidden h-full"
+            style={{ lineHeight: "2.5rem" }}
+          >
+            {gridToString(grid)}
+          </pre>
+        </Card>
+        <Button
+          onClick={() => navigator.clipboard.writeText(window.location.href)}
+        >
+          {"コピー"}
+        </Button>
+      </div>
       <div className="flex gap-4">
         <div className="grid grid-cols-4 gap-2">
           {COLORS.map((color) => (
