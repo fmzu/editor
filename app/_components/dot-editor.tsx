@@ -52,7 +52,7 @@ export const DotEditor = (props: Props) => {
     props.code ? stringToGrid(props.code) : createEmptyGrid(),
   )
 
-  const [colorId, setColorId] = useState("04")
+  const [colorId, setColorId] = useState("0D")
 
   const COLORS = Array.from(colors.keys())
 
