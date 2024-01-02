@@ -59,7 +59,8 @@ export const DotEditor = (props: Props) => {
 
   const handleCellClick = (rowIndex: number, colIndex: number) => {
     const newGrid = [...grid]
-    newGrid[rowIndex][colIndex].color = colorId
+    // 消しゴムモードが有効なら色をnullに、そうでなければ選択中の色に設定します
+    newGrid[rowIndex][colIndex].color = eraserMode ? null : colorId
     setGrid(newGrid)
   }
 
@@ -124,6 +125,8 @@ export const DotEditor = (props: Props) => {
 
   const usedColors = new Set(grid.flat().map((cell) => cell.color))
 
+  const [eraserMode, setEraserMode] = useState(false)
+
   return (
     <div className="p-4 space-y-4">
       <div className="flex space-x-2 overflow-hidden">
@@ -180,6 +183,15 @@ export const DotEditor = (props: Props) => {
               </div>
             ))}
           </Card>
+        </div>
+        <div className="flex space-x-2 overflow-hidden">
+          {/* 消しゴムモードのトグルボタンを追加します */}
+          <Button onClick={() => setEraserMode(!eraserMode)}>
+            {eraserMode
+              ? "消しゴムモードをオフにする"
+              : "消しゴムモードをオンにする"}
+          </Button>
+          {/* ...既存のコード... */}
         </div>
       </div>
       <div className="flex flex-wrap space-x-2">
