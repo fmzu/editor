@@ -28,8 +28,29 @@ const createEmptyGrid = (): Cell[][] => {
   return rows
 }
 
-export const DotEditor = () => {
-  const [grid, setGrid] = useState(createEmptyGrid())
+type Props = {
+  code?: string
+}
+
+export const DotEditor = (props: Props) => {
+  const stringToGrid = (str: string): Cell[][] => {
+    const colors = str.split("-")
+    const grid: Cell[][] = []
+
+    for (let i = 0; i < 10; i++) {
+      const row: Cell[] = []
+      for (let j = 0; j < 10; j++) {
+        row.push({ color: colors[i * 10 + j] })
+      }
+      grid.push(row)
+    }
+
+    return grid
+  }
+
+  const [grid, setGrid] = useState(
+    props.code ? stringToGrid(props.code) : createEmptyGrid(),
+  )
 
   const [colorId, setColorId] = useState("04")
 
