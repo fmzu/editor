@@ -126,7 +126,7 @@ export const DotEditor = (props: Props) => {
       <div className="flex space-x-2 overflow-hidden">
         <Card className="flex-1 overflow-hidden items-center">
           <pre
-            className="whitespace-nowrap overflow-hidden h-full"
+            className="whitespace-nowrap overflow-hidden h-full px-1"
             style={{ lineHeight: "2.5rem" }}
           >
             {gridToString(grid)}
@@ -139,20 +139,19 @@ export const DotEditor = (props: Props) => {
         </Button>
       </div>
       <div className="flex gap-4">
-        <div className="grid grid-cols-4 gap-2">
+        <div className="grid grid-cols-4 ">
           {colorKeys.map((color) => (
-            <div key={color} className="flex gap-2">
-              <div
-                className="w-2"
+            <div key={color} className="flex">
+              <Button
+                className={cn(
+                  "w-8 h-8 p-0",
+                  colorId === color ? "border-4 border-black" : "",
+                )}
+                key={color}
+                variant={"default"}
+                onClick={() => setColorId(color)}
                 style={{ backgroundColor: colors.get(color) }}
               />
-              <Button
-                key={color}
-                variant={colorId === color ? "default" : "outline"}
-                onClick={() => setColorId(color)}
-              >
-                {color}
-              </Button>
             </div>
           ))}
         </div>
