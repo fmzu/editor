@@ -197,7 +197,7 @@ export const DotEditor = (props: Props) => {
               <Button
                 className={cn(
                   "w-8 h-8 p-0",
-                  colorId === color ? "border-4 border-black" : "",
+                  colorId === color ? "border-4 border-white" : "",
                 )}
                 key={color}
                 variant={"default"}
@@ -260,7 +260,7 @@ export const DotEditor = (props: Props) => {
             <Button
               onClick={() => resizeGrid(8)}
               style={{
-                border: selectedSize === 8 ? "4px solid black" : "none",
+                border: selectedSize === 8 ? "4px solid white" : "none",
               }}
             >
               {"8x8"}
@@ -268,7 +268,7 @@ export const DotEditor = (props: Props) => {
             <Button
               onClick={() => resizeGrid(16)}
               style={{
-                border: selectedSize === 16 ? "4px solid black" : "none",
+                border: selectedSize === 16 ? "4px solid white" : "none",
               }}
             >
               {"16x16"}
@@ -276,7 +276,7 @@ export const DotEditor = (props: Props) => {
             <Button
               onClick={() => resizeGrid(32)}
               style={{
-                border: selectedSize === 32 ? "4px solid black" : "none",
+                border: selectedSize === 32 ? "4px solid white" : "none",
               }}
             >
               {"32x32"}
@@ -284,7 +284,7 @@ export const DotEditor = (props: Props) => {
             <Button
               onClick={() => resizeGrid(64)}
               style={{
-                border: selectedSize === 64 ? "4px solid black" : "none",
+                border: selectedSize === 64 ? "4px solid white" : "none",
               }}
             >
               {"64x64"}
@@ -296,7 +296,7 @@ export const DotEditor = (props: Props) => {
             <Button
               onClick={() => resizeDot(8)}
               style={{
-                border: selectedDotSize === 8 ? "4px solid black" : "none",
+                border: selectedDotSize === 8 ? "4px solid white" : "none",
               }}
             >
               {"8px"}
@@ -304,7 +304,7 @@ export const DotEditor = (props: Props) => {
             <Button
               onClick={() => resizeDot(16)}
               style={{
-                border: selectedDotSize === 16 ? "4px solid black" : "none",
+                border: selectedDotSize === 16 ? "4px solid white" : "none",
               }}
             >
               {"16px"}
@@ -312,7 +312,7 @@ export const DotEditor = (props: Props) => {
             <Button
               onClick={() => resizeDot(32)}
               style={{
-                border: selectedDotSize === 32 ? "4px solid black" : "none",
+                border: selectedDotSize === 32 ? "4px solid white" : "none",
               }}
             >
               {"32px"}
@@ -320,7 +320,7 @@ export const DotEditor = (props: Props) => {
             <Button
               onClick={() => resizeDot(64)}
               style={{
-                border: selectedDotSize === 64 ? "4px solid black" : "none",
+                border: selectedDotSize === 64 ? "4px solid white" : "none",
               }}
             >
               {"64px"}
@@ -337,6 +337,7 @@ export const DotEditor = (props: Props) => {
                 className="gap-x-2 items-center"
                 variant={"outline"}
                 onClick={() => setColorId(colorKey)}
+                style={{ backgroundColor: "gray" }}
               >
                 <div
                   className="w-4 h-4"
