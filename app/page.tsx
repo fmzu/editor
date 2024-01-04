@@ -1,9 +1,5 @@
-import { DotEditor } from "@/app/_components/dot-editor"
+import { redirect } from "next/navigation"
 
 export default function Home() {
-  return (
-    <main>
-      <DotEditor />
-    </main>
-  )
+  redirect("/---------------------------------------------------------------")
 }

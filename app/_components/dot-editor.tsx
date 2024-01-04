@@ -1,20 +1,16 @@
 "use client"
 
+import { colorKeys } from "@/app/_utils/color-keys"
 import { colors } from "@/app/_utils/colors"
+import { createEmptyGrid } from "@/app/_utils/create-empty-cells"
+import { toGridFromString } from "@/app/_utils/to-grid-from-string"
+import { toStringFromGrid } from "@/app/_utils/to-string-from-grid"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { cn } from "@/lib/utils"
 import { CircleDashed, Eraser } from "lucide-react"
 import { useState } from "react"
 import { toast } from "sonner"
-
-// セルの数と色を定義します
-const DEFAULT_COLOR = "#000000" // 黒
-
-// セルの型を定義します
-type Cell = {
-  color: string | null
-}
 
 type Props = {
   code?: string
@@ -23,49 +19,11 @@ type Props = {
 export const DotEditor = (props: Props) => {
   const [rowsCount, setRowsCount] = useState(8)
 
-  // グリッドの初期状態を作成します
-  const createEmptyGrid = (): Cell[][] => {
-    const rows: Cell[][] = []
-    for (let i = 0; i < rowsCount; i++) {
-      rows.push([])
-      for (let j = 0; j < rowsCount; j++) {
-        rows[i].push({ color: null })
-      }
-    }
-    return rows
-  }
-
-  /**
-   * 文字列をグリッドに変換する
-   * @param str
-   * @returns
-   */
-  const stringToGrid = (str: string): Cell[][] => {
-    const colors = str.split("-")
-    const grid: Cell[][] = []
-
-    // ドットの数を計算します
-    const dotsCount = colors.length
-
-    // ドットの数から行の数を計算します
-    const rowsCount = Math.sqrt(dotsCount)
-
-    for (let i = 0; i < rowsCount; i++) {
-      const row: Cell[] = []
-      for (let j = 0; j < rowsCount; j++) {
-        row.push({ color: colors[i * rowsCount + j] })
-      }
-      grid.push(row)
-    }
-
-    return grid
-  }
-
   // ドットの大きさを管理するための状態を作成します
   const [dotSize, setDotSize] = useState(32)
 
   const [grid, setGrid] = useState(
-    props.code ? stringToGrid(props.code) : createEmptyGrid(),
+    props.code ? toGridFromString(props.code) : createEmptyGrid(rowsCount),
   )
 
   const [colorId, setColorId] = useState("00")
@@ -77,89 +35,18 @@ export const DotEditor = (props: Props) => {
     setGrid(newGrid)
   }
 
-  const gridToString = (grid: Cell[][]): string => {
-    return grid.map((row) => row.map((cell) => cell.color).join("-")).join("-")
-  }
-
-  const colorKeys: string[] = [
-    "0D",
-    "00",
-    "10",
-    "20",
-    "01",
-    "11",
-    "21",
-    "31",
-    "02",
-    "12",
-    "22",
-    "32",
-    "03",
-    "13",
-    "23",
-    "33",
-    "04",
-    "14",
-    "24",
-    "34",
-    "05",
-    "15",
-    "25",
-    "35",
-    "06",
-    "16",
-    "26",
-    "36",
-    "07",
-    "17",
-    "27",
-    "37",
-    "08",
-    "18",
-    "28",
-    "38",
-    "09",
-    "19",
-    "29",
-    "39",
-    "0A",
-    "1A",
-    "2A",
-    "3A",
-    "0B",
-    "1B",
-    "2B",
-    "3B",
-    "0C",
-    "1C",
-    "2C",
-    "3C",
-  ]
-
   const usedColors = new Set(grid.flat().map((cell) => cell.color))
 
   const [eraserMode, setEraserMode] = useState(false)
 
   const handleClearClick = () => {
-    setGrid(createEmptyGrid())
+    setGrid(createEmptyGrid(rowsCount))
   }
-
-  const [selectedSize, setSelectedSize] = useState(8)
 
   // グリッドのサイズを変更する関数を追加します
   const resizeGrid = (size: number) => {
     setRowsCount(size)
-    const newGrid: Cell[][] = []
-    for (let i = 0; i < size; i++) {
-      const row: Cell[] = []
-      for (let j = 0; j < size; j++) {
-        row.push({ color: null })
-      }
-      newGrid.push(row)
-    }
-    setGrid(newGrid)
-
-    setSelectedSize(size)
+    setGrid(createEmptyGrid(size))
   }
 
   // 選択中のドットの大きさを表す状態を作成します
@@ -178,7 +65,7 @@ export const DotEditor = (props: Props) => {
             className="whitespace-nowrap overflow-hidden h-full px-1"
             style={{ lineHeight: "2.5rem" }}
           >
-            {gridToString(grid)}
+            {toStringFromGrid(grid)}
           </pre>
         </Card>
         <Button
@@ -260,7 +147,7 @@ export const DotEditor = (props: Props) => {
             <Button
               onClick={() => resizeGrid(8)}
               style={{
-                border: selectedSize === 8 ? "4px solid white" : "none",
+                border: rowsCount === 8 ? "4px solid white" : "none",
               }}
             >
               {"8x8"}
@@ -268,7 +155,7 @@ export const DotEditor = (props: Props) => {
             <Button
               onClick={() => resizeGrid(16)}
               style={{
-                border: selectedSize === 16 ? "4px solid white" : "none",
+                border: rowsCount === 16 ? "4px solid white" : "none",
               }}
             >
               {"16x16"}
@@ -276,7 +163,7 @@ export const DotEditor = (props: Props) => {
             <Button
               onClick={() => resizeGrid(32)}
               style={{
-                border: selectedSize === 32 ? "4px solid white" : "none",
+                border: rowsCount === 32 ? "4px solid white" : "none",
               }}
             >
               {"32x32"}
@@ -284,7 +171,7 @@ export const DotEditor = (props: Props) => {
             <Button
               onClick={() => resizeGrid(64)}
               style={{
-                border: selectedSize === 64 ? "4px solid white" : "none",
+                border: rowsCount === 64 ? "4px solid white" : "none",
               }}
             >
               {"64x64"}
