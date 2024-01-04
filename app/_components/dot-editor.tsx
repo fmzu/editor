@@ -5,6 +5,13 @@ import { colors } from "@/app/_utils/colors"
 import { createEmptyGrid } from "@/app/_utils/create-empty-cells"
 import { toGridFromString } from "@/app/_utils/to-grid-from-string"
 import { toStringFromGrid } from "@/app/_utils/to-string-from-grid"
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { cn } from "@/lib/utils"
@@ -138,13 +145,25 @@ export const DotEditor = (props: Props) => {
             </div>
             <div className="flex space-x-2 overflow-hidden">
               {/* クリアボタンを追加します */}
-              <Button
-                className="items-stretch space-x-2"
-                onClick={handleClearClick}
-              >
-                <CircleDashed className=" w-4 mr-2" />
-                {"クリア"}
-              </Button>
+              <AlertDialog>
+                <AlertDialogTrigger>
+                  <Button className="items-stretch space-x-2">
+                    <CircleDashed className=" w-4 mr-2" />
+                    {"クリア"}
+                  </Button>
+                </AlertDialogTrigger>
+                <AlertDialogContent>
+                  <div className="flex flex-col space-y-2">
+                    <div>{"本当にクリアしますか？"}</div>
+                    <div className="flex justify-end space-x-2">
+                      <AlertDialogAction onClick={handleClearClick}>
+                        {"はい"}
+                      </AlertDialogAction>
+                      <AlertDialogCancel>{"いいえ"}</AlertDialogCancel>
+                    </div>
+                  </div>
+                </AlertDialogContent>
+              </AlertDialog>
             </div>
           </div>
           <div className="flex space-x-2 overflow-hidden">
