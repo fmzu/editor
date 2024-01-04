@@ -17,6 +17,8 @@ type Props = {
 }
 
 export const DotEditor = (props: Props) => {
+  // const router = useRouter()
+
   const [rowsCount, setRowsCount] = useState(8)
 
   // ドットの大きさを管理するための状態を作成します
@@ -33,6 +35,8 @@ export const DotEditor = (props: Props) => {
     // 消しゴムモードが有効なら色をnullに、そうでなければ選択中の色に設定します
     newGrid[rowIndex][colIndex].color = eraserMode ? null : colorId
     setGrid(newGrid)
+    // URLを更新します
+    // router.replace(`/${toStringFromGrid(newGrid)}`)
   }
 
   const usedColors = new Set(grid.flat().map((cell) => cell.color))
@@ -70,7 +74,9 @@ export const DotEditor = (props: Props) => {
         </Card>
         <Button
           onClick={() => {
-            navigator.clipboard.writeText(window.location.href)
+            navigator.clipboard.writeText(
+              `https://editor-beige.vercel.app/${toStringFromGrid(grid)}`,
+            )
             toast("コピーしました")
           }}
         >
