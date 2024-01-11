@@ -1,5 +1,6 @@
 "use client"
 
+import { SelectColors } from "@/app/_components/select-colors"
 import { colorKeys } from "@/app/_utils/color-keys"
 import { colors } from "@/app/_utils/colors"
 import { createEmptyGrid } from "@/app/_utils/create-empty-cells"
@@ -91,22 +92,11 @@ export const DotEditor = (props: Props) => {
         </Button>
       </div>
       <div className="flex gap-4">
-        <div className="grid grid-cols-4 ">
-          {colorKeys.map((color) => (
-            <div key={color} className="flex">
-              <Button
-                className={cn(
-                  "w-8 h-8 p-0",
-                  colorId === color ? "border-4 border-white" : "",
-                )}
-                key={color}
-                variant={"default"}
-                onClick={() => setColorId(color)}
-                style={{ backgroundColor: colors.get(color) }}
-              />
-            </div>
-          ))}
-        </div>
+        <SelectColors
+          colors={colors}
+          colorId={colorId}
+          setColorId={setColorId}
+        />
         <div>
           <Card>
             {grid.map((row, rowIndex) => (
@@ -146,7 +136,7 @@ export const DotEditor = (props: Props) => {
             <div className="flex space-x-2 overflow-hidden">
               {/* クリアボタンを追加します */}
               <AlertDialog>
-                <AlertDialogTrigger>
+                <AlertDialogTrigger asChild>
                   <Button className="items-stretch space-x-2">
                     <CircleDashed className=" w-4 mr-2" />
                     {"クリア"}
