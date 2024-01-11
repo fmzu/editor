@@ -1,5 +1,6 @@
 "use client"
 
+import { GridEditor } from "@/app/_components/grid-editor"
 import { SelectColors } from "@/app/_components/select-colors"
 import { colorKeys } from "@/app/_utils/color-keys"
 import { colors } from "@/app/_utils/colors"
@@ -15,7 +16,6 @@ import {
 } from "@/components/ui/alert-dialog"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
-import { cn } from "@/lib/utils"
 import { CircleDashed, Eraser } from "lucide-react"
 import { useState } from "react"
 import { toast } from "sonner"
@@ -98,26 +98,12 @@ export const DotEditor = (props: Props) => {
           setColorId={setColorId}
         />
         <div>
-          <Card>
-            {grid.map((row, rowIndex) => (
-              <div key={rowIndex} className="flex">
-                {row.map((cell, colIndex) => (
-                  <button
-                    key={colIndex}
-                    type="button"
-                    onClick={() => handleCellClick(rowIndex, colIndex)}
-                    className={cn("border")}
-                    style={{
-                      width: `${dotSize}px`,
-                      height: `${dotSize}px`,
-                      backgroundColor:
-                        cell.color !== null ? colors.get(cell.color) : "white",
-                    }}
-                  />
-                ))}
-              </div>
-            ))}
-          </Card>
+          <GridEditor
+            grid={grid}
+            handleCellClick={handleCellClick}
+            dotSize={dotSize}
+            colors={colors}
+          />
         </div>
         <div className="flex flex-col space-y-2">
           <div className="flex space-x-2">
