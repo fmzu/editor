@@ -1,5 +1,7 @@
 "use client"
 
+import { ClearButton } from "@/app/_components/clear-button"
+import { EraserButton } from "@/app/_components/eraser-button"
 import { GridEditor } from "@/app/_components/grid-editor"
 import { SelectColors } from "@/app/_components/select-colors"
 import { colorKeys } from "@/app/_utils/color-keys"
@@ -7,16 +9,8 @@ import { colors } from "@/app/_utils/colors"
 import { createEmptyGrid } from "@/app/_utils/create-empty-cells"
 import { toGridFromString } from "@/app/_utils/to-grid-from-string"
 import { toStringFromGrid } from "@/app/_utils/to-string-from-grid"
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogTrigger,
-} from "@/components/ui/alert-dialog"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
-import { CircleDashed, Eraser } from "lucide-react"
 import { useState } from "react"
 import { toast } from "sonner"
 
@@ -107,40 +101,13 @@ export const DotEditor = (props: Props) => {
         </div>
         <div className="flex flex-col space-y-2">
           <div className="flex space-x-2">
-            <div className="flex space-x-2 overflow-hidden">
-              {/* 消しゴムモードのトグルボタンを追加します */}
-              <Button
-                className="items-stretch space-x-2"
-                onClick={() => setEraserMode(!eraserMode)}
-              >
-                <Eraser className=" w-4 mr-2" />
-                {eraserMode
-                  ? "消しゴムモードをオフにする"
-                  : "消しゴムモードをオンにする"}
-              </Button>
-            </div>
-            <div className="flex space-x-2 overflow-hidden">
-              {/* クリアボタンを追加します */}
-              <AlertDialog>
-                <AlertDialogTrigger asChild>
-                  <Button className="items-stretch space-x-2">
-                    <CircleDashed className=" w-4 mr-2" />
-                    {"クリア"}
-                  </Button>
-                </AlertDialogTrigger>
-                <AlertDialogContent>
-                  <div className="flex flex-col space-y-2">
-                    <div>{"本当にクリアしますか？"}</div>
-                    <div className="flex justify-end space-x-2">
-                      <AlertDialogAction onClick={handleClearClick}>
-                        {"はい"}
-                      </AlertDialogAction>
-                      <AlertDialogCancel>{"いいえ"}</AlertDialogCancel>
-                    </div>
-                  </div>
-                </AlertDialogContent>
-              </AlertDialog>
-            </div>
+            {/* 消しゴムモードのトグルボタンを追加します */}
+            <EraserButton
+              eraserMode={eraserMode}
+              setEraserMode={setEraserMode}
+            />
+            {/* クリアボタンを追加します */}
+            <ClearButton handleClearClick={handleClearClick} />
           </div>
           <div className="flex space-x-2 overflow-hidden">
             {/* ...既存のコード... */}
