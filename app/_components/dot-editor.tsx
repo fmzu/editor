@@ -3,7 +3,9 @@
 import { ClearButton } from "@/app/_components/clear-button"
 import { EraserButton } from "@/app/_components/eraser-button"
 import { GridEditor } from "@/app/_components/grid-editor"
+import { PixelSelectButton } from "@/app/_components/pixel-select-button"
 import { SelectColors } from "@/app/_components/select-colors"
+import { SizeSelectButton } from "@/app/_components/size-select-button"
 import { colorKeys } from "@/app/_utils/color-keys"
 import { colors } from "@/app/_utils/colors"
 import { createEmptyGrid } from "@/app/_utils/create-empty-cells"
@@ -109,78 +111,11 @@ export const DotEditor = (props: Props) => {
             {/* クリアボタンを追加します */}
             <ClearButton handleClearClick={handleClearClick} />
           </div>
-          <div className="flex space-x-2 overflow-hidden">
-            {/* ...既存のコード... */}
-            {/* サイズを変更するボタンを追加します */}
-            <Button
-              onClick={() => resizeGrid(8)}
-              style={{
-                border: rowsCount === 8 ? "4px solid white" : "none",
-              }}
-            >
-              {"8x8"}
-            </Button>
-            <Button
-              onClick={() => resizeGrid(16)}
-              style={{
-                border: rowsCount === 16 ? "4px solid white" : "none",
-              }}
-            >
-              {"16x16"}
-            </Button>
-            <Button
-              onClick={() => resizeGrid(32)}
-              style={{
-                border: rowsCount === 32 ? "4px solid white" : "none",
-              }}
-            >
-              {"32x32"}
-            </Button>
-            <Button
-              onClick={() => resizeGrid(64)}
-              style={{
-                border: rowsCount === 64 ? "4px solid white" : "none",
-              }}
-            >
-              {"64x64"}
-            </Button>
-          </div>
-          <div className="flex space-x-2 overflow-hidden">
-            {/* ...既存のコード... */}
-            {/* ドットの大きさを変更するボタンを追加します */}
-            <Button
-              onClick={() => resizeDot(8)}
-              style={{
-                border: selectedDotSize === 8 ? "4px solid white" : "none",
-              }}
-            >
-              {"8px"}
-            </Button>
-            <Button
-              onClick={() => resizeDot(16)}
-              style={{
-                border: selectedDotSize === 16 ? "4px solid white" : "none",
-              }}
-            >
-              {"16px"}
-            </Button>
-            <Button
-              onClick={() => resizeDot(32)}
-              style={{
-                border: selectedDotSize === 32 ? "4px solid white" : "none",
-              }}
-            >
-              {"32px"}
-            </Button>
-            <Button
-              onClick={() => resizeDot(64)}
-              style={{
-                border: selectedDotSize === 64 ? "4px solid white" : "none",
-              }}
-            >
-              {"64px"}
-            </Button>
-          </div>
+          <SizeSelectButton resizeGrid={resizeGrid} rowsCount={rowsCount} />
+          <PixelSelectButton
+            resizeDot={resizeDot}
+            selectedDotSize={selectedDotSize}
+          />
         </div>
       </div>
       <div className="flex flex-wrap space-x-2">
