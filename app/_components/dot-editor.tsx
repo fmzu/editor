@@ -1,6 +1,7 @@
 "use client"
 
 import { ClearButton } from "@/app/_components/clear-button"
+import { CurrentColors } from "@/app/_components/current-colors"
 import { EditorHeader } from "@/app/_components/editor-header"
 import { EraserButton } from "@/app/_components/eraser-button"
 import { GridEditor } from "@/app/_components/grid-editor"
@@ -12,7 +13,6 @@ import { colors } from "@/app/_utils/colors"
 import { createEmptyGrid } from "@/app/_utils/create-empty-cells"
 import { toGridFromString } from "@/app/_utils/to-grid-from-string"
 import { toStringFromGrid } from "@/app/_utils/to-string-from-grid"
-import { Button } from "@/components/ui/button"
 import { useState } from "react"
 
 type Props = {
@@ -98,26 +98,12 @@ export const DotEditor = (props: Props) => {
           />
         </div>
       </div>
-      <div className="flex flex-wrap space-x-2">
-        {colorKeys
-          .filter((colorKey) => usedColors.has(colorKey))
-          .map((colorKey) => (
-            <div key={colorKey} className="flex items-center gap-2">
-              <Button
-                className="gap-x-2 items-center"
-                variant={"outline"}
-                onClick={() => setColorId(colorKey)}
-                style={{ backgroundColor: "gray" }}
-              >
-                <div
-                  className="w-4 h-4"
-                  style={{ backgroundColor: colors.get(colorKey) }}
-                />
-                {colorKey}
-              </Button>
-            </div>
-          ))}
-      </div>
+      <CurrentColors
+        colorKeys={colorKeys}
+        usedColors={usedColors}
+        setColorId={setColorId}
+        colors={colors}
+      />
     </div>
   )
 }
