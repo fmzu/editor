@@ -1,6 +1,7 @@
 "use client"
 
 import { ClearButton } from "@/app/_components/clear-button"
+import { EditorHeader } from "@/app/_components/editor-header"
 import { EraserButton } from "@/app/_components/eraser-button"
 import { GridEditor } from "@/app/_components/grid-editor"
 import { PixelSelectButton } from "@/app/_components/pixel-select-button"
@@ -12,9 +13,7 @@ import { createEmptyGrid } from "@/app/_utils/create-empty-cells"
 import { toGridFromString } from "@/app/_utils/to-grid-from-string"
 import { toStringFromGrid } from "@/app/_utils/to-string-from-grid"
 import { Button } from "@/components/ui/button"
-import { Card } from "@/components/ui/card"
 import { useState } from "react"
-import { toast } from "sonner"
 
 type Props = {
   code?: string
@@ -67,26 +66,7 @@ export const DotEditor = (props: Props) => {
 
   return (
     <div className="p-4 space-y-4">
-      <div className="flex space-x-2 overflow-hidden">
-        <Card className="flex-1 overflow-hidden items-center">
-          <pre
-            className="whitespace-nowrap overflow-hidden h-full px-1"
-            style={{ lineHeight: "2.5rem" }}
-          >
-            {toStringFromGrid(grid)}
-          </pre>
-        </Card>
-        <Button
-          onClick={() => {
-            navigator.clipboard.writeText(
-              `https://editor-beige.vercel.app/${toStringFromGrid(grid)}`,
-            )
-            toast("コピーしました")
-          }}
-        >
-          {"コピー"}
-        </Button>
-      </div>
+      <EditorHeader grid={grid} toStringFromGrid={toStringFromGrid} />
       <div className="flex gap-4">
         <SelectColors
           colors={colors}
