@@ -1,6 +1,13 @@
 "use client"
 
-import { Button } from "@/components/ui/button"
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
 
 type Props = {
   resizeDot: (size: number) => void
@@ -10,9 +17,22 @@ type Props = {
 export const PixelSelectButton = (props: Props) => {
   return (
     <div className="flex space-x-2 overflow-hidden">
+      <Select>
+        <SelectTrigger className="w-[180px]">
+          <SelectValue placeholder="絵の大きさ" />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectGroup>
+            <SelectItem value="8px">{"8px"}</SelectItem>
+            <SelectItem value="16px">{"16px"}</SelectItem>
+            <SelectItem value="32px">{"32px"}</SelectItem>
+            <SelectItem value="64px">{"64px"}</SelectItem>
+          </SelectGroup>
+        </SelectContent>
+      </Select>
       {/* ...既存のコード... */}
       {/* ドットの大きさを変更するボタンを追加します */}
-      <Button
+      {/* <Button
         onClick={() => props.resizeDot(8)}
         style={{
           border: props.selectedDotSize === 8 ? "4px solid white" : "none",
@@ -43,7 +63,7 @@ export const PixelSelectButton = (props: Props) => {
         }}
       >
         {"64px"}
-      </Button>
+      </Button> */}
     </div>
   )
 }

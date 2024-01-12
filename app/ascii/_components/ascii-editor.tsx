@@ -7,19 +7,19 @@ import { EditorHeader } from "@/app/_components/editor-header"
 import { EraserButton } from "@/app/_components/eraser-button"
 import { GridEditor } from "@/app/_components/grid-editor"
 import { PixelSelectButton } from "@/app/_components/pixel-select-button"
-import { SizeSelectButton } from "@/app/_components/size-select-button"
 import { colorKeys } from "@/app/_utils/color-keys"
 import { colors } from "@/app/_utils/colors"
 import { createEmptyGrid } from "@/app/_utils/create-empty-cells"
 import { toGridFromString } from "@/app/_utils/to-grid-from-string"
 import { toStringFromGrid } from "@/app/_utils/to-string-from-grid"
+import { AsciiSizeSelectButton } from "@/app/ascii/_components/ascii-size-select-button"
 import { useState } from "react"
 
 type Props = {
   code?: string
 }
 
-export const DotEditor = (props: Props) => {
+export const AsciiEditor = (props: Props) => {
   // const router = useRouter()
 
   const [rowsCount, setRowsCount] = useState(8)
@@ -91,13 +91,14 @@ export const DotEditor = (props: Props) => {
             {/* クリアボタンを追加します */}
             <ClearButton handleClearClick={handleClearClick} />
           </div>
-          <div className="flex space-x-2">
-            <SizeSelectButton resizeGrid={resizeGrid} rowsCount={rowsCount} />
-            <PixelSelectButton
-              resizeDot={resizeDot}
-              selectedDotSize={selectedDotSize}
-            />
-          </div>
+          <AsciiSizeSelectButton
+            resizeGrid={resizeGrid}
+            rowsCount={rowsCount}
+          />
+          <PixelSelectButton
+            resizeDot={resizeDot}
+            selectedDotSize={selectedDotSize}
+          />
         </div>
       </div>
       <CurrentColors

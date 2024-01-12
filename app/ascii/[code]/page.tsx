@@ -1,9 +1,9 @@
-import { DotEditor } from "@/app/_components/dot-editor"
+import { AsciiEditor } from "@/app/ascii/_components/ascii-editor"
 
 export default function Home() {
   return (
     <main>
-      <DotEditor />
+      <AsciiEditor />
     </main>
   )
 }

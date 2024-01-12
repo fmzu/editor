@@ -10,7 +10,7 @@ type Props = {
   setColorId: (colorId: string) => void
 }
 
-export const SelectColors = (props: Props) => {
+export const ColorPalette = (props: Props) => {
   return (
     <div className="grid grid-cols-4 ">
       {colorKeys.map((color) => (
