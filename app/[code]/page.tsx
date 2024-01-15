@@ -1,4 +1,4 @@
-import { NesWorkspace } from "@/app/nes/[code]/_components/nes-workspace"
+import { DotWorkspace } from "@/app/dot/_components/dot-workspace"
 
 type Props = {
   params: {
@@ -9,7 +9,7 @@ type Props = {
 export default function Home(props: Props) {
   return (
     <main>
-      <NesWorkspace code={props.params.code} />
+      <DotWorkspace code={props.params.code} />
     </main>
   )
 }
