@@ -1,8 +1,9 @@
-import { cn } from "@/lib/utils"
 import "./globals.css"
 
+import { RootHeader } from "@/app/_components/root-header"
 import { RootProviders } from "@/app/_components/root-providers"
 import { Toaster } from "@/components/ui/sonner"
+import { cn } from "@/lib/utils"
 import type { Metadata } from "next"
 import { Hachi_Maru_Pop } from "next/font/google"
 
@@ -31,6 +32,7 @@ export default function RootLayout(props: Props) {
         )}
       >
         <RootProviders>
+          <RootHeader />
           {props.children}
           <Toaster />
         </RootProviders>
