@@ -29,7 +29,6 @@ export const CanvasSizeSelectButton = (props: Props) => {
         </SelectTrigger>
         <SelectContent>
           <SelectGroup>
-            <SelectLabel>Fruits</SelectLabel>
             <SelectItem
               value="8"
               onClick={() => {
