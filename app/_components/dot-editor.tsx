@@ -58,17 +58,13 @@ export const DotEditor = (props: Props) => {
     setGrid(createEmptyGrid(size))
   }
 
-  // 選択中のドットの大きさを表す状態を作成します
-  const [selectedDotSize, setSelectedDotSize] = useState(32)
-
   const resizeDot = (size: number) => {
     setDotSize(size)
-    setSelectedDotSize(size)
   }
 
   return (
-    <div className="flex p-4 gap-x-4 overflow-hidden w-full">
-      <div className="flex-1">
+    <div className="flex p-4 gap-x-4 overflow-hidden w-full h-svh">
+      <div className="flex-1 overflow-hidden h-full">
         <GridEditor
           grid={grid}
           handleCellClick={handleCellClick}
@@ -79,11 +75,8 @@ export const DotEditor = (props: Props) => {
       <div className="w-80 flex flex-col gap-y-2">
         <EditorHeader grid={grid} toStringFromGrid={toStringFromGrid} />
         <div className="flex space-x-2">
-          <SizeSelectButton resizeGrid={resizeGrid} rowsCount={rowsCount} />
-          <PixelSelectButton
-            resizeDot={resizeDot}
-            selectedDotSize={selectedDotSize}
-          />
+          <SizeSelectButton onChange={resizeGrid} value={rowsCount} />
+          <PixelSelectButton onChange={resizeDot} value={dotSize} />
         </div>
         <div className="flex space-x-2">
           {/* 消しゴムモードのトグルボタンを追加します */}

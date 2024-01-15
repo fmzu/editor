@@ -13,7 +13,7 @@ type Props = {
 
 export const GridEditor = (props: Props) => {
   return (
-    <Card>
+    <Card className="overflow-scroll h-full">
       {props.grid.map((row, rowIndex) => (
         <div key={rowIndex} className="flex">
           {row.map((cell, colIndex) => (
@@ -23,7 +23,7 @@ export const GridEditor = (props: Props) => {
               onClick={() => props.handleCellClick(rowIndex, colIndex)}
               className={cn("border")}
               style={{
-                width: `${props.dotSize}px`,
+                minWidth: `${props.dotSize}px`,
                 height: `${props.dotSize}px`,
                 backgroundColor:
                   cell.color !== null ? props.colors.get(cell.color) : "white",

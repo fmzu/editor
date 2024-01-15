@@ -95,10 +95,7 @@ export const AsciiEditor = (props: Props) => {
             resizeGrid={resizeGrid}
             rowsCount={rowsCount}
           />
-          <PixelSelectButton
-            resizeDot={resizeDot}
-            selectedDotSize={selectedDotSize}
-          />
+          <PixelSelectButton onChange={resizeDot} value={selectedDotSize} />
         </div>
       </div>
       <CurrentColors

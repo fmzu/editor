@@ -10,23 +10,28 @@ import {
 } from "@/components/ui/select"
 
 type Props = {
-  resizeDot: (size: number) => void
-  selectedDotSize: number
+  onChange(size: number): void
+  value: number
 }
 
 export const PixelSelectButton = (props: Props) => {
   return (
     <div className="flex space-x-2 overflow-hidden">
-      <Select>
+      <Select
+        value={props.value.toString()}
+        onValueChange={(value) => {
+          props.onChange(parseInt(value))
+        }}
+      >
         <SelectTrigger className="w-[180px]">
           <SelectValue placeholder="絵の大きさ" />
         </SelectTrigger>
         <SelectContent>
           <SelectGroup>
-            <SelectItem value="8px">{"8px"}</SelectItem>
-            <SelectItem value="16px">{"16px"}</SelectItem>
-            <SelectItem value="32px">{"32px"}</SelectItem>
-            <SelectItem value="64px">{"64px"}</SelectItem>
+            <SelectItem value="8">{"8px"}</SelectItem>
+            <SelectItem value="16">{"16px"}</SelectItem>
+            <SelectItem value="32">{"32px"}</SelectItem>
+            <SelectItem value="64">{"64px"}</SelectItem>
           </SelectGroup>
         </SelectContent>
       </Select>

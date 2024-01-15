@@ -18,10 +18,11 @@ export const toGridFromString = (text: string): EditorCell[][] => {
   for (let i = 0; i < rowsCount; i++) {
     const row: EditorCell[] = []
     for (let j = 0; j < rowsCount; j++) {
-      row.push({ color: colors[i * rowsCount + j] })
+      row.push({ color: colors[i * rowsCount + j] || null })
     }
     grid.push(row)
   }
+  console.log(grid)
 
   return grid
 }

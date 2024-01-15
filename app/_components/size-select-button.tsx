@@ -10,53 +10,58 @@ import {
 } from "@/components/ui/select"
 
 type Props = {
-  resizeGrid: (size: number) => void
-  rowsCount: number
+  onChange: (size: number) => void
+  value: number
 }
 
 export const SizeSelectButton = (props: Props) => {
   return (
     <div className="flex space-x-2 overflow-hidden">
-      <Select>
+      <Select
+        value={props.value.toString()}
+        onValueChange={(value) => {
+          props.onChange(parseInt(value))
+        }}
+      >
         <SelectTrigger className="w-[180px]">
           <SelectValue placeholder="サイズ選択" />
         </SelectTrigger>
         <SelectContent>
           <SelectGroup>
             <SelectItem
-              value="8x8"
+              value="8"
               onClick={() => {
-                props.resizeGrid(8)
+                props.onChange(8)
               }}
               style={{
-                border: props.rowsCount === 8 ? "4px solid white" : "none",
+                border: props.value === 8 ? "4px solid white" : "none",
               }}
             >
               {"8x8"}
             </SelectItem>
             <SelectItem
-              value="16x16"
-              onClick={() => props.resizeGrid(16)}
+              value="16"
+              onClick={() => props.onChange(16)}
               style={{
-                border: props.rowsCount === 16 ? "4px solid white" : "none",
+                border: props.value === 16 ? "4px solid white" : "none",
               }}
             >
               {"16x16"}
             </SelectItem>
             <SelectItem
-              value="32x32"
-              onClick={() => props.resizeGrid(32)}
+              value="32"
+              onClick={() => props.onChange(32)}
               style={{
-                border: props.rowsCount === 32 ? "4px solid white" : "none",
+                border: props.value === 32 ? "4px solid white" : "none",
               }}
             >
               {"32x32"}
             </SelectItem>
             <SelectItem
-              value="64x64"
-              onClick={() => props.resizeGrid(64)}
+              value="64"
+              onClick={() => props.onChange(64)}
               style={{
-                border: props.rowsCount === 64 ? "4px solid white" : "none",
+                border: props.value === 64 ? "4px solid white" : "none",
               }}
             >
               {"64x64"}
