@@ -5,6 +5,7 @@ import {
   SelectContent,
   SelectGroup,
   SelectItem,
+  SelectLabel,
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
@@ -14,7 +15,7 @@ type Props = {
   value: number
 }
 
-export const SizeSelectButton = (props: Props) => {
+export const CanvasSizeSelectButton = (props: Props) => {
   return (
     <div className="flex space-x-2 overflow-hidden">
       <Select
@@ -28,6 +29,7 @@ export const SizeSelectButton = (props: Props) => {
         </SelectTrigger>
         <SelectContent>
           <SelectGroup>
+            <SelectLabel>Fruits</SelectLabel>
             <SelectItem
               value="8"
               onClick={() => {

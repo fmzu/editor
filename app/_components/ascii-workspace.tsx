@@ -1,20 +1,16 @@
 "use client"
 
 import { AsciiCanvas } from "@/app/_components/ascii-canvas"
+import { CanvasSizeSelectButton } from "@/app/_components/canvas-size-select-button"
 import { ClearCanvasButton } from "@/app/_components/clear-canvas-button"
 import { ColorPalette } from "@/app/_components/color-palette"
 import { CurrentColors } from "@/app/_components/current-colors"
 import { DotSizeSelectButton } from "@/app/_components/dot-size-select-button"
-import { EditorHeader } from "@/app/_components/editor-header"
 import { EraserButton } from "@/app/_components/eraser-button"
-import { SizeSelectButton } from "@/app/_components/size-select-button"
 import { colorKeys } from "@/app/_utils/color-keys"
 import { colors } from "@/app/_utils/colors"
 import { createEmptyAsciiGrid } from "@/app/_utils/create-empty-ascii-cells"
-import { createEmptyGrid } from "@/app/_utils/create-empty-cells"
-import { toGridFromString } from "@/app/_utils/to-grid-from-string"
-import { toStringFromGrid } from "@/app/_utils/to-string-from-grid"
-import { DotCanvas } from "@/app/dot/_components/dot-canvas"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { useState } from "react"
 
 type Props = {
@@ -42,17 +38,20 @@ export const AsciiWorkspace = (props: Props) => {
 
   const [eraserMode, setEraserMode] = useState(false)
 
-  const handleClearClick = () => {
+  const onClearCanvas = () => {
     setGrid(createEmptyAsciiGrid(rowsCount))
   }
 
-  // グリッドのサイズを変更する関数を追加します
-  const resizeGrid = (size: number) => {
+  /**
+   * キャンバスのサイズを変更する
+   * @param size
+   */
+  const onResizeCanvas = (size: number) => {
     setRowsCount(size)
     setGrid(createEmptyAsciiGrid(size))
   }
 
-  const resizeDot = (size: number) => {
+  const onResizeDotSize = (size: number) => {
     setDotSize(size)
   }
 
@@ -68,21 +67,36 @@ export const AsciiWorkspace = (props: Props) => {
       </div>
       <div className="w-80 flex flex-col gap-y-2">
         <div className="flex space-x-2">
-          <SizeSelectButton onChange={resizeGrid} value={rowsCount} />
-          <DotSizeSelectButton onChange={resizeDot} value={dotSize} />
+          <CanvasSizeSelectButton onChange={onResizeCanvas} value={rowsCount} />
+          <DotSizeSelectButton onChange={onResizeDotSize} value={dotSize} />
         </div>
         <div className="flex space-x-2">
           {/* 消しゴムモードのトグルボタンを追加します */}
           <EraserButton eraserMode={eraserMode} setEraserMode={setEraserMode} />
           {/* クリアボタンを追加します */}
-          <ClearCanvasButton onClick={handleClearClick} />
+          <ClearCanvasButton onClick={onClearCanvas} />
         </div>
         <div>
-          <ColorPalette
-            colors={colors}
-            colorId={colorId}
-            setColorId={setColorId}
-          />
+          <Tabs defaultValue="color-palette" className="w-full">
+            <TabsList className="grid w-full grid-cols-2">
+              <TabsTrigger value="color-palette">{"色"}</TabsTrigger>
+              <TabsTrigger value="character">{"文字"}</TabsTrigger>
+            </TabsList>
+            <TabsContent value="color-palette">
+              <ColorPalette
+                colors={colors}
+                colorId={colorId}
+                setColorId={setColorId}
+              />
+            </TabsContent>
+            <TabsContent value="character">
+              <ColorPalette
+                colors={colors}
+                colorId={colorId}
+                setColorId={setColorId}
+              />
+            </TabsContent>
+          </Tabs>
         </div>
         <CurrentColors
           colorKeys={colorKeys}

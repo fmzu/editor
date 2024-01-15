@@ -1,4 +1,4 @@
-import { DotWorkspace } from "@/app/dot/[code]/_components/dot-workspace"
+import { DotWorkspace } from "@/app/dot/_components/dot-workspace"
 
 type Props = {
   params: {

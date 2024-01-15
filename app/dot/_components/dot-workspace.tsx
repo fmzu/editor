@@ -1,12 +1,12 @@
 "use client"
 
+import { CanvasSizeSelectButton } from "@/app/_components/canvas-size-select-button"
 import { ClearCanvasButton } from "@/app/_components/clear-canvas-button"
 import { ColorPalette } from "@/app/_components/color-palette"
 import { CurrentColors } from "@/app/_components/current-colors"
 import { DotSizeSelectButton } from "@/app/_components/dot-size-select-button"
 import { EditorHeader } from "@/app/_components/editor-header"
 import { EraserButton } from "@/app/_components/eraser-button"
-import { SizeSelectButton } from "@/app/_components/size-select-button"
 import { colorKeys } from "@/app/_utils/color-keys"
 import { colors } from "@/app/_utils/colors"
 import { createEmptyGrid } from "@/app/_utils/create-empty-cells"
@@ -73,7 +73,7 @@ export const DotWorkspace = (props: Props) => {
       <div className="w-80 flex flex-col gap-y-2">
         <EditorHeader grid={grid} toStringFromGrid={toStringFromGrid} />
         <div className="flex space-x-2">
-          <SizeSelectButton onChange={onResizeCanvas} value={rowsCount} />
+          <CanvasSizeSelectButton onChange={onResizeCanvas} value={rowsCount} />
           <DotSizeSelectButton onChange={onResizeDotSize} value={dotSize} />
         </div>
         <div className="flex space-x-2">

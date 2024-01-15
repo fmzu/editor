@@ -5,6 +5,7 @@ import {
   SelectContent,
   SelectGroup,
   SelectItem,
+  SelectLabel,
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
@@ -28,6 +29,7 @@ export const DotSizeSelectButton = (props: Props) => {
         </SelectTrigger>
         <SelectContent>
           <SelectGroup>
+            <SelectLabel>Fruits</SelectLabel>
             <SelectItem value="8">{"8px"}</SelectItem>
             <SelectItem value="16">{"16px"}</SelectItem>
             <SelectItem value="32">{"32px"}</SelectItem>
