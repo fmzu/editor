@@ -22,7 +22,6 @@ export const toGridFromString = (text: string): EditorCell[][] => {
     }
     grid.push(row)
   }
-  console.log(grid)
 
   return grid
 }

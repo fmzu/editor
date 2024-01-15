@@ -5,13 +5,13 @@ import { Card } from "@/components/ui/card"
 import { cn } from "@/lib/utils"
 
 type Props = {
-  grid: EditorCell[][]
-  handleCellClick: (rowIndex: number, colIndex: number) => void
+  grid: [string | null, string | null][][]
+  onClick: (rowIndex: number, colIndex: number) => void
   dotSize: number
   colors: Map<string, string>
 }
 
-export const GridEditor = (props: Props) => {
+export const AsciiCanvas = (props: Props) => {
   return (
     <Card className="overflow-scroll h-full">
       {props.grid.map((row, rowIndex) => (
@@ -20,15 +20,16 @@ export const GridEditor = (props: Props) => {
             <button
               key={colIndex}
               type="button"
-              onClick={() => props.handleCellClick(rowIndex, colIndex)}
+              onClick={() => props.onClick(rowIndex, colIndex)}
               className={cn("border")}
               style={{
-                minWidth: `${props.dotSize}px`,
+                minWidth: `${props.dotSize / 2}px`,
                 height: `${props.dotSize}px`,
-                backgroundColor:
-                  cell.color !== null ? props.colors.get(cell.color) : "white",
+                color: cell[1] !== null ? props.colors.get(cell[1]) : "white",
               }}
-            />
+            >
+              {cell[0]}
+            </button>
           ))}
         </div>
       ))}

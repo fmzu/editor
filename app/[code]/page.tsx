@@ -1,4 +1,4 @@
-import { DotEditor } from "@/app/_components/dot-editor"
+import { NesWorkspace } from "@/app/nes/[code]/_components/nes-workspace"
 
 type Props = {
   params: {
@@ -9,7 +9,7 @@ type Props = {
 export default function Home(props: Props) {
   return (
     <main>
-      <DotEditor code={props.params.code} />
+      <NesWorkspace code={props.params.code} />
     </main>
   )
 }

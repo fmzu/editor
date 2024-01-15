@@ -1,29 +1,25 @@
 "use client"
 
-import { ClearButton } from "@/app/_components/clear-button"
+import { ClearCanvasButton } from "@/app/_components/clear-canvas-button"
 import { ColorPalette } from "@/app/_components/color-palette"
 import { CurrentColors } from "@/app/_components/current-colors"
+import { DotSizeSelectButton } from "@/app/_components/dot-size-select-button"
 import { EditorHeader } from "@/app/_components/editor-header"
 import { EraserButton } from "@/app/_components/eraser-button"
-import { GridEditor } from "@/app/_components/grid-editor"
-import { PixelSelectButton } from "@/app/_components/pixel-select-button"
 import { SizeSelectButton } from "@/app/_components/size-select-button"
 import { colorKeys } from "@/app/_utils/color-keys"
 import { colors } from "@/app/_utils/colors"
 import { createEmptyGrid } from "@/app/_utils/create-empty-cells"
 import { toGridFromString } from "@/app/_utils/to-grid-from-string"
 import { toStringFromGrid } from "@/app/_utils/to-string-from-grid"
-import { Card } from "@/components/ui/card"
-import { Separator } from "@radix-ui/react-separator"
+import { DotCanvas } from "@/app/dot/_components/dot-canvas"
 import { useState } from "react"
 
 type Props = {
   code?: string
 }
 
-export const DotEditor = (props: Props) => {
-  // const router = useRouter()
-
+export const DotWorkspace = (props: Props) => {
   const [rowsCount, setRowsCount] = useState(8)
 
   // ドットの大きさを管理するための状態を作成します
@@ -35,12 +31,11 @@ export const DotEditor = (props: Props) => {
 
   const [colorId, setColorId] = useState("00")
 
-  const handleCellClick = (rowIndex: number, colIndex: number) => {
+  const onDraw = (rowIndex: number, colIndex: number) => {
     const newGrid = [...grid]
     // 消しゴムモードが有効なら色をnullに、そうでなければ選択中の色に設定します
     newGrid[rowIndex][colIndex].color = eraserMode ? null : colorId
     setGrid(newGrid)
-    // URLを更新します
     // router.replace(`/${toStringFromGrid(newGrid)}`)
   }
 
@@ -48,26 +43,29 @@ export const DotEditor = (props: Props) => {
 
   const [eraserMode, setEraserMode] = useState(false)
 
-  const handleClearClick = () => {
+  const onClearCanvas = () => {
     setGrid(createEmptyGrid(rowsCount))
   }
 
-  // グリッドのサイズを変更する関数を追加します
-  const resizeGrid = (size: number) => {
+  /**
+   * キャンバスのサイズを変更する
+   * @param size
+   */
+  const onResizeCanvas = (size: number) => {
     setRowsCount(size)
     setGrid(createEmptyGrid(size))
   }
 
-  const resizeDot = (size: number) => {
+  const onResizeDotSize = (size: number) => {
     setDotSize(size)
   }
 
   return (
     <div className="flex p-4 gap-x-4 overflow-hidden w-full h-svh">
       <div className="flex-1 overflow-hidden h-full">
-        <GridEditor
+        <DotCanvas
           grid={grid}
-          handleCellClick={handleCellClick}
+          onClick={onDraw}
           dotSize={dotSize}
           colors={colors}
         />
@@ -75,14 +73,12 @@ export const DotEditor = (props: Props) => {
       <div className="w-80 flex flex-col gap-y-2">
         <EditorHeader grid={grid} toStringFromGrid={toStringFromGrid} />
         <div className="flex space-x-2">
-          <SizeSelectButton onChange={resizeGrid} value={rowsCount} />
-          <PixelSelectButton onChange={resizeDot} value={dotSize} />
+          <SizeSelectButton onChange={onResizeCanvas} value={rowsCount} />
+          <DotSizeSelectButton onChange={onResizeDotSize} value={dotSize} />
         </div>
         <div className="flex space-x-2">
-          {/* 消しゴムモードのトグルボタンを追加します */}
           <EraserButton eraserMode={eraserMode} setEraserMode={setEraserMode} />
-          {/* クリアボタンを追加します */}
-          <ClearButton handleClearClick={handleClearClick} />
+          <ClearCanvasButton onClick={onClearCanvas} />
         </div>
         <div>
           <ColorPalette

@@ -1,5 +1,9 @@
-import { redirect } from "next/navigation"
+import { AsciiWorkspace } from "@/app/_components/ascii-workspace"
 
 export default function Home() {
-  redirect("/---------------------------------------------------------------")
+  return (
+    <main>
+      <AsciiWorkspace />
+    </main>
+  )
 }

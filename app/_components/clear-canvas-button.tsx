@@ -11,10 +11,15 @@ import { Button } from "@/components/ui/button"
 import { CircleDashed } from "lucide-react"
 
 type Props = {
-  handleClearClick: () => void
+  onClick: () => void
 }
 
-export const ClearButton = (props: Props) => {
+/**
+ * キャンバスをクリアするボタン
+ * @param props
+ * @returns
+ */
+export const ClearCanvasButton = (props: Props) => {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
@@ -27,7 +32,7 @@ export const ClearButton = (props: Props) => {
         <div className="flex flex-col space-y-2">
           <div>{"本当にクリアしますか？"}</div>
           <div className="flex justify-end space-x-2">
-            <AlertDialogAction onClick={props.handleClearClick}>
+            <AlertDialogAction onClick={props.onClick}>
               {"はい"}
             </AlertDialogAction>
             <AlertDialogCancel>{"いいえ"}</AlertDialogCancel>
