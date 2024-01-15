@@ -12,12 +12,12 @@ type Props = {
 
 export const ColorPalette = (props: Props) => {
   return (
-    <div className="grid grid-cols-4 ">
+    <div className="grid grid-cols-4">
       {colorKeys.map((color) => (
         <div key={color} className="flex">
           <Button
             className={cn(
-              "w-8 h-8 p-0",
+              "w-full h-8 p-0",
               props.colorId === color ? "border-4 border-white" : "",
             )}
             key={color}

@@ -13,6 +13,8 @@ import { colors } from "@/app/_utils/colors"
 import { createEmptyGrid } from "@/app/_utils/create-empty-cells"
 import { toGridFromString } from "@/app/_utils/to-grid-from-string"
 import { toStringFromGrid } from "@/app/_utils/to-string-from-grid"
+import { Card } from "@/components/ui/card"
+import { Separator } from "@radix-ui/react-separator"
 import { useState } from "react"
 
 type Props = {
@@ -65,47 +67,44 @@ export const DotEditor = (props: Props) => {
   }
 
   return (
-    <div className="p-4 space-y-4">
-      <EditorHeader grid={grid} toStringFromGrid={toStringFromGrid} />
-      <div className="flex gap-4">
-        <ColorPalette
+    <div className="flex p-4 gap-x-4 overflow-hidden w-full">
+      <div className="flex-1">
+        <GridEditor
+          grid={grid}
+          handleCellClick={handleCellClick}
+          dotSize={dotSize}
           colors={colors}
-          colorId={colorId}
-          setColorId={setColorId}
         />
-        <div>
-          <GridEditor
-            grid={grid}
-            handleCellClick={handleCellClick}
-            dotSize={dotSize}
-            colors={colors}
+      </div>
+      <div className="w-80 flex flex-col gap-y-2">
+        <EditorHeader grid={grid} toStringFromGrid={toStringFromGrid} />
+        <div className="flex space-x-2">
+          <SizeSelectButton resizeGrid={resizeGrid} rowsCount={rowsCount} />
+          <PixelSelectButton
+            resizeDot={resizeDot}
+            selectedDotSize={selectedDotSize}
           />
         </div>
-        <div className="flex flex-col space-y-2">
-          <div className="flex space-x-2">
-            {/* 消しゴムモードのトグルボタンを追加します */}
-            <EraserButton
-              eraserMode={eraserMode}
-              setEraserMode={setEraserMode}
-            />
-            {/* クリアボタンを追加します */}
-            <ClearButton handleClearClick={handleClearClick} />
-          </div>
-          <div className="flex space-x-2">
-            <SizeSelectButton resizeGrid={resizeGrid} rowsCount={rowsCount} />
-            <PixelSelectButton
-              resizeDot={resizeDot}
-              selectedDotSize={selectedDotSize}
-            />
-          </div>
+        <div className="flex space-x-2">
+          {/* 消しゴムモードのトグルボタンを追加します */}
+          <EraserButton eraserMode={eraserMode} setEraserMode={setEraserMode} />
+          {/* クリアボタンを追加します */}
+          <ClearButton handleClearClick={handleClearClick} />
         </div>
+        <div>
+          <ColorPalette
+            colors={colors}
+            colorId={colorId}
+            setColorId={setColorId}
+          />
+        </div>
+        <CurrentColors
+          colorKeys={colorKeys}
+          usedColors={usedColors}
+          setColorId={setColorId}
+          colors={colors}
+        />
       </div>
-      <CurrentColors
-        colorKeys={colorKeys}
-        usedColors={usedColors}
-        setColorId={setColorId}
-        colors={colors}
-      />
     </div>
   )
 }

@@ -18,7 +18,7 @@ export const ClearButton = (props: Props) => {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button className="items-stretch space-x-2">
+        <Button variant={"secondary"} className="w-full space-x-2">
           <CircleDashed className=" w-4 mr-2" />
           {"クリア"}
         </Button>

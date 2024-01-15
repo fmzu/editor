@@ -11,13 +11,12 @@ type Props = {
 export const EraserButton = (props: Props) => {
   return (
     <Button
-      className="items-stretch space-x-2"
+      variant={props.eraserMode ? "default" : "secondary"}
+      className="w-full items-stretch space-x-2"
       onClick={() => props.setEraserMode(!props.eraserMode)}
     >
       <Eraser className=" w-4 mr-2" />
-      {props.eraserMode
-        ? "消しゴムモードをオフにする"
-        : "消しゴムモードをオンにする"}
+      {"消しゴムモード"}
     </Button>
   )
 }
