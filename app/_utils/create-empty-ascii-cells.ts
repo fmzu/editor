@@ -8,7 +8,7 @@ import { EditorCell } from "@/app/_types/editor-cell"
  */
 export const createEmptyAsciiGrid = (
   rowsCount: number,
-): [string | null, string | null][][] => {
+): [string | null, number | null][][] => {
   return Array.from({ length: rowsCount }, () => {
     return Array.from({ length: rowsCount * 2 }, () => {
       return [null, null] as const

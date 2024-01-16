@@ -1,4 +1,4 @@
-export const colors = new Map([
+export const nesColors = new Map([
   ["00", "#757575"],
   ["01", "#271B8F"],
   ["02", "#0000AB"],

@@ -3,13 +3,14 @@
 import { AsciiCanvas } from "@/app/_components/ascii-canvas"
 import { CanvasSizeSelectButton } from "@/app/_components/canvas-size-select-button"
 import { ClearCanvasButton } from "@/app/_components/clear-canvas-button"
-import { ColorPalette } from "@/app/_components/color-palette"
 import { CurrentColors } from "@/app/_components/current-colors"
 import { DotSizeSelectButton } from "@/app/_components/dot-size-select-button"
 import { EraserButton } from "@/app/_components/eraser-button"
-import { colorKeys } from "@/app/_utils/color-keys"
-import { colors } from "@/app/_utils/colors"
+import { NesColorPalette } from "@/app/_components/nes-color-palette"
+import { XtermColorPalette } from "@/app/_components/xterm-color-palette"
 import { createEmptyAsciiGrid } from "@/app/_utils/create-empty-ascii-cells"
+import { nesColorKeys } from "@/app/_utils/nes-color-keys"
+import { nesColors } from "@/app/_utils/nes-colors"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { useState } from "react"
 
@@ -25,12 +26,12 @@ export const AsciiWorkspace = (props: Props) => {
 
   const [grid, setGrid] = useState(createEmptyAsciiGrid(rowsCount))
 
-  const [colorId, setColorId] = useState("00")
+  const [colorIndex, setColorIndex] = useState(1)
 
   const onDraw = (rowIndex: number, colIndex: number) => {
     const newGrid = [...grid]
     newGrid[rowIndex][colIndex][0] = eraserMode ? null : "a"
-    newGrid[rowIndex][colIndex][1] = eraserMode ? null : colorId
+    newGrid[rowIndex][colIndex][1] = eraserMode ? null : colorIndex
     setGrid(newGrid)
   }
 
@@ -58,12 +59,7 @@ export const AsciiWorkspace = (props: Props) => {
   return (
     <div className="flex p-4 gap-x-4 overflow-hidden w-full h-svh">
       <div className="flex-1 overflow-hidden h-full">
-        <AsciiCanvas
-          grid={grid}
-          onClick={onDraw}
-          dotSize={dotSize}
-          colors={colors}
-        />
+        <AsciiCanvas grid={grid} onClick={onDraw} dotSize={dotSize} />
       </div>
       <div className="w-80 flex flex-col gap-y-2">
         <div className="flex space-x-2">
@@ -83,27 +79,25 @@ export const AsciiWorkspace = (props: Props) => {
               <TabsTrigger value="character">{"文字"}</TabsTrigger>
             </TabsList>
             <TabsContent value="color-palette">
-              <ColorPalette
-                colors={colors}
-                colorId={colorId}
-                setColorId={setColorId}
+              <XtermColorPalette
+                colorIndex={colorIndex}
+                setColorId={setColorIndex}
               />
             </TabsContent>
             <TabsContent value="character">
-              <ColorPalette
-                colors={colors}
-                colorId={colorId}
-                setColorId={setColorId}
+              <XtermColorPalette
+                colorIndex={colorIndex}
+                setColorId={setColorIndex}
               />
             </TabsContent>
           </Tabs>
         </div>
-        <CurrentColors
-          colorKeys={colorKeys}
+        {/* <CurrentColors
+          colorKeys={nesColorKeys}
           usedColors={usedColors}
-          setColorId={setColorId}
-          colors={colors}
-        />
+          setColorId={setColorIndex}
+          colors={nesColors}
+        /> */}
       </div>
     </div>
   )

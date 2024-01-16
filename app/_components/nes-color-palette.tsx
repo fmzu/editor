@@ -1,6 +1,6 @@
 "use client"
 
-import { colorKeys } from "@/app/_utils/color-keys"
+import { nesColorKeys } from "@/app/_utils/nes-color-keys"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 
@@ -10,10 +10,10 @@ type Props = {
   setColorId: (colorId: string) => void
 }
 
-export const ColorPalette = (props: Props) => {
+export const NesColorPalette = (props: Props) => {
   return (
     <div className="grid grid-cols-4">
-      {colorKeys.map((color) => (
+      {nesColorKeys.map((color) => (
         <div key={color} className="flex">
           <Button
             className={cn(

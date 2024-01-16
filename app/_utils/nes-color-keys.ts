@@ -1,4 +1,4 @@
-export const colorKeys: string[] = [
+export const nesColorKeys: string[] = [
   "0D",
   "00",
   "10",

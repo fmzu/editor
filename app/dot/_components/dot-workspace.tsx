@@ -2,14 +2,14 @@
 
 import { CanvasSizeSelectButton } from "@/app/_components/canvas-size-select-button"
 import { ClearCanvasButton } from "@/app/_components/clear-canvas-button"
-import { ColorPalette } from "@/app/_components/color-palette"
 import { CurrentColors } from "@/app/_components/current-colors"
 import { DotSizeSelectButton } from "@/app/_components/dot-size-select-button"
 import { EditorHeader } from "@/app/_components/editor-header"
 import { EraserButton } from "@/app/_components/eraser-button"
-import { colorKeys } from "@/app/_utils/color-keys"
-import { colors } from "@/app/_utils/colors"
+import { NesColorPalette } from "@/app/_components/nes-color-palette"
 import { createEmptyGrid } from "@/app/_utils/create-empty-cells"
+import { nesColorKeys } from "@/app/_utils/nes-color-keys"
+import { nesColors } from "@/app/_utils/nes-colors"
 import { toGridFromString } from "@/app/_utils/to-grid-from-string"
 import { toStringFromGrid } from "@/app/_utils/to-string-from-grid"
 import { DotCanvas } from "@/app/dot/_components/dot-canvas"
@@ -67,7 +67,7 @@ export const DotWorkspace = (props: Props) => {
           grid={grid}
           onClick={onDraw}
           dotSize={dotSize}
-          colors={colors}
+          colors={nesColors}
         />
       </div>
       <div className="w-80 flex flex-col gap-y-2">
@@ -81,17 +81,17 @@ export const DotWorkspace = (props: Props) => {
           <ClearCanvasButton onClick={onClearCanvas} />
         </div>
         <div>
-          <ColorPalette
-            colors={colors}
+          <NesColorPalette
+            colors={nesColors}
             colorId={colorId}
             setColorId={setColorId}
           />
         </div>
         <CurrentColors
-          colorKeys={colorKeys}
+          colorKeys={nesColorKeys}
           usedColors={usedColors}
           setColorId={setColorId}
-          colors={colors}
+          colors={nesColors}
         />
       </div>
     </div>

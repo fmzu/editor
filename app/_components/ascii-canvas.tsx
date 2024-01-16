@@ -1,14 +1,14 @@
 "use client"
 
 import { EditorCell } from "@/app/_types/editor-cell"
+import { xtermColors } from "@/app/_utils/xterm-colors"
 import { Card } from "@/components/ui/card"
 import { cn } from "@/lib/utils"
 
 type Props = {
-  grid: [string | null, string | null][][]
+  grid: [string | null, number | null][][]
   onClick: (rowIndex: number, colIndex: number) => void
   dotSize: number
-  colors: Map<string, string>
 }
 
 export const AsciiCanvas = (props: Props) => {
@@ -25,7 +25,7 @@ export const AsciiCanvas = (props: Props) => {
               style={{
                 minWidth: `${props.dotSize / 2}px`,
                 height: `${props.dotSize}px`,
-                color: cell[1] !== null ? props.colors.get(cell[1]) : "white",
+                color: cell[1] !== null ? xtermColors[cell[1]] : "white",
               }}
             >
               {cell[0]}
