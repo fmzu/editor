@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 
 type Props = {
-  colorIndex: number
+  colorIndex: number | null
   setColorId: (colorId: number) => void
 }
 
@@ -19,7 +19,7 @@ export const XtermColorPalette = (props: Props) => {
             <Button
               className={cn(
                 "w-full h-8 p-0",
-                xtermColors[props.colorIndex] === color
+                props.colorIndex && xtermColors[props.colorIndex] === color
                   ? "border-4 border-white"
                   : "",
               )}
@@ -38,7 +38,7 @@ export const XtermColorPalette = (props: Props) => {
             <Button
               className={cn(
                 "w-full h-8 p-0",
-                xtermColors[props.colorIndex] === color
+                props.colorIndex && xtermColors[props.colorIndex] === color
                   ? "border-4 border-white"
                   : "",
               )}

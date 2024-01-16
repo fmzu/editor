@@ -26,9 +26,10 @@ export const AsciiWorkspace = (props: Props) => {
 
   const [grid, setGrid] = useState(createEmptyAsciiGrid(rowsCount))
 
-  const [colorIndex, setColorIndex] = useState(1)
+  const [colorIndex, setColorIndex] = useState<number | null>(1)
 
   const onDraw = (rowIndex: number, colIndex: number) => {
+    if (!eraserMode && colorIndex === null) return
     const newGrid = [...grid]
     newGrid[rowIndex][colIndex][0] = eraserMode ? null : "a"
     newGrid[rowIndex][colIndex][1] = eraserMode ? null : colorIndex
@@ -68,7 +69,13 @@ export const AsciiWorkspace = (props: Props) => {
         </div>
         <div className="flex space-x-2">
           {/* 消しゴムモードのトグルボタンを追加します */}
-          <EraserButton eraserMode={eraserMode} setEraserMode={setEraserMode} />
+          <EraserButton
+            eraserMode={eraserMode}
+            setEraserMode={(eraserMode) => {
+              setEraserMode(eraserMode)
+              setColorIndex(null)
+            }}
+          />
           {/* クリアボタンを追加します */}
           <ClearCanvasButton onClick={onClearCanvas} />
         </div>
@@ -81,13 +88,19 @@ export const AsciiWorkspace = (props: Props) => {
             <TabsContent value="color-palette">
               <XtermColorPalette
                 colorIndex={colorIndex}
-                setColorId={setColorIndex}
+                setColorId={(colorIndex) => {
+                  setColorIndex(colorIndex)
+                  setEraserMode(false)
+                }}
               />
             </TabsContent>
             <TabsContent value="character">
               <XtermColorPalette
                 colorIndex={colorIndex}
-                setColorId={setColorIndex}
+                setColorId={(colorIndex) => {
+                  setColorIndex(colorIndex)
+                  setEraserMode(false)
+                }}
               />
             </TabsContent>
           </Tabs>
