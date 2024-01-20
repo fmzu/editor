@@ -10,7 +10,11 @@ type Props = {
   onClick: (rowIndex: number, colIndex: number) => void
   dotSize: number
 }
-
+/**
+ * アスキーアートのキャンバス
+ * @param props
+ * @returns
+ */
 export const AsciiCanvas = (props: Props) => {
   return (
     <Card className="overflow-scroll h-full">
@@ -20,12 +24,17 @@ export const AsciiCanvas = (props: Props) => {
             <button
               key={colIndex}
               type="button"
-              onClick={() => props.onClick(rowIndex, colIndex)}
+              onClick={() => {
+                props.onClick(rowIndex, colIndex)
+              }}
               className={cn("border")}
               style={{
                 minWidth: `${props.dotSize / 2}px`,
                 height: `${props.dotSize}px`,
-                color: cell[1] !== null ? xtermColors[cell[1]] : "white",
+                color:
+                  cell[1] !== null && cell[1] !== undefined
+                    ? xtermColors[cell[1]]
+                    : "white",
               }}
             >
               {cell[0]}
