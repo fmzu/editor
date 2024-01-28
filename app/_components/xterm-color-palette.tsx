@@ -10,6 +10,7 @@ type Props = {
   colorIndex: number | null
   setColorId: (colorId: number) => void
 }
+
 /**
  * アスキーアート用のカラーパレット
  * @param props
