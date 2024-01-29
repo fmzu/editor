@@ -13,6 +13,7 @@ import { createEmptyAsciiGrid } from "@/app/_utils/create-empty-ascii-cells"
 import { nesColorKeys } from "@/app/_utils/nes-color-keys"
 import { nesColors } from "@/app/_utils/nes-colors"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Separator } from "@radix-ui/react-separator"
 import { useState } from "react"
 
 type Props = {
@@ -59,60 +60,67 @@ export const AsciiWorkspace = (props: Props) => {
   }
 
   return (
-    <div className="flex p-4 gap-x-4 overflow-hidden w-full h-svh">
-      <div className="flex-1 overflow-hidden h-full">
-        <AsciiCanvas grid={grid} onClick={onDraw} dotSize={dotSize} />
-      </div>
-      <div className="w-80 flex flex-col gap-y-2">
-        <div className="flex space-x-2">
-          <CanvasSizeSelectButton onChange={onResizeCanvas} value={rowsCount} />
-          <DotSizeSelectButton onChange={onResizeDotSize} value={dotSize} />
+    <div>
+      <div className="flex p-4 gap-x-4 overflow-hidden w-full h-main">
+        <div className="flex-1 overflow-hidden h-full">
+          <AsciiCanvas grid={grid} onClick={onDraw} dotSize={dotSize} />
         </div>
-        <div className="flex space-x-2">
-          {/* 消しゴムモードのトグルボタンを追加します */}
-          <EraserButton
-            eraserMode={eraserMode}
-            setEraserMode={(eraserMode) => {
-              setEraserMode(eraserMode)
-              setColorIndex(null)
-            }}
-          />
-          {/* クリアボタンを追加します */}
-          <ClearCanvasButton onClick={onClearCanvas} />
-        </div>
-        <div>
-          <Tabs defaultValue="color-palette" className="w-full">
-            <TabsList className="grid w-full grid-cols-2">
-              <TabsTrigger value="color-palette">{"色"}</TabsTrigger>
-              <TabsTrigger value="character">{"文字"}</TabsTrigger>
-            </TabsList>
-            <TabsContent value="color-palette">
-              <XtermColorPalette
-                colorIndex={colorIndex}
-                setColorId={(colorIndex) => {
-                  setColorIndex(colorIndex)
-                  setEraserMode(false)
-                }}
-              />
-            </TabsContent>
-            <TabsContent value="character">
-              <XtermColorPalette
-                colorIndex={colorIndex}
-                setColorId={(colorIndex) => {
-                  setColorIndex(colorIndex)
-                  setEraserMode(false)
-                }}
-              />
-            </TabsContent>
-          </Tabs>
-        </div>
-        {/* <CurrentColors
+        <div className="w-80 flex flex-col gap-y-2">
+          <div className="flex space-x-2">
+            <CanvasSizeSelectButton
+              onChange={onResizeCanvas}
+              value={rowsCount}
+            />
+            <DotSizeSelectButton onChange={onResizeDotSize} value={dotSize} />
+          </div>
+          <div className="flex space-x-2">
+            {/* 消しゴムモードのトグルボタンを追加します */}
+            <EraserButton
+              eraserMode={eraserMode}
+              setEraserMode={(eraserMode) => {
+                setEraserMode(eraserMode)
+                setColorIndex(null)
+              }}
+            />
+            {/* クリアボタンを追加します */}
+            <ClearCanvasButton onClick={onClearCanvas} />
+          </div>
+          <div>
+            <Tabs defaultValue="color-palette" className="w-full">
+              <TabsList className="grid w-full grid-cols-2">
+                <TabsTrigger value="color-palette">{"色"}</TabsTrigger>
+                <TabsTrigger value="character">{"文字"}</TabsTrigger>
+              </TabsList>
+              <TabsContent value="color-palette">
+                <XtermColorPalette
+                  colorIndex={colorIndex}
+                  setColorId={(colorIndex) => {
+                    setColorIndex(colorIndex)
+                    setEraserMode(false)
+                  }}
+                />
+              </TabsContent>
+              <TabsContent value="character">
+                <XtermColorPalette
+                  colorIndex={colorIndex}
+                  setColorId={(colorIndex) => {
+                    setColorIndex(colorIndex)
+                    setEraserMode(false)
+                  }}
+                />
+              </TabsContent>
+            </Tabs>
+          </div>
+          {/* <CurrentColors
           colorKeys={nesColorKeys}
           usedColors={usedColors}
           setColorId={setColorIndex}
           colors={nesColors}
         /> */}
+        </div>
       </div>
+      <Separator />
+      <p>{"aaaaaa"}</p>
     </div>
   )
 }

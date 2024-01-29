@@ -76,6 +76,10 @@ module.exports = {
       fontFamily: {
         sans: ["var(--font-sans)", ...fontFamily.sans],
       },
+      height: {
+        main: "calc(100vh - 72px)",
+        header: "72px",
+      },
     },
   },
   plugins: [require("tailwindcss-animate")],
