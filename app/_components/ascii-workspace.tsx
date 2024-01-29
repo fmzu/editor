@@ -1,6 +1,7 @@
 "use client"
 
 import { AsciiCanvas } from "@/app/_components/ascii-canvas"
+import { AsciiCharacterPalette } from "@/app/_components/ascii-character-palette"
 import { CanvasSizeSelectButton } from "@/app/_components/canvas-size-select-button"
 import { ClearCanvasButton } from "@/app/_components/clear-canvas-button"
 import { CurrentColors } from "@/app/_components/current-colors"
@@ -28,12 +29,14 @@ export const AsciiWorkspace = (props: Props) => {
 
   const [grid, setGrid] = useState(createEmptyAsciiGrid(rowsCount))
 
+  const [char, setChar] = useState<string | null>("")
+
   const [colorIndex, setColorIndex] = useState<number | null>(1)
 
   const onDraw = (rowIndex: number, colIndex: number) => {
     if (!eraserMode && colorIndex === null) return
     const newGrid = [...grid]
-    newGrid[rowIndex][colIndex][0] = eraserMode ? null : "a"
+    newGrid[rowIndex][colIndex][0] = eraserMode ? null : char
     newGrid[rowIndex][colIndex][1] = eraserMode ? null : colorIndex
     setGrid(newGrid)
   }
@@ -101,10 +104,10 @@ export const AsciiWorkspace = (props: Props) => {
                 />
               </TabsContent>
               <TabsContent value="character">
-                <XtermColorPalette
-                  colorIndex={colorIndex}
-                  setColorId={(colorIndex) => {
-                    setColorIndex(colorIndex)
+                <AsciiCharacterPalette
+                  char={char}
+                  setChar={(char) => {
+                    setChar(char)
                     setEraserMode(false)
                   }}
                 />

@@ -2,7 +2,7 @@ import { EditorCell } from "@/app/_types/editor-cell"
 
 /**
  * グリッドの初期状態を作成する
- * string | null, string | null: [記号, 色]
+ * string | null, string | null: [文字, 色]
  * @param rowsCount 行数
  * @returns
  */
