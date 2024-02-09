@@ -29,7 +29,7 @@ export const AsciiWorkspace = (props: Props) => {
 
   const [grid, setGrid] = useState(createEmptyAsciiGrid(rowsCount))
 
-  const [char, setChar] = useState<string | null>("")
+  const [char, setChar] = useState<string | null>("a")
 
   const [colorIndex, setColorIndex] = useState<number | null>(1)
 
