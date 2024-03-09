@@ -1,5 +1,6 @@
 "use client"
 
+import { AsciiOverview } from "@/app/_components/asccii-overview"
 import { AsciiCanvas } from "@/app/_components/ascii-canvas"
 import { AsciiCharacterPalette } from "@/app/_components/ascii-character-palette"
 import { CanvasSizeSelectButton } from "@/app/_components/canvas-size-select-button"
@@ -123,7 +124,6 @@ export const AsciiWorkspace = (props: Props) => {
         </div>
       </div>
       <Separator />
-      <p>{"aaaaaa"}</p>
     </div>
   )
 }
