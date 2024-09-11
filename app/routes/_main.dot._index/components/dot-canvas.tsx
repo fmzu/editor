@@ -1,8 +1,8 @@
 "use client"
 
-import { EditorCell } from "@/app/_types/editor-cell"
-import { Card } from "@/components/ui/card"
-import { cn } from "@/lib/utils"
+import { Card } from "~/components/ui/card"
+import { cn } from "lib/utils"
+import type { EditorCell } from "~/types/editor-cell"
 
 type Props = {
   grid: EditorCell[][]
