@@ -1,13 +1,11 @@
-"use client"
-
 import {
   AlertDialog,
   AlertDialogAction,
   AlertDialogCancel,
   AlertDialogContent,
   AlertDialogTrigger,
-} from "@/components/ui/alert-dialog"
-import { Button } from "@/components/ui/button"
+} from "~/components/ui/alert-dialog"
+import { Button } from "~/components/ui/button"
 import { CircleDashed } from "lucide-react"
 
 type Props = {

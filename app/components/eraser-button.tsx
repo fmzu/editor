@@ -1,6 +1,4 @@
-"use client"
-
-import { Button } from "@/components/ui/button"
+import { Button } from "~/components/ui/button"
 import { Eraser } from "lucide-react"
 
 type Props = {

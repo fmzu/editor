@@ -1,7 +1,5 @@
-"use client"
-
-import { EditorCell } from "@/app/_types/editor-cell"
-import { Button } from "@/components/ui/button"
+import type { EditorCell } from "~/types/editor-cell"
+import { Button } from "~/components/ui/button"
 import { toast } from "sonner"
 
 type Props = {

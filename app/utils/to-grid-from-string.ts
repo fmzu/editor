@@ -1,4 +1,4 @@
-import { EditorCell } from "@/app/_types/editor-cell"
+import type { EditorCell } from "~/types/editor-cell"
 
 /**
  * 文字列をグリッドに変換する

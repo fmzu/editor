@@ -1,9 +1,6 @@
-"use client"
-
-import { EditorCell } from "@/app/_types/editor-cell"
-import { xtermColors } from "@/app/_utils/xterm-colors"
-import { Card } from "@/components/ui/card"
-import { cn } from "@/lib/utils"
+import { Card } from "~/components/ui/card"
+import { cn } from "~/lib/utils"
+import { xtermColors } from "~/utils/xterm-colors"
 
 type Props = {
   grid: [string | null, number | null][][]

@@ -1,8 +1,6 @@
-"use client"
-
-import { AsciiCharacters } from "@/app/_utils/ascii-characters"
-import { Button } from "@/components/ui/button"
-import { cn } from "@/lib/utils"
+import { AsciiCharacters } from "~/utils/ascii-characters"
+import { Button } from "~/components/ui/button"
+import { cn } from "~/lib/utils"
 
 type Props = {
   char: string | null
@@ -24,8 +22,8 @@ export const AsciiCharacterPalette = (props: Props) => {
               className={cn(
                 "w-full h-8 p-0",
                 props.char !== null &&
-                props.char !== undefined &&
-                props.char === char
+                  props.char !== undefined &&
+                  props.char === char
                   ? "border-4 border-white"
                   : "",
               )}

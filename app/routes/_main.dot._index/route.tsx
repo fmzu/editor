@@ -1,6 +1,6 @@
-import { redirect } from "next/navigation"
+import { redirect } from "@remix-run/react"
 
-export default function DotPage() {
+export default function loader() {
   redirect(
     "/dot/---------------------------------------------------------------",
   )

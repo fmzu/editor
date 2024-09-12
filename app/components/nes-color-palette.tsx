@@ -1,8 +1,6 @@
-"use client"
-
-import { nesColorKeys } from "@/app/_utils/nes-color-keys"
-import { Button } from "@/components/ui/button"
-import { cn } from "@/lib/utils"
+import { nesColorKeys } from "~/utils/nes-color-keys"
+import { Button } from "~/components/ui/button"
+import { cn } from "~/lib/utils"
 
 type Props = {
   colors: Map<string, string>

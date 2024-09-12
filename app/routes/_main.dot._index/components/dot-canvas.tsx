@@ -1,7 +1,5 @@
-"use client"
-
 import { Card } from "~/components/ui/card"
-import { cn } from "lib/utils"
+import { cn } from "~/lib/utils"
 import type { EditorCell } from "~/types/editor-cell"
 
 type Props = {

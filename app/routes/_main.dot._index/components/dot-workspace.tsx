@@ -1,5 +1,3 @@
-"use client"
-
 import { useState } from "react"
 import { CanvasSizeSelectButton } from "~/components/canvas-size-select-button"
 import { ClearCanvasButton } from "~/components/clear-canvas-button"

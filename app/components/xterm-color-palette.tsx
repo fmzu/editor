@@ -1,10 +1,7 @@
-"use client"
-
-import { XtermColorSlider } from "@/app/_components/xterm-color-slider"
-import { nesColorKeys } from "@/app/_utils/nes-color-keys"
-import { xtermColors } from "@/app/_utils/xterm-colors"
-import { Button } from "@/components/ui/button"
-import { cn } from "@/lib/utils"
+import { XtermColorSlider } from "~/components/xterm-color-slider"
+import { Button } from "~/components/ui/button"
+import { cn } from "~/lib/utils"
+import { xtermColors } from "~/utils/xterm-colors"
 
 type Props = {
   colorIndex: number | null
@@ -26,8 +23,8 @@ export const XtermColorPalette = (props: Props) => {
               className={cn(
                 "w-full h-8 p-0",
                 props.colorIndex !== null &&
-                props.colorIndex !== undefined &&
-                xtermColors[props.colorIndex] === color
+                  props.colorIndex !== undefined &&
+                  xtermColors[props.colorIndex] === color
                   ? "border-4 border-white"
                   : "",
               )}

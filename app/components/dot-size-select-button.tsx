@@ -1,14 +1,11 @@
-"use client"
-
 import {
   Select,
   SelectContent,
   SelectGroup,
   SelectItem,
-  SelectLabel,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select"
+} from "~/components/ui/select"
 
 type Props = {
   onChange(size: number): void
@@ -21,7 +18,7 @@ export const DotSizeSelectButton = (props: Props) => {
       <Select
         value={props.value.toString()}
         onValueChange={(value) => {
-          props.onChange(parseInt(value))
+          props.onChange(Number.parseInt(value))
         }}
       >
         <SelectTrigger className="w-[180px]">

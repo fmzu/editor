@@ -8,7 +8,6 @@ import {
 import stylesheet from "~/globals.css?url"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import type { LinksFunction } from "@remix-run/cloudflare"
-import { SessionProvider } from "@hono/auth-js/react"
 import { Toaster } from "~/components/ui/sonner"
 
 export const links: LinksFunction = () => [
@@ -27,7 +26,8 @@ export function Layout(props: Props) {
         <Links />
       </head>
       <body>
-        <SessionProvider>{props.children}</SessionProvider>
+        {/* <SessionProvider>{props.children}</SessionProvider> */}
+        {props.children}
         <ScrollRestoration />
         <Scripts />
         <Toaster />

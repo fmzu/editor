@@ -1,7 +1,5 @@
-"use client"
-
-import { EditorCell } from "@/app/_types/editor-cell"
-import { Card } from "@/components/ui/card"
+import type { EditorCell } from "~/types/editor-cell"
+import { Card } from "~/components/ui/card"
 
 type Props = {
   toStringFromGrid: (grid: EditorCell[][]) => string

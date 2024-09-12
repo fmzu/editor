@@ -1,4 +1,4 @@
-import { EditorCell } from "@/app/_types/editor-cell"
+import type { EditorCell } from "~/types/editor-cell"
 
 /**
  * グリッドの初期状態を作成する
