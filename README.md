@@ -1,31 +1,48 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Welcome to Remix + Vite!
 
-## 開発
+📖 See the [Remix docs](https://remix.run/docs) and the [Remix Vite docs](https://remix.run/docs/en/main/guides/vite) for details on supported features.
 
+## Typegen
+
+Generate types for your Cloudflare bindings in `wrangler.toml`:
+
+```sh
+npm run typegen
 ```
-$ npm i
-$ npm run dev
+
+You will need to rerun typegen whenever you make changes to `wrangler.toml`.
+
+## Development
+
+Run the Vite dev server:
+
+```sh
+npm run dev
 ```
 
-## 機能
+To run Wrangler:
 
-- [x] NESのカラーパレット
-- [x] URLの共有
-- [ ] 作成したドット絵を保存する
-- [ ] 保存したドット絵を読み込む
-- [x] ドット絵のサイズを変更する
-- [x] ドット絵をクリアする
-- [ ] 画像ファイルとして保存
-- [x] ドット絵をズームイン/ズームアウトする
-- [ ] ドット絵を移動する（パン）
-- [ ] ドット絵を回転する
-- [ ] ドット絵を反転する
-- [ ] ドット絵をコピー＆ペーストする
-- [ ] 操作を元に戻す/やり直す
-- [ ] ドット絵をプレビューする
-- [ ] ドット絵をアニメーション化する
-- [ ] スプライトのプレビュー
-- [ ] レスポンシブ対応
-- [x] 使用した色の表示
+```sh
+npm run build
+npm run start
+```
 
+## Deployment
 
+> [!WARNING]  
+> Cloudflare does _not_ use `wrangler.toml` to configure deployment bindings.
+> You **MUST** [configure deployment bindings manually in the Cloudflare dashboard][bindings].
+
+First, build your app for production:
+
+```sh
+npm run build
+```
+
+Then, deploy your app to Cloudflare Pages:
+
+```sh
+npm run deploy
+```
+
+[bindings]: https://developers.cloudflare.com/pages/functions/bindings/
