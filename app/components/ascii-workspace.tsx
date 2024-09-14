@@ -5,7 +5,7 @@ import { ClearCanvasButton } from "~/components/clear-canvas-button"
 import { DotSizeSelectButton } from "~/components/dot-size-select-button"
 import { EraserButton } from "~/components/eraser-button"
 import { XtermColorPalette } from "~/components/xterm-color-palette"
-import { createEmptyAsciiGrid } from "~/utils/create-empty-ascii-cells"
+import { createEmptyAsciiCells } from "~/utils/create-empty-ascii-cells"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs"
 import { Separator } from "@radix-ui/react-separator"
 import { useState } from "react"
@@ -20,7 +20,7 @@ export const AsciiWorkspace = (props: Props) => {
   // ドットの大きさを管理するための状態を作成します
   const [dotSize, setDotSize] = useState(64)
 
-  const [grid, setGrid] = useState(createEmptyAsciiGrid(rowsCount))
+  const [grid, setGrid] = useState(createEmptyAsciiCells(rowsCount))
 
   const [char, setChar] = useState<string | null>("a")
 
@@ -39,7 +39,7 @@ export const AsciiWorkspace = (props: Props) => {
   const [eraserMode, setEraserMode] = useState(false)
 
   const onClearCanvas = () => {
-    setGrid(createEmptyAsciiGrid(rowsCount))
+    setGrid(createEmptyAsciiCells(rowsCount))
   }
 
   /**
@@ -48,7 +48,7 @@ export const AsciiWorkspace = (props: Props) => {
    */
   const onResizeCanvas = (size: number) => {
     setRowsCount(size)
-    setGrid(createEmptyAsciiGrid(size))
+    setGrid(createEmptyAsciiCells(size))
   }
 
   const onResizeDotSize = (size: number) => {

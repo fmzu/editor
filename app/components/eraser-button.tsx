@@ -14,7 +14,6 @@ export const EraserButton = (props: Props) => {
       onClick={() => props.setEraserMode(!props.eraserMode)}
     >
       <Eraser className=" w-4 mr-2" />
-      {"消しゴムモード"}
     </Button>
   )
 }

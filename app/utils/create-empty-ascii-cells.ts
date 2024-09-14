@@ -4,7 +4,7 @@
  * @param rowsCount 行数
  * @returns
  */
-export const createEmptyAsciiGrid = (
+export const createEmptyAsciiCells = (
   rowsCount: number,
 ): [string | null, number | null][][] => {
   return Array.from({ length: rowsCount }, () => {
