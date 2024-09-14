@@ -1,9 +1,11 @@
 import { WorkerEntrypoint } from "cloudflare:workers"
+import { api } from "~/interface/api"
 import type { Env } from "~/worker-configuration"
-import { app } from "~/interface/api"
+
+export type Api = typeof api
 
 export default class extends WorkerEntrypoint<Env> {
   async fetch(request: Request) {
-    return app.fetch(request, this.env)
+    return api.fetch(request, this.env)
   }
 }

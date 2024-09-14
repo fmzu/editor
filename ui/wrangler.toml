@@ -3,7 +3,6 @@ name = "hascii"
 compatibility_date = "2024-05-02"
 pages_build_output_dir = "./build/client"
 
-[[d1_databases]]
-binding = "DB"
-database_name = "hascii"
-database_id = "2731348d-c159-4b97-8d7d-e06dd4050bb8"
+[[services]]
+binding = "API"
+service = "hascii-api"

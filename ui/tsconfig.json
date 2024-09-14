@@ -30,5 +30,8 @@
       "~/*": ["./app/*"]
     },
     "noEmit": true
-  }
+  },
+  "references": [
+    { "path": "../api" },
+  ]
 }

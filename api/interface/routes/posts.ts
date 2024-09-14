@@ -1,8 +1,8 @@
 import { vValidator } from "@hono/valibot-validator"
 import { object, string } from "valibot"
-import { honoFactory } from "~/interface/hono-factory"
+import { apiFactory } from "~/interface/api-factory"
 
-const app = honoFactory.createApp()
+const app = apiFactory.createApp()
 
 export const postRoutes = app
   /**
