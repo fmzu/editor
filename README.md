@@ -1,48 +1,29 @@
-# Welcome to Remix + Vite!
-
-📖 See the [Remix docs](https://remix.run/docs) and the [Remix Vite docs](https://remix.run/docs/en/main/guides/vite) for details on supported features.
-
-## Typegen
-
-Generate types for your Cloudflare bindings in `wrangler.toml`:
-
-```sh
-npm run typegen
+```
+bun install
+bun run --cwd api dev
 ```
 
-You will need to rerun typegen whenever you make changes to `wrangler.toml`.
+デプロイ(どっちもdeployするときはapiの方から順番に)
 
-## Development
-
-Run the Vite dev server:
-
-```sh
-npm run dev
+```
+bun run --cwd api deploy
+bun run --cwd ui deploy
 ```
 
-To run Wrangler:
+Drizzleスキーマに基づいてマイグレーションを生成する
 
-```sh
-npm run build
-npm run start
+```
+bun drizzle-kit generate
 ```
 
-## Deployment
+ローカルのデータベースを更新
 
-> [!WARNING]  
-> Cloudflare does _not_ use `wrangler.toml` to configure deployment bindings.
-> You **MUST** [configure deployment bindings manually in the Cloudflare dashboard][bindings].
-
-First, build your app for production:
-
-```sh
-npm run build
+```
+bun wrangler d1 migrations apply hascii --local
 ```
 
-Then, deploy your app to Cloudflare Pages:
+本番環境のデータベースを更新
 
-```sh
-npm run deploy
 ```
-
-[bindings]: https://developers.cloudflare.com/pages/functions/bindings/
+bun wrangler d1 migrations apply hascii --remote
+```

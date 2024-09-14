@@ -1,0 +1,8 @@
+name = "hascii-api"
+compatibility_date = "2023-12-01"
+main = "index.ts"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "hascii"
+database_id = "2731348d-c159-4b97-8d7d-e06dd4050bb8"
