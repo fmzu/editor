@@ -5,6 +5,7 @@ export const posts = sqliteTable("posts", {
   id: text("uuid", { length: 36 }).notNull().unique(),
   name: text("name", { length: 256 }).notNull(),
   userId: text("user_id", { length: 36 }).notNull(),
+  dots: text("dots", { length: 1024 }).notNull(),
   regulation: text("regulation", { length: 256 }).notNull(),
   description: text("description", { length: 256 }),
   createdAt: integer("created_at", { mode: "timestamp" })

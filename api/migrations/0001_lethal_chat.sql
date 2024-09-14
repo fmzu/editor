@@ -1,0 +1,1 @@
+ALTER TABLE `posts` ADD `dots` text(1024) NOT NULL;

@@ -28,7 +28,7 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="p-4 space-y-4">
+    <div className="flex flex-col p-4 gap-y-4">
       <form
         onSubmit={(event) => {
           event.preventDefault()
@@ -56,12 +56,14 @@ export default function LoginPage() {
         />
         <Button type={"submit"}>{"追加"}</Button>
       </form>
-      <Link to={"/sign/in"}>
-        <Button>{"sign-in"}</Button>
-      </Link>
-      <Link to={"/"}>
-        <Button>{"home"}</Button>
-      </Link>
+      <div className="flex gap-x-2">
+        <Link to={"/sign/in"}>
+          <Button>{"sign-in"}</Button>
+        </Link>
+        <Link to={"/"}>
+          <Button>{"home"}</Button>
+        </Link>
+      </div>
     </div>
   )
 }

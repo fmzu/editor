@@ -5,6 +5,9 @@ import { DotXtermColorPalette } from "./components/dot-xterm-color-palette"
 import { Card } from "~/components/ui/card"
 import { EraserButton } from "~/components/eraser-button"
 import { ClearCanvasButton } from "~/components/clear-canvas-button"
+import { Button } from "~/components/ui/button"
+import { useMutation } from "@tanstack/react-query"
+import { client } from "~/lib/client"
 
 export default function NextPage() {
   const [rowsCount, setRowsCount] = useState(16)
@@ -26,6 +29,22 @@ export default function NextPage() {
 
   const onClearCanvas = () => {
     setGrid(createEmptyDotCells(rowsCount))
+  }
+
+  const mutation = useMutation({
+    async mutationFn() {
+      const resp = await client.api.posts.$post({
+        json: {
+          dots: grid.flat().join("-"),
+        },
+      })
+      const json = await resp.json()
+      return json
+    },
+  })
+
+  const onSubmit = () => {
+    mutation.mutate()
   }
 
   return (
@@ -50,6 +69,7 @@ export default function NextPage() {
         />
         <ClearCanvasButton onClick={onClearCanvas} />
       </div>
+      <Button onClick={onSubmit}>{"投稿"}</Button>
     </main>
   )
 }

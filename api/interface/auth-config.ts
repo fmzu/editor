@@ -29,20 +29,13 @@ export function authConfig(c: Context): AuthConfig {
           const user = await db
             .select()
             .from(schema.users)
-            .where(eq(schema.users.login, credentials.email))
+            .where(eq(schema.users.email, credentials.email))
             .get()
 
           if (user === undefined) {
             return null
           }
 
-          if (user.login !== credentials.email) {
-            return null
-          }
-
-          if (typeof user.hashedPassword !== "string") {
-            return null
-          }
           const result = compareSync(credentials.password, user.hashedPassword)
 
           if (result === false) {
@@ -51,7 +44,7 @@ export function authConfig(c: Context): AuthConfig {
 
           return {
             id: user.id,
-            email: user.login,
+            email: user.email,
           }
         },
       }),
