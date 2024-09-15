@@ -5,7 +5,14 @@ import { loaderClient } from "~/lib/loader-client"
 import { DotPreviewCanvas } from "~/routes/_main._index/components/dot-preview-canvas"
 
 export async function loader(args: LoaderFunctionArgs) {
-  const client = loaderClient(args.context.cloudflare.env.API.fetch)
+  console.log("aaaaaa", args.context.cloudflare.env.API.fetch)
+  if (args.context.cloudflare.env.API.fetch === undefined) {
+    return json([])
+  }
+
+  const client = loaderClient(
+    args.context.cloudflare.env.API.fetch.bind(args.context.cloudflare.env.API),
+  )
 
   const resp = await client.api.posts.$get()
 
