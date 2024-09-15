@@ -1,4 +1,4 @@
-import { json, LoaderFunctionArgs } from "@remix-run/cloudflare"
+import { json, type LoaderFunctionArgs } from "@remix-run/cloudflare"
 import { useLoaderData } from "@remix-run/react"
 import { Card } from "~/components/ui/card"
 import { loaderClient } from "~/lib/loader-client"

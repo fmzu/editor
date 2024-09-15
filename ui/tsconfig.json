@@ -31,7 +31,5 @@
     },
     "noEmit": true
   },
-  "references": [
-    { "path": "../api" },
-  ]
+  "references": [{ "path": "../api" }]
 }

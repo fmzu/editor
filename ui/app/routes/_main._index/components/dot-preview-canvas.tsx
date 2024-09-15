@@ -1,7 +1,3 @@
-import { useState } from "react"
-import { Button } from "~/components/ui/button"
-import { cn } from "~/lib/utils"
-import { createEmptyGrid } from "~/utils/create-empty-cells"
 import { toDotsFromString } from "~/utils/to-dots-from-string"
 import { xtermColors } from "~/utils/xterm-colors"
 

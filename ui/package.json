@@ -11,7 +11,6 @@
     "typecheck": "tsc",
     "typegen": "wrangler types",
     "preview": "bun build && wrangler pages dev",
-    "format": "biome check . --apply-unsafe",
     "update:components": "bunx shadcn-ui add -a -o",
     "migrate": "drizzle-kit generate && wrangler d1 migrations apply note --local"
   },

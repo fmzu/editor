@@ -1,4 +1,4 @@
-import { DotCell } from "~/types/dot-cell"
+import type { DotCell } from "~/types/dot-cell"
 
 /**
  * 文字列をドット絵に変換する

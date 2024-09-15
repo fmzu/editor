@@ -40,9 +40,7 @@
       "indexes": {
         "likes_uuid_unique": {
           "name": "likes_uuid_unique",
-          "columns": [
-            "uuid"
-          ],
+          "columns": ["uuid"],
           "isUnique": true
         }
       },
@@ -108,9 +106,7 @@
       "indexes": {
         "posts_uuid_unique": {
           "name": "posts_uuid_unique",
-          "columns": [
-            "uuid"
-          ],
+          "columns": ["uuid"],
           "isUnique": true
         }
       },
@@ -175,23 +171,17 @@
       "indexes": {
         "users_uuid_unique": {
           "name": "users_uuid_unique",
-          "columns": [
-            "uuid"
-          ],
+          "columns": ["uuid"],
           "isUnique": true
         },
         "users_email_unique": {
           "name": "users_email_unique",
-          "columns": [
-            "email"
-          ],
+          "columns": ["email"],
           "isUnique": true
         },
         "users_login_unique": {
           "name": "users_login_unique",
-          "columns": [
-            "login"
-          ],
+          "columns": ["login"],
           "isUnique": true
         }
       },
