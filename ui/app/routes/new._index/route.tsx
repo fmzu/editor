@@ -9,6 +9,7 @@ import { useMutation } from "@tanstack/react-query"
 import { client } from "~/lib/client"
 import { toast } from "sonner"
 import { NewHeader } from "~/routes/new/components/new-header"
+import { Button } from "~/components/ui/button"
 
 export default function NextPage() {
   const [rowsCount, setRowsCount] = useState(16)
@@ -20,6 +21,8 @@ export default function NextPage() {
   const [colorIndex, setColorIndex] = useState<number | null>(1)
 
   const [eraserMode, setEraserMode] = useState(false)
+
+  const [isSpacePressed, setIsSpacePressed] = useState(false)
 
   const onDraw = (rowIndex: number, colIndex: number) => {
     if (!eraserMode && colorIndex === null) return
@@ -49,12 +52,26 @@ export default function NextPage() {
     toast("投稿しました")
   }
 
+  const onMouseDown = () => {
+    setIsSpacePressed(true)
+  }
+
+  const onMouseUp = () => {
+    setIsSpacePressed(false)
+  }
+
   return (
     <>
       <NewHeader onSubmit={onSubmit} />
       <main className="flex flex-col gap-2 max-w-screen-sm container py-8 h-custom-main">
         <Card className="p-4 justify-center flex items-center bg-border flex-1">
-          <DotCanvas grid={grid} onClick={onDraw} dotSize={dotSize} />
+          <DotCanvas
+            grid={grid}
+            onClick={onDraw}
+            dotSize={dotSize}
+            isSpacePressed={isSpacePressed}
+            onPressSpace={setIsSpacePressed}
+          />
         </Card>
         <DotXtermColorPalette
           colorIndex={colorIndex}
@@ -73,6 +90,14 @@ export default function NextPage() {
           />
           <ClearCanvasButton onClick={onClearCanvas} />
         </div>
+        <Button
+          className="sm:hidden"
+          onMouseDown={onMouseDown}
+          onMouseUp={onMouseUp}
+          onMouseLeave={onMouseUp}
+        >
+          {"塗る"}
+        </Button>
       </main>
     </>
   )
