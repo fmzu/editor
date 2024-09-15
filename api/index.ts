@@ -8,12 +8,4 @@ export default class extends WorkerEntrypoint<Env> {
   fetch(request: Request) {
     return api.fetch(request, this.env)
   }
-
-  hello() {
-    console.log("hello")
-  }
-
-  request(input: RequestInfo | URL, init?: RequestInit) {
-    return api.request(input, init, this.env)
-  }
 }

@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "@remix-run/react"
+import { useNavigate } from "@remix-run/react"
 import { useState } from "react"
 import { Button } from "~/components/ui/button"
 import { Input } from "~/components/ui/input"
@@ -11,13 +11,13 @@ export default function Route() {
 
   const [loginId, setLoginId] = useState("")
 
-  const [loginPassword, setLoginPassword] = useState("")
+  const [password, setPassword] = useState("")
 
   const mutation = useMutation({
     async mutationFn() {
       const resp = await signIn("credentials", {
         email: loginId,
-        password: loginPassword,
+        password: password,
         redirect: false,
       })
       if (resp?.status !== 200) {
@@ -37,45 +37,31 @@ export default function Route() {
   }
 
   return (
-    <div className="flex flex-col p-4 gap-y-4">
+    <div className={"mx-auto max-w-xs space-y-4 p-4 pt-40"}>
+      <h1 className="font-bold">{"HASCII"}</h1>
       <form
+        className="space-y-2"
         onSubmit={(event) => {
           event.preventDefault()
           onSubmit()
         }}
-        className="space-y-4"
       >
         <Input
           type="email"
-          name={"body"}
-          placeholder="ログインID"
+          placeholder="メールアドレス"
           value={loginId}
-          onChange={(event) => {
-            setLoginId(event.target.value)
-          }}
+          onChange={(event) => setLoginId(event.target.value)}
         />
         <Input
           type="password"
-          name={"body"}
           placeholder="パスワード"
-          value={loginPassword}
-          onChange={(event) => {
-            setLoginPassword(event.target.value)
-          }}
+          value={password}
+          onChange={(event) => setPassword(event.target.value)}
         />
-        <Button type={"submit"}>{"追加"}</Button>
+        <Button type="submit" className="w-full">
+          {"ログイン"}
+        </Button>
       </form>
-      <div className="flex gap-x-2">
-        <Link to={"/sign/up"}>
-          <Button>{"sign-up"}</Button>
-        </Link>
-        <Link to={"/sign/in"}>
-          <Button>{"sign-in"}</Button>
-        </Link>
-        <Link to={"/"}>
-          <Button>{"home"}</Button>
-        </Link>
-      </div>
     </div>
   )
 }

@@ -13,7 +13,7 @@ type Props = {
  */
 export const DotCanvas = (props: Props) => {
   return (
-    <div className="h-full">
+    <div>
       {props.grid.map((row, rowIndex) => (
         <div key={rowIndex.toString()} className="flex">
           {row.map((cell, colIndex) => (

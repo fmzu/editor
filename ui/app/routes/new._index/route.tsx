@@ -5,9 +5,10 @@ import { DotXtermColorPalette } from "./components/dot-xterm-color-palette"
 import { Card } from "~/components/ui/card"
 import { EraserButton } from "~/components/eraser-button"
 import { ClearCanvasButton } from "~/components/clear-canvas-button"
-import { Button } from "~/components/ui/button"
 import { useMutation } from "@tanstack/react-query"
 import { client } from "~/lib/client"
+import { toast } from "sonner"
+import { NewHeader } from "~/routes/new/components/new-header"
 
 export default function NextPage() {
   const [rowsCount, setRowsCount] = useState(16)
@@ -45,31 +46,34 @@ export default function NextPage() {
 
   const onSubmit = () => {
     mutation.mutate()
+    toast("投稿しました")
   }
 
   return (
-    <main className="flex flex-col gap-2 max-w-screen-sm container py-8">
-      <Card className="p-4 justify-center flex bg-border">
-        <DotCanvas grid={grid} onClick={onDraw} dotSize={dotSize} />
-      </Card>
-      <DotXtermColorPalette
-        colorIndex={colorIndex}
-        setColorId={(colorIndex) => {
-          setColorIndex(colorIndex)
-          setEraserMode(false)
-        }}
-      />
-      <div className="flex space-x-2">
-        <EraserButton
-          eraserMode={eraserMode}
-          setEraserMode={(eraserMode) => {
-            setEraserMode(eraserMode)
-            setColorIndex(null)
+    <>
+      <NewHeader onSubmit={onSubmit} />
+      <main className="flex flex-col gap-2 max-w-screen-sm container py-8 h-custom-main">
+        <Card className="p-4 justify-center flex items-center bg-border flex-1">
+          <DotCanvas grid={grid} onClick={onDraw} dotSize={dotSize} />
+        </Card>
+        <DotXtermColorPalette
+          colorIndex={colorIndex}
+          setColorId={(colorIndex) => {
+            setColorIndex(colorIndex)
+            setEraserMode(false)
           }}
         />
-        <ClearCanvasButton onClick={onClearCanvas} />
-      </div>
-      <Button onClick={onSubmit}>{"投稿"}</Button>
-    </main>
+        <div className="flex space-x-2">
+          <EraserButton
+            eraserMode={eraserMode}
+            setEraserMode={(eraserMode) => {
+              setEraserMode(eraserMode)
+              setColorIndex(null)
+            }}
+          />
+          <ClearCanvasButton onClick={onClearCanvas} />
+        </div>
+      </main>
+    </>
   )
 }
