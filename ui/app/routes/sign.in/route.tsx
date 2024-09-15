@@ -6,7 +6,7 @@ import { useMutation } from "@tanstack/react-query"
 import { toast } from "sonner"
 import { signIn } from "@hono/auth-js/react"
 
-export default function LoginPage() {
+export default function Route() {
   const navigate = useNavigate()
 
   const [loginId, setLoginId] = useState("")

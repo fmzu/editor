@@ -4,6 +4,7 @@ import { apiFactory } from "~/interface/api-factory"
 import { drizzle } from "drizzle-orm/d1"
 import { genSaltSync, hashSync } from "bcrypt-ts"
 import { schema } from "~/lib/schema"
+import { HTTPException } from "hono/http-exception"
 
 const app = apiFactory.createApp()
 
@@ -42,6 +43,27 @@ export const userRoutes = app
       return c.json({}, {})
     },
   )
+  /**
+   * アカウントを取得する
+   */
+  .get("/", async (c) => {
+    const db = drizzle(c.env.DB)
+
+    const users = await db.select().from(schema.users)
+
+    if (users === undefined) {
+      throw new HTTPException(500, { message: "Not Found" })
+    }
+
+    const usersJson = users.map((user) => {
+      return {
+        id: user.id,
+        name: user.name,
+      }
+    })
+
+    return c.json(usersJson)
+  })
   /**
    * アカウントを取得する
    */

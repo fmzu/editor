@@ -24,10 +24,8 @@ export const postRoutes = app
     ),
     async (c) => {
       const auth = c.get("authUser")
-      console.log("auth", auth)
 
       const authUserEmail = auth.token?.email ?? null
-      console.log("authUserId", authUserEmail)
 
       if (authUserEmail === null) {
         throw new HTTPException(401, { message: "Unauthorized" })
@@ -59,13 +57,29 @@ export const postRoutes = app
     },
   )
   /**
-   * 投稿を取得する
+   * たくさんの投稿を取得する
+   */
+  .get("/", async (c) => {
+    const db = drizzle(c.env.DB, { schema })
+
+    const posts = await db.select().from(schema.posts)
+
+    const postsJson = posts.map((post) => {
+      return {
+        ...post,
+      }
+    })
+
+    return c.json(postsJson)
+  })
+  /**
+   * 一つの投稿を取得する
    */
   .get("/:post", async (c) => {
     return c.json({})
   })
   /**
-   * 投票箱を更新する
+   * 投稿を更新する
    */
   .put(
     "/:post",

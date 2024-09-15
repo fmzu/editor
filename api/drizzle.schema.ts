@@ -53,7 +53,7 @@ export const likes = sqliteTable("likes", {
 
 export const likeRelations = relations(likes, (fn) => {
   return {
-    post: fn.one(users, { fields: [likes.postId], references: [users.id] }),
+    post: fn.one(posts, { fields: [likes.postId], references: [posts.id] }),
     user: fn.one(users, { fields: [likes.userId], references: [users.id] }),
   }
 })

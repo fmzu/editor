@@ -5,7 +5,7 @@ import { Button } from "~/components/ui/button"
 import { Input } from "~/components/ui/input"
 import { client } from "~/lib/client"
 
-export default function LoginPage() {
+export default function Route() {
   const [loginId, setLoginId] = useState("")
 
   const [loginPassword, setLoginPassword] = useState("")

@@ -2,7 +2,8 @@
   "name": "api",
   "scripts": {
     "dev": "wrangler dev",
-    "deploy": "wrangler deploy --minify"
+    "deploy": "wrangler deploy --minify",
+    "studio": "drizzle-kit studio --config drizzle.config.local.ts"
   },
   "dependencies": {
     "@hono/auth-js": "^1.0.10",
@@ -14,8 +15,9 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
-    "drizzle-kit": "^0.22.8",
-    "@types/bun": "^1.1.6"
+    "@libsql/client": "^0.11.0",
+    "@types/bun": "^1.1.6",
+    "drizzle-kit": "^0.22.8"
   },
   "type": "module"
 }
