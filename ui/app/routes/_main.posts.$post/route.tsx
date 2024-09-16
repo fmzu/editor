@@ -28,9 +28,16 @@ export default function Route() {
   return (
     <main className="p-8 lg:p-16 container">
       <div className="flex justify-center items-center">
-        <Card className="bg-gray-200 overflow-hidden shadow-md max-w-sm w-full">
-          <DotPreviewCanvas dots={data.dots} />
-        </Card>
+        <div className="w-full max-w-sm">
+          <Card className="bg-gray-200 overflow-hidden shadow-xl w-full">
+            <DotPreviewCanvas dots={data.dots} />
+          </Card>
+          <div className="pl-4 pr-52">
+            <Card className="bg-white rounded-t-none rounded-b-sm shadow-md px-4 py-1">
+              <h1>{"夏"}</h1>
+            </Card>
+          </div>
+        </div>
       </div>
     </main>
   )
