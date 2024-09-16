@@ -20,7 +20,6 @@ jobs:
       - name: 💪 ビルド
         run: bun --cwd ui remix vite:build
       - name: 🚀 デプロイ API
-        id: cloudflare-wrangler
         uses: cloudflare/wrangler-action@v3
         with:
           packageManager: bun
@@ -29,7 +28,6 @@ jobs:
           command: deploy index.ts --name=hascii-api
           workingDirectory: api
       - name: 🚀 デプロイ ウェブサイト
-        id: cloudflare-wrangler
         uses: cloudflare/wrangler-action@v3
         with:
           packageManager: bun
