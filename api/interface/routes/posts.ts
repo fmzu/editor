@@ -111,17 +111,17 @@ export const postRoutes = app
     },
   )
   /**
-   * 投票箱を削除する
+   * 投稿を削除する
    */
-  .delete(
-    "/:post",
-    vValidator(
-      "json",
-      object({
-        id: string(),
-      }),
-    ),
-    async (c) => {
-      return c.json({})
-    },
-  )
+  .delete("/:post", async (c) => {
+    const db = drizzle(c.env.DB, { schema })
+
+    const postId = c.req.param("post")
+
+    await db
+      .update(schema.posts)
+      .set({ isDeleted: true })
+      .where(eq(schema.posts.id, postId))
+
+    return c.json({})
+  })
