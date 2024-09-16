@@ -70,8 +70,8 @@ export default {
         "accordion-up": "accordion-up 0.2s ease-out",
       },
       height: {
-        "custom-main": "calc(100vh - 72px)",
-        "custom-header": "72px",
+        "custom-main": "calc(100svh - 104px)",
+        "custom-header": "104px",
       },
     },
   },

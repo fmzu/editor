@@ -8,7 +8,7 @@ type Props = {
 
 export function NewHeader(props: Props) {
   return (
-    <header className="flex justify-between items-center p-4 bg-gray-100">
+    <header className="flex justify-between items-center container p-8">
       <Link to={"/"}>
         <div className="text-xl font-bold">{"HASCII"}</div>
       </Link>

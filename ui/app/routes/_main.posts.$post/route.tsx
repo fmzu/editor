@@ -26,7 +26,7 @@ export default function Route() {
   const data = useLoaderData<typeof loader>()
 
   return (
-    <main className="p-8 lg:p-16 container">
+    <main className="px-8 sm:p-8 lg:p-16 container">
       <div className="flex justify-center items-center">
         <div className="w-full max-w-sm">
           <Card className="bg-gray-200 overflow-hidden shadow-xl w-full">
@@ -34,7 +34,7 @@ export default function Route() {
           </Card>
           <div className="pl-4 pr-52">
             <Card className="bg-white rounded-t-none rounded-b-sm shadow-md px-4 py-1">
-              <h1>{"夏"}</h1>
+              <h1>{"作品タイトル"}</h1>
             </Card>
           </div>
         </div>

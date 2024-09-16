@@ -64,15 +64,17 @@ export default function NextPage() {
     <>
       <NewHeader onSubmit={onSubmit} />
       <main className="flex flex-col gap-2 max-w-screen-sm container py-8 h-custom-main">
-        <Card className="p-4 justify-center flex items-center bg-border flex-1">
-          <DotCanvas
-            grid={grid}
-            onClick={onDraw}
-            dotSize={dotSize}
-            isSpacePressed={isSpacePressed}
-            onPressSpace={setIsSpacePressed}
-          />
-        </Card>
+        <div className="p-4 justify-center flex items-center flex-1">
+          <Card className="overflow-hidden">
+            <DotCanvas
+              grid={grid}
+              onClick={onDraw}
+              dotSize={dotSize}
+              isSpacePressed={isSpacePressed}
+              onPressSpace={setIsSpacePressed}
+            />
+          </Card>
+        </div>
         <DotXtermColorPalette
           colorIndex={colorIndex}
           setColorId={(colorIndex) => {
