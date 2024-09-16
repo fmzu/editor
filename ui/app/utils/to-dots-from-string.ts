@@ -6,6 +6,10 @@ import type { DotCell } from "~/types/dot-cell"
  * @returns
  */
 export const toDotsFromString = (text: string): DotCell[][] => {
+  if (text === "") {
+    throw new Error("文字列が空です")
+  }
+
   const texts = text.split("-")
 
   const grid: DotCell[][] = []
