@@ -19,7 +19,16 @@ jobs:
         run: bun install
       - name: 💪 ビルド
         run: bun --cwd ui remix vite:build
-      - name: 🚀 デプロイ
+      - name: 🚀 デプロイ API
+        id: cloudflare-wrangler
+        uses: cloudflare/wrangler-action@v3
+        with:
+          packageManager: bun
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          command: deploy index.ts --name=hascii-api
+          workingDirectory: api
+      - name: 🚀 デプロイ ウェブサイト
         id: cloudflare-wrangler
         uses: cloudflare/wrangler-action@v3
         with:
