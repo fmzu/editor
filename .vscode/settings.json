@@ -18,5 +18,9 @@
     "react-day-picker",
     "tailwind-merge",
     "tailwindcss"
+  ],
+  "cSpell.words": [
+    "hascii",
+    "vite"
   ]
 }
