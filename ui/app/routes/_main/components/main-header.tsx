@@ -7,12 +7,12 @@ export function MainHeader() {
   const session = useSession()
 
   return (
-    <header className="flex justify-between items-center p-4 bg-gray-100">
+    <header className="flex justify-between items-center container p-8">
       <Link to={"/"}>
         <div className="text-xl font-bold">{"HASCII"}</div>
       </Link>
       {session.status === "unauthenticated" ? (
-        <div className="flex gap-x-2">
+        <div className="flex gap-x-4">
           <Link to={"/sign/up"}>
             <Button>{"新規登録"}</Button>
           </Link>
@@ -21,9 +21,9 @@ export function MainHeader() {
           </Link>
         </div>
       ) : (
-        <div className="flex gap-x-2">
+        <div className="flex gap-x-4">
           <Link to={"/new"}>
-            <Button>{"作成"}</Button>
+            <Button variant={"secondary"}>{"作成"}</Button>
           </Link>
           <AvatarPopover />
         </div>

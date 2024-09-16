@@ -1,5 +1,5 @@
 import { json, type LoaderFunctionArgs } from "@remix-run/cloudflare"
-import { useLoaderData } from "@remix-run/react"
+import { Link, useLoaderData } from "@remix-run/react"
 import { Card } from "~/components/ui/card"
 import { loaderClient } from "~/lib/loader-client"
 import { DotPreviewCanvas } from "~/routes/_main._index/components/dot-preview-canvas"
@@ -20,14 +20,15 @@ export default function Route() {
   const data = useLoaderData<typeof loader>()
 
   return (
-    <main className="grid grid-cols-4 gap-2 p-4">
+    <main className="grid grid-cols-2 gap-8 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 md:gap-16 px-8 container">
       {data.map((post) => (
-        <Card key={post.id} className="bg-gray-200 overflow-hidden p-2">
-          <div className="overflow-hidden rounded-md">
-            <DotPreviewCanvas dots={post.dots} />
-          </div>
-          <p>{"post.name"}</p>
-        </Card>
+        <Link key={post.id} to={`/posts/${post.id}`}>
+          <Card className="bg-gray-200 overflow-hidden shadow-md hover:scale-105 duration-100">
+            <div className="overflow-hidden rounded-md">
+              <DotPreviewCanvas dots={post.dots} />
+            </div>
+          </Card>
+        </Link>
       ))}
     </main>
   )

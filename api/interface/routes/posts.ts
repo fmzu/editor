@@ -76,7 +76,23 @@ export const postRoutes = app
    * 一つの投稿を取得する
    */
   .get("/:post", async (c) => {
-    return c.json({})
+    const db = drizzle(c.env.DB, { schema })
+
+    const postId = c.req.param("post")
+
+    const post = await db
+      .select()
+      .from(schema.posts)
+      .where(eq(schema.posts.id, postId))
+      .get()
+
+    if (post === undefined) {
+      throw new HTTPException(404, { message: "Not found" })
+    }
+
+    const postJson = { ...post }
+
+    return c.json(postJson)
   })
   /**
    * 投稿を更新する

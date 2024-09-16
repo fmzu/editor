@@ -9,7 +9,7 @@ export function DotPreviewCanvas(props: Props) {
   const grid = toDotsFromString(props.dots)
 
   return (
-    <div className="h-full">
+    <div className="h-full bg-white">
       {grid.map((row, rowIndex) => (
         <div key={rowIndex.toString()} className="flex">
           {row.map((cell, colIndex) => (
