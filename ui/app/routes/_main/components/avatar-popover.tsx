@@ -32,7 +32,7 @@ export function AvatarPopover() {
           <Link to="/">
             <Button className="flex space-x-2 w-full" variant={"ghost"}>
               <UserRound className="w-4 mr-2" />
-              {"アカウント"}
+              {"マイページ"}
             </Button>
           </Link>
           <Separator />
