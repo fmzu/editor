@@ -4,6 +4,7 @@ import { PostDialog } from "~/routes/new/components/post-dialog"
 
 type Props = {
   onSubmit: () => void
+  dots: string
 }
 
 export function NewHeader(props: Props) {
@@ -14,7 +15,7 @@ export function NewHeader(props: Props) {
       </Link>
       <div className="flex gap-x-2">
         <Link to={"/new"}>
-          <PostDialog onSubmit={props.onSubmit} />
+          <PostDialog onSubmit={props.onSubmit} dots={props.dots} />
         </Link>
         <AvatarPopover />
       </div>

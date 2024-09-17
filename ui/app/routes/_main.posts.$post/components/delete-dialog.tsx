@@ -14,7 +14,7 @@ export function DeleteDialog() {
       <DialogTrigger asChild>
         <Button variant={"secondary"}>{"削除"}</Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent>
         <DialogHeader>
           <DialogTitle>{"確認"}</DialogTitle>
         </DialogHeader>

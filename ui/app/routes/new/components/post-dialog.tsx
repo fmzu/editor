@@ -1,5 +1,6 @@
 import { Link } from "@remix-run/react"
 import { Button } from "~/components/ui/button"
+import { Card } from "~/components/ui/card"
 import {
   Dialog,
   DialogContent,
@@ -9,9 +10,11 @@ import {
   DialogTrigger,
 } from "~/components/ui/dialog"
 import { Input } from "~/components/ui/input"
+import { DotPreviewCanvas } from "~/routes/_main._index/components/dot-preview-canvas"
 
 type Props = {
   onSubmit: () => void
+  dots: string
 }
 
 export function PostDialog(props: Props) {
@@ -20,18 +23,22 @@ export function PostDialog(props: Props) {
       <DialogTrigger asChild>
         <Button>{"投稿"}</Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent>
         <DialogHeader>
           <DialogTitle>{"投稿"}</DialogTitle>
         </DialogHeader>
-        <p>{"ここに投稿したいドット絵"}</p>
+        <Card className="bg-gray-200 overflow-hidden shadow-md">
+          <div className="overflow-hidden rounded-md">
+            <DotPreviewCanvas dots={props.dots} />
+          </div>
+        </Card>
         <div>
           <p>{"タイトル"}</p>
           <Input />
         </div>
         <DialogFooter>
           <Link to={"/new"}>
-            <Button type="submit" onClick={props.onSubmit}>
+            <Button type="submit" onClick={props.onSubmit} className="w-full">
               {"投稿"}
             </Button>
           </Link>

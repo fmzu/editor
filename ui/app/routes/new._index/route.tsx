@@ -62,7 +62,7 @@ export default function NextPage() {
 
   return (
     <>
-      <NewHeader onSubmit={onSubmit} />
+      <NewHeader onSubmit={onSubmit} dots={grid.flat().join("-")} />
       <main className="flex flex-col gap-2 max-w-screen-sm container py-8 h-custom-main">
         <div className="p-4 justify-center flex items-center flex-1">
           <Card className="overflow-hidden">
