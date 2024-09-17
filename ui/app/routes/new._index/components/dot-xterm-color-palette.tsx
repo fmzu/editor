@@ -8,7 +8,7 @@ type Props = {
 }
 
 /**
- * アスキーアート用のカラーパレット
+ * ドット絵用のカラーパレット
  * @param props
  * @returns
  */

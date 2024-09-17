@@ -28,7 +28,9 @@ export const toDotsFromString = (text: string): DotCell[][] => {
        */
       const text = texts[i * rowsCount + j]
       row.push({
-        color: Number.parseInt(text, 10) || null,
+        color: Number.isNaN(Number.parseInt(text, 10))
+          ? null
+          : Number.parseInt(text, 10),
       })
     }
     grid.push(row)
