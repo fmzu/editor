@@ -20,8 +20,10 @@ export function DeleteDialog() {
         </DialogHeader>
         <p>{"本当にこの作品を削除しますか？"}</p>
         <DialogFooter>
-          <Button variant={"secondary"}>{"とじる"}</Button>
-          <Button type="submit">{"削除"}</Button>
+          <div className="flex justify-end space-x-2">
+            <Button variant={"secondary"}>{"とじる"}</Button>
+            <Button type="submit">{"削除"}</Button>
+          </div>
         </DialogFooter>
       </DialogContent>
     </Dialog>
