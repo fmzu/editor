@@ -1,6 +1,6 @@
 import { Link } from "@remix-run/react"
-import { Button } from "~/components/ui/button"
 import { AvatarPopover } from "~/routes/_main/components/avatar-popover"
+import { PostDialog } from "~/routes/new/components/post-dialog"
 
 type Props = {
   onSubmit: () => void
@@ -14,7 +14,7 @@ export function NewHeader(props: Props) {
       </Link>
       <div className="flex gap-x-2">
         <Link to={"/new"}>
-          <Button onClick={props.onSubmit}>{"投稿"}</Button>
+          <PostDialog onSubmit={props.onSubmit} />
         </Link>
         <AvatarPopover />
       </div>
