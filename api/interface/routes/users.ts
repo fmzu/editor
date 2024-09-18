@@ -5,6 +5,7 @@ import { drizzle } from "drizzle-orm/d1"
 import { genSaltSync, hashSync } from "bcrypt-ts"
 import { schema } from "~/lib/schema"
 import { HTTPException } from "hono/http-exception"
+import { eq } from "drizzle-orm"
 
 const app = apiFactory.createApp()
 
@@ -44,7 +45,7 @@ export const userRoutes = app
     },
   )
   /**
-   * アカウントを取得する
+   * たくさんのアカウントを取得する
    */
   .get("/", async (c) => {
     const db = drizzle(c.env.DB)
@@ -65,10 +66,30 @@ export const userRoutes = app
     return c.json(usersJson)
   })
   /**
-   * アカウントを取得する
+   * 一つのアカウントを取得する
    */
   .get("/:user", async (c) => {
-    return c.json({})
+    const db = drizzle(c.env.DB)
+
+    const userId = c.req.param("user")
+
+    const user = await db
+      .select()
+      .from(schema.users)
+      .where(eq(schema.users.id, userId))
+      .get()
+
+    if (user === undefined) {
+      throw new HTTPException(500, { message: "Not Found" })
+    }
+
+    const userJson = {
+      id: user.id,
+      name: user.name,
+      avatarIconUrl: user.avatarIconUrl,
+    }
+
+    return c.json(userJson)
   })
   /**
    * アカウントを更新する
