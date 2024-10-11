@@ -34,6 +34,7 @@ export default function Route() {
       return
     }
     toast(result)
+    navigate("/")
   }
 
   return (

@@ -28,9 +28,9 @@ export default function Route() {
   const onSubmit = () => {
     const result = mutation.mutate()
     if (result === null) {
-      navigate("/sign/in")
       return
     }
+    navigate("/sign/in")
   }
 
   return (
