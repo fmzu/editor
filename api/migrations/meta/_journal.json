@@ -15,6 +15,13 @@
       "when": 1726339217062,
       "tag": "0001_lethal_chat",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1728981275400,
+      "tag": "0002_tidy_mongoose",
+      "breakpoints": true
     }
   ]
 }

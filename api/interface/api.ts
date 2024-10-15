@@ -14,4 +14,4 @@ export const api = apiFactory
   .use("/auth/*", authHandler())
   .route("/posts", postRoutes)
   .route("/users", userRoutes)
-  .route("/likes", likeRoutes)
+  .route("/", likeRoutes)

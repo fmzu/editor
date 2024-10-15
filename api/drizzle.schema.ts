@@ -45,10 +45,13 @@ export const userRelations = relations(users, (fn) => {
 export const likes = sqliteTable("likes", {
   id: text("uuid", { length: 256 }).notNull().unique(),
   postId: text("post_id").notNull(),
-  userId: integer("user_id").notNull(),
+  userId: text("user_id").notNull(),
   createdAt: integer("created_at", { mode: "timestamp" })
     .notNull()
     .default(sql`CURRENT_TIMESTAMP`),
+  isDeleted: integer("is_deleted", { mode: "boolean" })
+    .notNull()
+    .default(false),
 })
 
 export const likeRelations = relations(likes, (fn) => {
