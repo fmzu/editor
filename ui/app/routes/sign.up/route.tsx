@@ -59,7 +59,11 @@ export default function Route() {
             setPassword(event.target.value)
           }}
         />
-        <Button type={"submit"} className="w-full">
+        <Button
+          disabled={!loginId || !password}
+          type={"submit"}
+          className="w-full"
+        >
           {"登録する"}
         </Button>
       </form>

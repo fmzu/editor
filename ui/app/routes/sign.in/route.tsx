@@ -59,7 +59,11 @@ export default function Route() {
           value={password}
           onChange={(event) => setPassword(event.target.value)}
         />
-        <Button type="submit" className="w-full">
+        <Button
+          disabled={!loginId || !password}
+          type="submit"
+          className="w-full"
+        >
           {"ログイン"}
         </Button>
       </form>
