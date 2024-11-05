@@ -5,6 +5,11 @@ type Props = {
   dots: string
 }
 
+/**
+ * 作成したドット絵を表示して確認するためのキャンバス
+ * @param props
+ * @returns
+ */
 export function DotPreviewCanvas(props: Props) {
   const grid = toDotsFromString(props.dots)
 

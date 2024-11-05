@@ -1,4 +1,4 @@
-import { Link } from "@remix-run/react"
+import { Link, useNavigate } from "@remix-run/react"
 import { Button } from "~/components/ui/button"
 import { Card } from "~/components/ui/card"
 import {
@@ -18,6 +18,8 @@ type Props = {
 }
 
 export function PostDialog(props: Props) {
+  const navigate = useNavigate()
+
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -38,7 +40,14 @@ export function PostDialog(props: Props) {
         </div>
         <DialogFooter>
           <Link to={"/new"}>
-            <Button type="submit" onClick={props.onSubmit} className="w-full">
+            <Button
+              type="submit"
+              onClick={() => {
+                props.onSubmit()
+                navigate("/new")
+              }}
+              className="w-full"
+            >
               {"投稿"}
             </Button>
           </Link>

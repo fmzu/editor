@@ -10,11 +10,11 @@ type Props = {
   onPressSpace: (isSpacePressed: boolean) => void
 }
 /**
- * ドット絵を作成するためのキャンバス
+ * 元ある情報からドット絵を修正するキャンバス
  * @param props
  * @returns
  */
-export const DotCanvas = (props: Props) => {
+export const DotEditCanvas = (props: Props) => {
   const [isMouseDown, setIsMouseDown] = useState(false)
 
   useEffect(() => {

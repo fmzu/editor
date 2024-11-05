@@ -1,3 +1,5 @@
+import { Link } from "@remix-run/react"
+import { Button } from "~/components/ui/button"
 import { Card, CardContent } from "~/components/ui/card"
 import { DeleteDialog } from "~/routes/_main.posts.$post._index/components/delete-dialog"
 
@@ -12,7 +14,12 @@ export function SettingsCard(props: Props) {
         <p className="text-xs opacity-70">
           {"この項目はあなただけに見えています"}
         </p>
-        <DeleteDialog postId={props.postId} />
+        <div className="space-x-2">
+          <Link to={`/posts/${props.postId}/edit`}>
+            <Button>{"編集"}</Button>
+          </Link>
+          <DeleteDialog postId={props.postId} />
+        </div>
       </CardContent>
     </Card>
   )

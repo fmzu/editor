@@ -1,31 +1,82 @@
-// import { json, type LoaderFunctionArgs } from "@remix-run/cloudflare"
 import { useParams } from "@remix-run/react"
-import { useSuspenseQuery } from "@tanstack/react-query"
-import { Award } from "lucide-react"
+import { useMutation, useQuery } from "@tanstack/react-query"
 import { useState } from "react"
+import { toast } from "sonner"
+import { ClearCanvasButton } from "~/components/clear-canvas-button"
+import { EraserButton } from "~/components/eraser-button"
 import { Button } from "~/components/ui/button"
 import { Card } from "~/components/ui/card"
 import { client } from "~/lib/client"
-// import { loaderClient } from "~/lib/loader-client"
-import { DotPreviewCanvas } from "~/routes/_main._index/components/dot-preview-canvas"
-import { SettingsCard } from "~/routes/_main.posts.$post._index/components/settings-card"
+import { DotEditCanvas } from "~/routes/_main.posts.$post.edit/components/dot-edit-canvas"
+import { DotXtermColorPalette } from "~/routes/new._index/components/dot-xterm-color-palette"
+import { NewHeader } from "~/routes/new/components/new-header"
+import { createEmptyDotCells } from "~/utils/create-empty-dot-cells"
 
 export default function Route() {
+  const [rowsCount, setRowsCount] = useState(16)
+
+  const [grid, setGrid] = useState(createEmptyDotCells(rowsCount))
+
+  const [dotSize, setDotSize] = useState(16)
+
+  const [colorIndex, setColorIndex] = useState<number | null>(1)
+
+  const [eraserMode, setEraserMode] = useState(false)
+
+  const [isSpacePressed, setIsSpacePressed] = useState(false)
+
+  const onDraw = (rowIndex: number, colIndex: number) => {
+    if (!eraserMode && colorIndex === null) return
+    const newGrid = [...grid]
+    newGrid[rowIndex][colIndex] = eraserMode ? null : colorIndex
+    setGrid(newGrid)
+  }
+
+  const onClearCanvas = () => {
+    setGrid(createEmptyDotCells(rowsCount))
+  }
+
+  const mutation = useMutation({
+    async mutationFn() {
+      const resp = await client.api.posts.$post({
+        json: {
+          dots: grid.flat().join("-"),
+        },
+      })
+      const json = await resp.json()
+      return json
+    },
+  })
+
+  const onSubmit = () => {
+    mutation.mutate()
+    toast("投稿しました")
+  }
+
+  const onMouseDown = () => {
+    setIsSpacePressed(true)
+  }
+
+  const onMouseUp = () => {
+    setIsSpacePressed(false)
+  }
+
   /**
-   * パラメータから授業IDを取得する
-   * パラメータにはプログラムIDの文字列のみが入る（型定義）
+   * 現在の投稿を取得する
+   * パラメータから投稿IDを取得する
+   * パラメータには投稿IDの文字列のみが入る（型定義）
    */
   const params = useParams<"post">()
 
   const postId = params.post
   /**
-   * パラメータがプログラムをもっていない場合はエラーを返す
+   * パラメータが投稿をもっていない場合はエラーを返す
    */
   if (postId === undefined) {
     throw new Error("Post not found")
   }
 
-  const postData = useSuspenseQuery({
+  const postData = useQuery({
     queryKey: ["posts", postId, "edit"],
     async queryFn() {
       const resp = await client.api.posts[":post"].$get({
@@ -38,51 +89,55 @@ export default function Route() {
     },
   })
 
-  // const likeData = useSuspenseQuery({
-  //   queryKey: ["like"],
-  //   async queryFn() {
-  //     const resp = await client.api.posts[":post"].likes.$post({
-  //       param: { post: postId },
-  //     })
+  if (postData.data === undefined) {
+    return null
+  }
 
-  //     const like = await resp.json()
-
-  //     return like
-  //   },
-  // })
-
-  const [isActive, setIsActive] = useState(false)
-
-  const toggleActive = () => {
-    setIsActive(!isActive)
-    // likeData.refetch()
+  if (postData.data.isMine === false) {
+    return null
   }
 
   return (
-    <main className="px-8 sm:p-8 lg:p-16 container space-y-16">
-      <div className="flex justify-center items-center">
-        <div className="w-full max-w-sm flex flex-col gap-y-8">
-          <Card className="bg-gray-200 overflow-hidden shadow-xl w-full">
-            <DotPreviewCanvas dots={postData.data.dots} />
+    <>
+      <NewHeader onSubmit={onSubmit} dots={grid.flat().join("-")} />
+      <main className="flex flex-col gap-2 max-w-screen-sm container py-8 h-custom-main">
+        <div className="p-4 justify-center flex items-center flex-1">
+          <Card className="overflow-hidden">
+            <DotEditCanvas
+              grid={grid}
+              onClick={onDraw}
+              dotSize={dotSize}
+              isSpacePressed={isSpacePressed}
+              onPressSpace={setIsSpacePressed}
+            />
           </Card>
-          <div className="px-16">
-            <Card className="flex items-center space-x-2 justify-between bg-white shadow-md p-4">
-              <h1>{"作品タイトル"}</h1>
-              <Button
-                variant={"secondary"}
-                onClick={toggleActive}
-                className={isActive ? "active" : ""}
-              >
-                <Award
-                  className={isActive ? "w-4" : ""}
-                  color={isActive ? "#000" : "#fbbf24"}
-                />
-              </Button>
-            </Card>
-          </div>
         </div>
-      </div>
-      <SettingsCard />
-    </main>
+        <DotXtermColorPalette
+          colorIndex={colorIndex}
+          setColorId={(colorIndex) => {
+            setColorIndex(colorIndex)
+            setEraserMode(false)
+          }}
+        />
+        <div className="flex space-x-2">
+          <EraserButton
+            eraserMode={eraserMode}
+            setEraserMode={(eraserMode) => {
+              setEraserMode(eraserMode)
+              setColorIndex(null)
+            }}
+          />
+          <ClearCanvasButton onClick={onClearCanvas} />
+        </div>
+        <Button
+          className="sm:hidden"
+          onMouseDown={onMouseDown}
+          onMouseUp={onMouseUp}
+          onMouseLeave={onMouseUp}
+        >
+          {"塗る"}
+        </Button>
+      </main>
+    </>
   )
 }

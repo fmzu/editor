@@ -14,9 +14,7 @@ export function NewHeader(props: Props) {
         <div className="text-xl font-bold">{"HASCII"}</div>
       </Link>
       <div className="flex gap-x-2">
-        <Link to={"/new"}>
-          <PostDialog onSubmit={props.onSubmit} dots={props.dots} />
-        </Link>
+        <PostDialog onSubmit={props.onSubmit} dots={props.dots} />
         <AvatarPopover />
       </div>
     </header>
