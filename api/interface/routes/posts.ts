@@ -20,6 +20,8 @@ export const postRoutes = app
       "json",
       object({
         dots: string(),
+        // title: string(),
+        // description: string(),
       }),
     ),
     async (c) => {
@@ -75,8 +77,44 @@ export const postRoutes = app
   /**
    * 一つの投稿を取得する
    */
-  .get("/:post", async (c) => {
+  .get("/:post", verifyAuth(), async (c) => {
     const db = drizzle(c.env.DB, { schema })
+
+    const auth = c.get("authUser")
+
+    const authUserEmail = auth.token?.email ?? null
+
+    if (authUserEmail === null) {
+      const postId = c.req.param("post")
+
+      const post = await db
+        .select()
+        .from(schema.posts)
+        .where(eq(schema.posts.id, postId))
+        .get()
+
+      if (post === undefined) {
+        throw new HTTPException(404, { message: "Not found" })
+      }
+
+      const isMine = false
+
+      const postJson = { ...post, isMine }
+
+      return c.json(postJson)
+    }
+
+    const user = await db
+      .select()
+      .from(schema.users)
+      .where(eq(schema.users.email, authUserEmail))
+      .get()
+
+    if (user === undefined) {
+      throw new HTTPException(401, { message: "Unauthorized" })
+    }
+
+    const userId = user.id
 
     const postId = c.req.param("post")
 
@@ -90,7 +128,9 @@ export const postRoutes = app
       throw new HTTPException(404, { message: "Not found" })
     }
 
-    const postJson = { ...post }
+    const isMine = post.userId === userId
+
+    const postJson = { ...post, isMine }
 
     return c.json(postJson)
   })
@@ -99,15 +139,44 @@ export const postRoutes = app
    */
   .put(
     "/:post",
+    verifyAuth(),
     vValidator(
       "json",
       object({
-        title: string(),
-        description: string(),
+        dots: string(),
+        // title: string(),
+        // description: string(),
       }),
     ),
     async (c) => {
-      return c.json({})
+      // const auth = c.get("authUser")
+
+      // const authUserEmail = auth.token?.email ?? null
+
+      // if (authUserEmail === null) {
+      //   throw new HTTPException(401, { message: "Unauthorized" })
+      // }
+
+      const json = c.req.valid("json")
+
+      const db = drizzle(c.env.DB, { schema })
+
+      // const user = await db
+      //   .select()
+      //   .from(schema.users)
+      //   .where(eq(schema.users.email, authUserEmail))
+      //   .get()
+
+      // if (user === undefined) {
+      //   throw new HTTPException(401, { message: "Unauthorized" })
+      // }
+
+      const postId = c.req.param("post")
+
+      await db
+        .update(schema.posts)
+        .set({ dots: json.dots })
+        .where(eq(schema.posts.id, postId))
     },
   )
   /**
@@ -118,10 +187,7 @@ export const postRoutes = app
 
     const postId = c.req.param("post")
 
-    await db
-      .update(schema.posts)
-      .set({ isDeleted: true })
-      .where(eq(schema.posts.id, postId))
+    await db.delete(schema.posts).where(eq(schema.posts.id, postId))
 
     return c.json({})
   })
