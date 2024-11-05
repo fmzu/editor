@@ -1,32 +1,12 @@
-// import { json, type LoaderFunctionArgs } from "@remix-run/cloudflare"
 import { useParams } from "@remix-run/react"
-import { useSuspenseQuery } from "@tanstack/react-query"
+import { useQuery } from "@tanstack/react-query"
 import { Award } from "lucide-react"
 import { useState } from "react"
 import { Button } from "~/components/ui/button"
 import { Card } from "~/components/ui/card"
 import { client } from "~/lib/client"
-// import { loaderClient } from "~/lib/loader-client"
 import { DotPreviewCanvas } from "~/routes/_main._index/components/dot-preview-canvas"
-import { SettingsCard } from "~/routes/_main.posts.$post/components/settings-card"
-
-// export async function loader(args: LoaderFunctionArgs) {
-//   if (!args.params.post) {
-//     throw new Error("Post not found")
-//   }
-
-//   const client = loaderClient(
-//     args.context.cloudflare.env.API.fetch.bind(args.context.cloudflare.env.API),
-//   )
-
-//   const resp = await client.api.posts[":post"].$get({
-//     param: { post: args.params.post },
-//   })
-
-//   const post = await resp.json()
-
-//   return json(post)
-// }
+import { SettingsCard } from "~/routes/_main.posts.$post._index/components/settings-card"
 
 export default function Route() {
   /**
@@ -42,9 +22,8 @@ export default function Route() {
   if (postId === undefined) {
     throw new Error("Post not found")
   }
-
-  const postData = useSuspenseQuery({
-    queryKey: ["post"],
+  const postData = useQuery({
+    queryKey: ["posts", postId],
     async queryFn() {
       const resp = await client.api.posts[":post"].$get({
         param: { post: postId },
@@ -74,6 +53,14 @@ export default function Route() {
   const toggleActive = () => {
     setIsActive(!isActive)
     // likeData.refetch()
+  }
+
+  if (postData.data === null) {
+    return null
+  }
+
+  if (postData.data === undefined) {
+    return null
   }
 
   return (

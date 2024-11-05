@@ -1,5 +1,5 @@
 import { Card, CardContent } from "~/components/ui/card"
-import { DeleteDialog } from "~/routes/_main.posts.$post/components/delete-dialog"
+import { DeleteDialog } from "~/routes/_main.posts.$post._index/components/delete-dialog"
 
 export function SettingsCard() {
   return (
