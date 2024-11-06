@@ -33,7 +33,7 @@ export default function Route() {
             </Card>
             <div className="pl-4">
               <Card className="bg-gray-100 rounded-t-none rounded-b-sm shadow-md px-2 w-3/5">
-                <h1 className="text-xs">{"作品タイトル"}</h1>
+                <h1 className="text-xs">{post.title ?? "a"}</h1>
               </Card>
             </div>
           </Link>

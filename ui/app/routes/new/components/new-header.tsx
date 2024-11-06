@@ -5,6 +5,10 @@ import { PostDialog } from "~/routes/new/components/post-dialog"
 type Props = {
   onSubmit: () => void
   dots: string
+  title: string
+  setTitle: (title: string) => void
+  description: string
+  setDescription: (description: string) => void
 }
 
 export function NewHeader(props: Props) {
@@ -14,7 +18,14 @@ export function NewHeader(props: Props) {
         <div className="text-xl font-bold">{"HASCII"}</div>
       </Link>
       <div className="flex gap-x-2">
-        <PostDialog onSubmit={props.onSubmit} dots={props.dots} />
+        <PostDialog
+          onSubmit={props.onSubmit}
+          dots={props.dots}
+          title={props.title}
+          setTitle={props.setTitle}
+          description={props.description}
+          setDescription={props.setDescription}
+        />
         <AvatarPopover />
       </div>
     </header>

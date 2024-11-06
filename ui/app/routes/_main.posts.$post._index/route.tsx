@@ -4,6 +4,7 @@ import { Award } from "lucide-react"
 import { useState } from "react"
 import { Button } from "~/components/ui/button"
 import { Card } from "~/components/ui/card"
+import { Separator } from "~/components/ui/separator"
 import { client } from "~/lib/client"
 import { DotPreviewCanvas } from "~/routes/_main._index/components/dot-preview-canvas"
 import { SettingsCard } from "~/routes/_main.posts.$post._index/components/settings-card"
@@ -75,18 +76,24 @@ export default function Route() {
               <DotPreviewCanvas dots={postData.data.dots} />
             </Card>
             <div className="px-16">
-              <Card className="flex items-center space-x-2 justify-between bg-white shadow-md p-4">
-                <h1>{"作品タイトル"}</h1>
-                <Button
-                  variant={"secondary"}
-                  onClick={toggleActive}
-                  className={isActive ? "active" : ""}
-                >
-                  <Award
-                    className={isActive ? "w-4" : ""}
-                    color={isActive ? "#000" : "#fbbf24"}
-                  />
-                </Button>
+              <Card className="space-y-2 bg-white shadow-md p-4">
+                <div className="flex items-center space-x-2 justify-between">
+                  <h1 className="text-lg font-bold">{postData.data.title}</h1>
+                  <Button
+                    variant={"secondary"}
+                    onClick={toggleActive}
+                    className={isActive ? "active" : ""}
+                  >
+                    <Award
+                      className={isActive ? "w-4" : ""}
+                      color={isActive ? "#000" : "#fbbf24"}
+                    />
+                  </Button>
+                </div>
+                <Separator />
+                <p className="text-sm opacity-80">
+                  {postData.data.description}
+                </p>
               </Card>
             </div>
           </div>

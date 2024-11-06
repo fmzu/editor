@@ -10,11 +10,16 @@ import {
   DialogTrigger,
 } from "~/components/ui/dialog"
 import { Input } from "~/components/ui/input"
+import { Textarea } from "~/components/ui/textarea"
 import { DotPreviewCanvas } from "~/routes/_main._index/components/dot-preview-canvas"
 
 type Props = {
   onSubmit: () => void
   dots: string
+  title: string
+  setTitle: (title: string) => void
+  description: string
+  setDescription: (description: string) => void
 }
 
 export function PostDialog(props: Props) {
@@ -36,7 +41,24 @@ export function PostDialog(props: Props) {
         </Card>
         <div>
           <p>{"タイトル"}</p>
-          <Input />
+          <Input
+            type="text"
+            placeholder="タイトル"
+            value={props.title}
+            onChange={(e) => {
+              props.setTitle(e.target.value)
+            }}
+          />
+        </div>
+        <div>
+          <p>{"投稿の詳細"}</p>
+          <Textarea
+            placeholder="投稿の詳細"
+            value={props.description}
+            onChange={(e) => {
+              props.setDescription(e.target.value)
+            }}
+          />
         </div>
         <DialogFooter>
           <Link to={"/new"}>

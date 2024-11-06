@@ -24,6 +24,10 @@ export default function NextPage() {
 
   const [isSpacePressed, setIsSpacePressed] = useState(false)
 
+  const [title, setTitle] = useState("")
+
+  const [description, setDescription] = useState("")
+
   const onDraw = (rowIndex: number, colIndex: number) => {
     if (!eraserMode && colorIndex === null) return
     const newGrid = [...grid]
@@ -40,6 +44,8 @@ export default function NextPage() {
       const resp = await client.api.posts.$post({
         json: {
           dots: grid.flat().join("-"),
+          title: title,
+          description: description,
         },
       })
       const json = await resp.json()
@@ -62,7 +68,14 @@ export default function NextPage() {
 
   return (
     <>
-      <NewHeader onSubmit={onSubmit} dots={grid.flat().join("-")} />
+      <NewHeader
+        onSubmit={onSubmit}
+        dots={grid.flat().join("-")}
+        title={title}
+        setTitle={setTitle}
+        description={description}
+        setDescription={setDescription}
+      />
       <main className="flex flex-col gap-2 max-w-screen-sm container py-8 h-custom-main">
         <div className="p-4 justify-center flex items-center flex-1">
           <Card className="overflow-hidden">
