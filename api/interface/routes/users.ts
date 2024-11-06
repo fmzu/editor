@@ -94,21 +94,46 @@ export const userRoutes = app
   /**
    * アカウントを更新する
    */
-  .put("/:user", async (c) => {
-    return c.json({})
-  })
-  /**
-   * アカウントを削除する
-   */
   .put(
     "/:user",
     vValidator(
       "json",
       object({
-        id: string(),
+        email: string(),
+        password: string(),
       }),
     ),
     async (c) => {
+      const json = c.req.valid("json")
+
+      const db = drizzle(c.env.DB)
+
+      const salt = genSaltSync(10)
+
+      const hashedPassword = hashSync(json.password, salt)
+
+      const userId = c.req.param("user")
+
+      await db
+        .update(schema.users)
+        .set({
+          email: json.email,
+          hashedPassword: hashedPassword,
+        })
+        .where(eq(schema.users.id, userId))
+
       return c.json({})
     },
   )
+  /**
+   * アカウントを削除する
+   */
+  .put("/:user", async (c) => {
+    const db = drizzle(c.env.DB, { schema })
+
+    const userId = c.req.param("user")
+
+    await db.delete(schema.users).where(eq(schema.users.id, userId))
+
+    return c.json({})
+  })

@@ -20,8 +20,8 @@ export const postRoutes = app
       "json",
       object({
         dots: string(),
-        // title: string(),
-        // description: string(),
+        title: string(),
+        description: string(),
       }),
     ),
     async (c) => {
@@ -52,6 +52,8 @@ export const postRoutes = app
         userId: user.id,
         name: crypto.randomUUID(),
         dots: json.dots,
+        title: json.title,
+        description: json.description,
         regulation: "DEFAULT",
       })
 
@@ -177,6 +179,8 @@ export const postRoutes = app
         .update(schema.posts)
         .set({ dots: json.dots })
         .where(eq(schema.posts.id, postId))
+
+      return c.json({})
     },
   )
   /**
