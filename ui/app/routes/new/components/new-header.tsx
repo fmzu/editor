@@ -9,6 +9,8 @@ type Props = {
   setTitle: (title: string) => void
   description: string
   setDescription: (description: string) => void
+  isPublic: boolean
+  setIsPublic: (isPublic: boolean) => void
 }
 
 export function NewHeader(props: Props) {
@@ -25,6 +27,8 @@ export function NewHeader(props: Props) {
           setTitle={props.setTitle}
           description={props.description}
           setDescription={props.setDescription}
+          isPublic={props.isPublic}
+          setIsPublic={props.setIsPublic}
         />
         <AvatarPopover />
       </div>

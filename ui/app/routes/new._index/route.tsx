@@ -28,6 +28,8 @@ export default function NextPage() {
 
   const [description, setDescription] = useState("")
 
+  const [isPublic, setIsPublic] = useState(false)
+
   const onDraw = (rowIndex: number, colIndex: number) => {
     if (!eraserMode && colorIndex === null) return
     const newGrid = [...grid]
@@ -46,6 +48,7 @@ export default function NextPage() {
           dots: grid.flat().join("-"),
           title: title,
           description: description,
+          isPublic: isPublic,
         },
       })
       const json = await resp.json()
@@ -75,6 +78,8 @@ export default function NextPage() {
         setTitle={setTitle}
         description={description}
         setDescription={setDescription}
+        isPublic={isPublic}
+        setIsPublic={setIsPublic}
       />
       <main className="flex flex-col gap-2 max-w-screen-sm container py-8 h-custom-main">
         <div className="p-4 justify-center flex items-center flex-1">

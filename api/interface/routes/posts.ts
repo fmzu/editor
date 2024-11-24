@@ -3,7 +3,7 @@ import { vValidator } from "@hono/valibot-validator"
 import { eq } from "drizzle-orm"
 import { drizzle } from "drizzle-orm/d1"
 import { HTTPException } from "hono/http-exception"
-import { object, string } from "valibot"
+import { object, string, boolean } from "valibot"
 import { apiFactory } from "~/interface/api-factory"
 import { schema } from "~/lib/schema"
 
@@ -22,6 +22,7 @@ export const postRoutes = app
         dots: string(),
         title: string(),
         description: string(),
+        isPublic: boolean(),
       }),
     ),
     async (c) => {
@@ -54,6 +55,7 @@ export const postRoutes = app
         dots: json.dots,
         title: json.title,
         description: json.description,
+        isPublic: json.isPublic,
         regulation: "DEFAULT",
       })
 
@@ -146,38 +148,26 @@ export const postRoutes = app
       "json",
       object({
         dots: string(),
-        // title: string(),
-        // description: string(),
+        title: string(),
+        description: string(),
+        isPublic: boolean(),
       }),
     ),
     async (c) => {
-      // const auth = c.get("authUser")
-
-      // const authUserEmail = auth.token?.email ?? null
-
-      // if (authUserEmail === null) {
-      //   throw new HTTPException(401, { message: "Unauthorized" })
-      // }
-
       const json = c.req.valid("json")
 
       const db = drizzle(c.env.DB, { schema })
-
-      // const user = await db
-      //   .select()
-      //   .from(schema.users)
-      //   .where(eq(schema.users.email, authUserEmail))
-      //   .get()
-
-      // if (user === undefined) {
-      //   throw new HTTPException(401, { message: "Unauthorized" })
-      // }
 
       const postId = c.req.param("post")
 
       await db
         .update(schema.posts)
-        .set({ dots: json.dots })
+        .set({
+          dots: json.dots,
+          title: json.title,
+          description: json.description,
+          isPublic: json.isPublic,
+        })
         .where(eq(schema.posts.id, postId))
 
       return c.json({})
