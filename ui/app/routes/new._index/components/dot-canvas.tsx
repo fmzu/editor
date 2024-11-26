@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react"
+import { CanvasGrid } from "~/components/canvas-grid"
 import { ReactCanvas } from "~/components/react-canvas"
-import { cn } from "~/lib/utils"
-import { xtermColors } from "~/utils/xterm-colors"
 
 type Props = {
   grid: (number | null)[][]
@@ -10,6 +9,7 @@ type Props = {
   isSpacePressed: boolean
   onPressSpace: (isSpacePressed: boolean) => void
 }
+
 /**
  * ドット絵を作成するためのキャンバス
  * @param props
@@ -61,22 +61,7 @@ export const DotCanvas = (props: Props) => {
         width: props.dotSize * props.grid.length,
       }}
     >
-      <div className={"absolute pointer-events-none"}>
-        {props.grid.map((row, rowIndex) => (
-          <div key={rowIndex.toString()} className="flex">
-            {row.map((cell, colIndex) => (
-              <div
-                key={colIndex.toString()}
-                className={cn("border")}
-                style={{
-                  minWidth: `${props.dotSize}px`,
-                  height: `${props.dotSize}px`,
-                }}
-              />
-            ))}
-          </div>
-        ))}
-      </div>
+      <CanvasGrid grid={props.grid} dotSize={props.dotSize} />
       <ReactCanvas
         width={props.dotSize * props.grid.length}
         grid={props.grid}
