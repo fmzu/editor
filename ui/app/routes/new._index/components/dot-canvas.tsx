@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import { ReactCanvas } from "~/components/react-canvas"
 import { cn } from "~/lib/utils"
 import { xtermColors } from "~/utils/xterm-colors"
 
@@ -39,40 +40,51 @@ export const DotCanvas = (props: Props) => {
     }
   }, [])
 
-  const handleMouseDown = (rowIndex: number, colIndex: number) => {
-    setIsMouseDown(true)
-    props.onClick(rowIndex, colIndex)
-  }
-
   const handleMouseUp = () => {
     setIsMouseDown(false)
   }
 
-  const handleMouseEnter = (rowIndex: number, colIndex: number) => {
-    if (isMouseDown || props.isSpacePressed) {
-      props.onClick(rowIndex, colIndex)
-    }
+  const handleMouseDown = () => {
+    setIsMouseDown(true)
+  }
+
+  const handleMouseMove = (rowIndex: number, colIndex: number) => {
+    if (isMouseDown === false && props.isSpacePressed === false) return
+    props.onClick(rowIndex, colIndex)
   }
 
   return (
-    <div onMouseUp={handleMouseUp} onMouseLeave={handleMouseUp}>
-      {props.grid.map((row, rowIndex) => (
-        <div key={rowIndex.toString()} className="flex">
-          {row.map((cell, colIndex) => (
-            <div
-              key={colIndex.toString()}
-              onMouseDown={() => handleMouseDown(rowIndex, colIndex)}
-              onMouseEnter={() => handleMouseEnter(rowIndex, colIndex)}
-              className={cn("border")}
-              style={{
-                minWidth: `${props.dotSize}px`,
-                height: `${props.dotSize}px`,
-                backgroundColor: cell !== null ? xtermColors[cell] : "white",
-              }}
-            />
-          ))}
-        </div>
-      ))}
+    <div
+      className={"relative"}
+      style={{
+        height: props.dotSize * props.grid.length,
+        width: props.dotSize * props.grid.length,
+      }}
+    >
+      <div className={"absolute pointer-events-none"}>
+        {props.grid.map((row, rowIndex) => (
+          <div key={rowIndex.toString()} className="flex">
+            {row.map((cell, colIndex) => (
+              <div
+                key={colIndex.toString()}
+                className={cn("border")}
+                style={{
+                  minWidth: `${props.dotSize}px`,
+                  height: `${props.dotSize}px`,
+                }}
+              />
+            ))}
+          </div>
+        ))}
+      </div>
+      <ReactCanvas
+        width={props.dotSize * props.grid.length}
+        grid={props.grid}
+        onChange={handleMouseMove}
+        onMouseDown={handleMouseDown}
+        onMouseUp={handleMouseUp}
+        onMouseLeave={handleMouseUp}
+      />
     </div>
   )
 }
