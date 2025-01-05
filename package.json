@@ -2,17 +2,17 @@
   "name": "hascii",
   "type": "module",
   "scripts": {
+    "dev": "concurrently 'bun run --cwd api dev' 'bun run --cwd ui dev'",
     "format": "biome check . --apply-unsafe"
-  },
-  "devDependencies": {
-    "@types/bun": "latest"
-  },
-  "peerDependencies": {
-    "typescript": "^5.0.0"
   },
   "workspaces": ["ui", "api"],
   "dependencies": {
     "@hono/valibot-validator": "^0.3.0",
     "valibot": "^0.41.0"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "concurrently": "^9.1.0",
+    "typescript": "^5.0.0"
   }
 }
