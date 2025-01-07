@@ -3,7 +3,8 @@
   "scripts": {
     "dev": "wrangler dev",
     "deploy": "wrangler deploy --minify",
-    "studio": "drizzle-kit studio --config drizzle.config.local.ts"
+    "studio": "drizzle-kit studio --config drizzle.config.local.ts",
+    "predev": "drizzle-kit generate && wrangler d1 migrations apply hascii --local"
   },
   "dependencies": {
     "@hono/auth-js": "^1.0.10",

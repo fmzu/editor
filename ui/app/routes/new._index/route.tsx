@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { DotCanvas } from "./components/dot-canvas"
 import { createEmptyDotCells } from "~/utils/create-empty-dot-cells"
 import { DotXtermColorPalette } from "./components/dot-xterm-color-palette"
@@ -22,13 +22,14 @@ export default function NextPage() {
 
   const [eraserMode, setEraserMode] = useState(false)
 
-  const [isSpacePressed, setIsSpacePressed] = useState(false)
+  const [isDrawMode, setDrawMode] = useState(false)
 
   const [title, setTitle] = useState("")
 
   const [description, setDescription] = useState("")
 
-  const onDraw = (rowIndex: number, colIndex: number) => {
+  const onUpdateCell = (rowIndex: number, colIndex: number) => {
+    if (isDrawMode === false) return
     if (!eraserMode && colorIndex === null) return
     const newGrid = [...grid]
     newGrid[rowIndex][colIndex] = eraserMode ? null : colorIndex
@@ -59,12 +60,31 @@ export default function NextPage() {
   }
 
   const onMouseDown = () => {
-    setIsSpacePressed(true)
+    setDrawMode(true)
   }
 
   const onMouseUp = () => {
-    setIsSpacePressed(false)
+    setDrawMode(false)
   }
+
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.code === "Space") {
+        setDrawMode(true)
+      }
+    }
+    const handleKeyUp = (event: KeyboardEvent) => {
+      if (event.code === "Space") {
+        setDrawMode(false)
+      }
+    }
+    window.addEventListener("keydown", handleKeyDown)
+    window.addEventListener("keyup", handleKeyUp)
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown)
+      window.removeEventListener("keyup", handleKeyUp)
+    }
+  }, [])
 
   return (
     <>
@@ -76,43 +96,43 @@ export default function NextPage() {
         description={description}
         setDescription={setDescription}
       />
-      <main className="flex flex-col gap-2 max-w-screen-sm container py-8 h-custom-main">
-        <div className="p-4 justify-center flex items-center flex-1">
-          <Card className="overflow-hidden">
+      <main className="flex flex-col px-0 h-custom-main">
+        <div className="flex-1 w-full px-2 overflow-hidden">
+          <Card className="overflow-hidden h-full">
             <DotCanvas
               grid={grid}
-              onClick={onDraw}
+              onChangeCell={onUpdateCell}
               dotSize={dotSize}
-              isSpacePressed={isSpacePressed}
-              onPressSpace={setIsSpacePressed}
             />
           </Card>
         </div>
-        <DotXtermColorPalette
-          colorIndex={colorIndex}
-          setColorId={(colorIndex) => {
-            setColorIndex(colorIndex)
-            setEraserMode(false)
-          }}
-        />
-        <div className="flex space-x-2">
-          <EraserButton
-            eraserMode={eraserMode}
-            setEraserMode={(eraserMode) => {
-              setEraserMode(eraserMode)
-              setColorIndex(null)
+        <div className="p-4 space-y-4">
+          <DotXtermColorPalette
+            colorIndex={colorIndex}
+            setColorId={(colorIndex) => {
+              setColorIndex(colorIndex)
+              setEraserMode(false)
             }}
           />
-          <ClearCanvasButton onClick={onClearCanvas} />
+          <div className="flex space-x-2">
+            <EraserButton
+              eraserMode={eraserMode}
+              setEraserMode={(eraserMode) => {
+                setEraserMode(eraserMode)
+                setColorIndex(null)
+              }}
+            />
+            <ClearCanvasButton onClick={onClearCanvas} />
+          </div>
+          <Button
+            className="sm:hidden"
+            onMouseDown={onMouseDown}
+            onMouseUp={onMouseUp}
+            onMouseLeave={onMouseUp}
+          >
+            {"塗る"}
+          </Button>
         </div>
-        <Button
-          className="sm:hidden"
-          onMouseDown={onMouseDown}
-          onMouseUp={onMouseUp}
-          onMouseLeave={onMouseUp}
-        >
-          {"塗る"}
-        </Button>
       </main>
     </>
   )

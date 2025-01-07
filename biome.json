@@ -1,8 +1,5 @@
 {
   "$schema": "node_modules/@biomejs/biome/configuration_schema.json",
-  "files": {
-    "include": ["app", "*.ts", "*.json"]
-  },
   "linter": {
     "rules": {
       "recommended": true,
