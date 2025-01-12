@@ -1,12 +1,12 @@
 import type { LoaderFunctionArgs } from "react-router"
 import { Link, useLoaderData } from "react-router"
 import { Card } from "~/components/ui/card"
-import { client } from "~/lib/client"
+import { loaderClient } from "~/lib/loader-client"
 import { DotPreviewCanvas } from "~/routes/_main._index/components/dot-preview-canvas"
 import { MainHeader } from "~/routes/_main/components/main-header"
 
 export async function loader(args: LoaderFunctionArgs) {
-  const resp = await client.posts.$get()
+  const resp = await loaderClient.posts.$get()
 
   const posts = await resp.json()
 
