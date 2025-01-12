@@ -2,6 +2,7 @@
 
 name = "hascii"
 compatibility_date = "2024-05-02"
+main = "index.ts"
 compatibility_flags = ["nodejs_compat"]
 assets = { directory = "./build/client", binding = "ASSETS" }
 
