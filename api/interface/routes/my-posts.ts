@@ -3,7 +3,7 @@ import { drizzle } from "drizzle-orm/d1"
 import { HTTPException } from "hono/http-exception"
 import { apiFactory } from "~/interface/api-factory"
 import { schema } from "~/lib/schema"
-import { eq } from "drizzle-orm"
+import { desc, eq } from "drizzle-orm"
 
 /**
  * 自分の投稿を取得する
@@ -17,8 +17,6 @@ export const GET = apiFactory.createHandlers(verifyAuth(), async (c) => {
     throw new HTTPException(401, { message: "Unauthorized" })
   }
 
-  console.log("authUserEmail", authUserEmail)
-
   const db = drizzle(c.env.DB, { schema })
 
   const user = await db.query.users.findFirst({
@@ -31,6 +29,7 @@ export const GET = apiFactory.createHandlers(verifyAuth(), async (c) => {
 
   const posts = await db.query.posts.findMany({
     where: eq(schema.posts.userId, user.id),
+    orderBy: desc(schema.posts.createdAt),
   })
 
   const postsJson = posts.map((post) => {
