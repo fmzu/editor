@@ -10,6 +10,7 @@ import {
   DialogTrigger,
 } from "~/components/ui/dialog"
 import { Input } from "~/components/ui/input"
+import { Switch } from "~/components/ui/switch"
 import { Textarea } from "~/components/ui/textarea"
 import { DotPreviewCanvas } from "~/routes/_main._index/components/dot-preview-canvas"
 
@@ -20,19 +21,26 @@ type Props = {
   setTitle: (title: string) => void
   description: string
   setDescription: (description: string) => void
+  isPublic: boolean
+  setIsPublic: (isPublic: boolean) => void
 }
 
 export function PostDialog(props: Props) {
   const navigate = useNavigate()
 
+  // isPublicを切り替える関数
+  const toggleIsPublic = () => {
+    props.setIsPublic(!props.isPublic)
+  }
+
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button>{"投稿"}</Button>
+        <Button>{"保存"}</Button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>{"投稿"}</DialogTitle>
+          <DialogTitle>{"作品"}</DialogTitle>
         </DialogHeader>
         <Card className="bg-gray-200 overflow-hidden shadow-md">
           <div className="overflow-hidden rounded-md">
@@ -40,10 +48,10 @@ export function PostDialog(props: Props) {
           </div>
         </Card>
         <div>
-          <p>{"タイトル"}</p>
+          <p>{"作品のタイトル"}</p>
           <Input
             type="text"
-            placeholder="タイトル"
+            placeholder="作品のタイトル"
             value={props.title}
             onChange={(e) => {
               props.setTitle(e.target.value)
@@ -51,14 +59,21 @@ export function PostDialog(props: Props) {
           />
         </div>
         <div>
-          <p>{"投稿の詳細"}</p>
+          <p>{"作品の詳細"}</p>
           <Textarea
-            placeholder="投稿の詳細"
+            placeholder="作品の詳細"
             value={props.description}
             onChange={(e) => {
               props.setDescription(e.target.value)
             }}
           />
+        </div>
+        <div>
+          <p>{"作品の公開"}</p>
+          <div className="flex gap-x-4 items-center">
+            <Switch id="isPublic" onClick={toggleIsPublic} />
+            <p className="text-sm">{"作品を公開する"}</p>
+          </div>
         </div>
         <DialogFooter>
           <Link to={"/new"}>
@@ -70,7 +85,7 @@ export function PostDialog(props: Props) {
               }}
               className="w-full"
             >
-              {"投稿"}
+              {"保存"}
             </Button>
           </Link>
         </DialogFooter>

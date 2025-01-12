@@ -9,7 +9,10 @@ export const posts = sqliteTable("posts", {
   regulation: text("regulation", { length: 256 }).notNull(),
   title: text("title", { length: 256 }),
   description: text("description", { length: 256 }),
-  isPublic: integer("is_public", { mode: "boolean" }).default(true),
+  /**
+   * 公開するかどうか
+   */
+  isPublic: integer("is_public", { mode: "boolean" }).notNull().default(false),
   createdAt: integer("created_at", { mode: "timestamp" })
     .notNull()
     .default(sql`CURRENT_TIMESTAMP`),

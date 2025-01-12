@@ -19,7 +19,7 @@ export default function Route() {
   return (
     <>
       <MainHeader />
-      <main className="grid grid-cols-2 gap-8 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 md:gap-16 px-8 container">
+      <main className="grid grid-cols-2 gap-8 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 md:gap-16 px-8 pb-8 container">
         {data.map((post) => (
           <Link key={post.id} to={`/posts/${post.id}`}>
             <Card className="bg-gray-200 overflow-hidden shadow-md hover:scale-105 duration-100">

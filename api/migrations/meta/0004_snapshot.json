@@ -1,7 +1,7 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "86e938df-b69f-4d80-b338-9632f648c4e4",
+  "id": "2200ee59-b122-4b88-9539-c5ec1e37c8a3",
   "prevId": "7d631b35-891a-4469-8ec9-f8e417eed475",
   "tables": {
     "likes": {
@@ -48,16 +48,13 @@
       "indexes": {
         "likes_uuid_unique": {
           "name": "likes_uuid_unique",
-          "columns": [
-            "uuid"
-          ],
+          "columns": ["uuid"],
           "isUnique": true
         }
       },
       "foreignKeys": {},
       "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
-      "checkConstraints": {}
+      "uniqueConstraints": {}
     },
     "posts": {
       "name": "posts",
@@ -115,9 +112,9 @@
           "name": "is_public",
           "type": "integer",
           "primaryKey": false,
-          "notNull": false,
+          "notNull": true,
           "autoincrement": false,
-          "default": true
+          "default": false
         },
         "created_at": {
           "name": "created_at",
@@ -139,16 +136,13 @@
       "indexes": {
         "posts_uuid_unique": {
           "name": "posts_uuid_unique",
-          "columns": [
-            "uuid"
-          ],
+          "columns": ["uuid"],
           "isUnique": true
         }
       },
       "foreignKeys": {},
       "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
-      "checkConstraints": {}
+      "uniqueConstraints": {}
     },
     "users": {
       "name": "users",
@@ -207,33 +201,25 @@
       "indexes": {
         "users_uuid_unique": {
           "name": "users_uuid_unique",
-          "columns": [
-            "uuid"
-          ],
+          "columns": ["uuid"],
           "isUnique": true
         },
         "users_email_unique": {
           "name": "users_email_unique",
-          "columns": [
-            "email"
-          ],
+          "columns": ["email"],
           "isUnique": true
         },
         "users_login_unique": {
           "name": "users_login_unique",
-          "columns": [
-            "login"
-          ],
+          "columns": ["login"],
           "isUnique": true
         }
       },
       "foreignKeys": {},
       "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
-      "checkConstraints": {}
+      "uniqueConstraints": {}
     }
   },
-  "views": {},
   "enums": {},
   "_meta": {
     "schemas": {},
