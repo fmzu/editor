@@ -8,7 +8,7 @@
         "noUnusedImports": "error"
       }
     },
-    "ignore": ["app/components/ui"]
+    "ignore": ["ui/app/components/ui", "ui/app/hooks/use-toast.ts"]
   },
   "formatter": {
     "indentStyle": "space",
@@ -21,5 +21,8 @@
     "formatter": {
       "semicolons": "asNeeded"
     }
+  },
+  "files": {
+    "ignore": ["*/.wrangler", "ui/.react-router", "ui/build"]
   }
 }

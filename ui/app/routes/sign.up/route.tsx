@@ -1,4 +1,4 @@
-import { useNavigate } from "@remix-run/react"
+import { useNavigate } from "react-router"
 import { useMutation } from "@tanstack/react-query"
 import { useState } from "react"
 import { Button } from "~/components/ui/button"
@@ -14,7 +14,7 @@ export default function Route() {
 
   const mutation = useMutation({
     async mutationFn() {
-      const resp = await client.api.users.$post({
+      const resp = await client.users.$post({
         json: {
           email: loginId,
           password: password,

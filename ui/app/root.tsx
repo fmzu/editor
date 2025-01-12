@@ -1,25 +1,26 @@
-import {
-  Links,
-  Meta,
-  Outlet,
-  Scripts,
-  ScrollRestoration,
-} from "@remix-run/react"
-import stylesheet from "~/globals.css?url"
+import { Links, Meta, Outlet, Scripts, ScrollRestoration } from "react-router"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
-import type { LinksFunction } from "@remix-run/cloudflare"
+import type { LinksFunction } from "react-router"
 import { Toaster } from "~/components/ui/sonner"
-import { SessionProvider } from "@hono/auth-js/react"
+import { authConfigManager, SessionProvider } from "@hono/auth-js/react"
+
+import stylesheet from "~/root.css?url"
 
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: stylesheet },
 ]
 
+authConfigManager.setConfig({
+  baseUrl: import.meta.env.VITE_API_URL,
+  basePath: "/auth",
+  credentials: "include",
+})
+
 type Props = { children: React.ReactNode }
 
 export function Layout(props: Props) {
   return (
-    <html lang="en">
+    <html lang="ja">
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />

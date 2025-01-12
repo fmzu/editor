@@ -1,0 +1,1 @@
+ALTER TABLE `posts` ADD `is_public` integer DEFAULT true;

@@ -1,4 +1,4 @@
-import { Link } from "@remix-run/react"
+import { Link } from "react-router"
 import { AvatarPopover } from "~/routes/_main/components/avatar-popover"
 import { PostDialog } from "~/routes/new/components/post-dialog"
 

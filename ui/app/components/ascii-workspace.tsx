@@ -72,8 +72,8 @@ export const AsciiWorkspace = (props: Props) => {
           <div className="flex space-x-2">
             {/* 消しゴムモードのトグルボタンを追加します */}
             <EraserButton
-              eraserMode={eraserMode}
-              setEraserMode={(eraserMode) => {
+              isActive={eraserMode}
+              onChange={(eraserMode) => {
                 setEraserMode(eraserMode)
                 setColorIndex(null)
               }}

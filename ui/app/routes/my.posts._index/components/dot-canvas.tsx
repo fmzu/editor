@@ -1,41 +1,66 @@
 import { useState } from "react"
 import { ReactCanvas } from "~/components/react-canvas"
-import { useSpaceKey } from "~/hooks/use-space-key"
 import { renderCursor } from "~/lib/canvas/render-cursor"
-import { renderDots } from "~/lib/canvas/render-dots"
+import { renderCursorGrid } from "~/lib/canvas/render-cursor-grid"
+import { renderGridGuideline } from "~/lib/canvas/render-grid-guideline"
 import { renderGrid } from "~/lib/canvas/render-grid"
 
 type Props = {
+  isDrawing: boolean
   grid: (number | null)[][]
-  onChangeCell: (rowIndex: number, colIndex: number) => void
   dotSize: number
+  /**
+   * カーソルのセルの座標（0から15）
+   */
+  cursorGrid: { x: number; y: number }
+  onChange(rowIndex: number, colIndex: number): void
 }
 
 /**
  * ドット絵を作成するためのキャンバス
  */
 export function DotCanvas(props: Props) {
-  const [virtualCursor, setVirtualCursor] = useState({ x: 40, y: 40 })
+  const [virtualCursor, setVirtualCursor] = useState({
+    /**
+     * 仮想のカーソルのx座標
+     */
+    x: 40,
+    y: 40,
+  })
 
-  const [cursor, setCursor] = useState({ x: 40, y: 40 })
-
-  const isActive = useSpaceKey()
+  const [cursorPosition, setCursorPosition] = useState({
+    /**
+     * 実際のカーソルのx座標
+     */
+    x: 40,
+    y: 40,
+  })
 
   const onDraw = (ctx: CanvasRenderingContext2D) => {
     renderGrid(ctx, { dotSize: props.dotSize, grid: props.grid })
-    renderDots(ctx, { dotSize: props.dotSize, grid: props.grid })
-    renderCursor(ctx, { x: virtualCursor.x, y: virtualCursor.y })
+    renderCursorGrid(ctx, {
+      x: props.cursorGrid.x,
+      y: props.cursorGrid.y,
+      grid: props.grid,
+      dotSize: props.dotSize,
+    })
+    renderGridGuideline(ctx, { dotSize: props.dotSize, grid: props.grid })
+    renderCursor(ctx, {
+      x: virtualCursor.x,
+      y: virtualCursor.y,
+      isDrawing: props.isDrawing,
+    })
   }
 
   const onTouchStart = (canvas: HTMLCanvasElement, x: number, y: number) => {
-    setCursor({ x, y })
+    setCursorPosition({ x, y })
   }
 
   const onTouchMove = (canvas: HTMLCanvasElement, x: number, y: number) => {
     onUpdateGrid(canvas)
-    setCursor({ x, y })
-    const dx = cursor.x - x
-    const dy = cursor.y - y
+    setCursorPosition({ x, y })
+    const dx = cursorPosition.x - x
+    const dy = cursorPosition.y - y
     setVirtualCursor((value) => {
       const x = value.x - dx
       const y = value.y - dy
@@ -50,6 +75,7 @@ export function DotCanvas(props: Props) {
   }
 
   const onUpdateGrid = (canvas: HTMLCanvasElement) => {
+    // 1を引いて最も近い偶数に調整
     const canvasWidth = canvas.width
     const canvasHeight = canvas.height
     const dotSize = props.dotSize
@@ -61,7 +87,8 @@ export function DotCanvas(props: Props) {
     if (gridX < 0 || gridY < 0) return
     if (props.grid.length <= gridY) return
     if (props.grid.length <= gridX) return
-    props.onChangeCell(gridY, gridX)
+    if (props.cursorGrid.x === gridY && props.cursorGrid.y === gridX) return
+    props.onChange(gridY, gridX)
   }
 
   return (

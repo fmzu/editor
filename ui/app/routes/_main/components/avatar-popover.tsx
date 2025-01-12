@@ -1,5 +1,5 @@
 import { signOut } from "@hono/auth-js/react"
-import { Link } from "@remix-run/react"
+import { Link } from "react-router"
 import { LogOut, SunMoon, UserRound } from "lucide-react"
 import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar"
 import { Button } from "~/components/ui/button"

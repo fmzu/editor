@@ -5,135 +5,59 @@ import { drizzle } from "drizzle-orm/d1"
 import { genSaltSync, hashSync } from "bcrypt-ts"
 import { schema } from "~/lib/schema"
 import { HTTPException } from "hono/http-exception"
-import { eq } from "drizzle-orm"
 
-const app = apiFactory.createApp()
+/**
+ * アカウントを作成する
+ */
+export const POST = apiFactory.createHandlers(
+  vValidator(
+    "json",
+    object({
+      email: string(),
+      password: string(),
+    }),
+  ),
+  async (c) => {
+    const json = c.req.valid("json")
 
-export const userRoutes = app
-  /**
-   * アカウントを作成する
-   */
-  .post(
-    "/",
-    vValidator(
-      "json",
-      object({
-        email: string(),
-        password: string(),
-      }),
-    ),
-    async (c) => {
-      const json = c.req.valid("json")
-
-      const db = drizzle(c.env.DB)
-
-      const salt = genSaltSync(10)
-
-      const hashedPassword = hashSync(json.password, salt)
-
-      const userUuid = crypto.randomUUID()
-
-      await db.insert(schema.users).values({
-        id: userUuid,
-        email: json.email,
-        hashedPassword: hashedPassword,
-        login: crypto.randomUUID(),
-        name: crypto.randomUUID(),
-      })
-
-      return c.json({}, {})
-    },
-  )
-  /**
-   * たくさんのアカウントを取得する
-   */
-  .get("/", async (c) => {
     const db = drizzle(c.env.DB)
 
-    const users = await db.select().from(schema.users)
+    const salt = genSaltSync(10)
 
-    if (users === undefined) {
-      throw new HTTPException(500, { message: "Not Found" })
-    }
+    const hashedPassword = hashSync(json.password, salt)
 
-    const usersJson = users.map((user) => {
-      return {
-        id: user.id,
-        name: user.name,
-      }
+    const userUuid = crypto.randomUUID()
+
+    await db.insert(schema.users).values({
+      id: userUuid,
+      email: json.email,
+      hashedPassword: hashedPassword,
+      login: crypto.randomUUID(),
+      name: crypto.randomUUID(),
     })
 
-    return c.json(usersJson)
-  })
-  /**
-   * 一つのアカウントを取得する
-   */
-  .get("/:user", async (c) => {
-    const db = drizzle(c.env.DB)
+    return c.json({}, {})
+  },
+)
 
-    const userId = c.req.param("user")
+/**
+ * たくさんのアカウントを取得する
+ */
+export const GET = apiFactory.createHandlers(async (c) => {
+  const db = drizzle(c.env.DB)
 
-    const user = await db
-      .select()
-      .from(schema.users)
-      .where(eq(schema.users.id, userId))
-      .get()
+  const users = await db.select().from(schema.users)
 
-    if (user === undefined) {
-      throw new HTTPException(500, { message: "Not Found" })
-    }
+  if (users === undefined) {
+    throw new HTTPException(500, { message: "Not Found" })
+  }
 
-    const userJson = {
+  const usersJson = users.map((user) => {
+    return {
       id: user.id,
       name: user.name,
-      avatarIconUrl: user.avatarIconUrl,
     }
-
-    return c.json(userJson)
   })
-  /**
-   * アカウントを更新する
-   */
-  .put(
-    "/:user",
-    vValidator(
-      "json",
-      object({
-        email: string(),
-        password: string(),
-      }),
-    ),
-    async (c) => {
-      const json = c.req.valid("json")
 
-      const db = drizzle(c.env.DB)
-
-      const salt = genSaltSync(10)
-
-      const hashedPassword = hashSync(json.password, salt)
-
-      const userId = c.req.param("user")
-
-      await db
-        .update(schema.users)
-        .set({
-          email: json.email,
-          hashedPassword: hashedPassword,
-        })
-        .where(eq(schema.users.id, userId))
-
-      return c.json({})
-    },
-  )
-  /**
-   * アカウントを削除する
-   */
-  .put("/:user", async (c) => {
-    const db = drizzle(c.env.DB, { schema })
-
-    const userId = c.req.param("user")
-
-    await db.delete(schema.users).where(eq(schema.users.id, userId))
-
-    return c.json({})
-  })
+  return c.json(usersJson)
+})

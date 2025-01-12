@@ -1,20 +1,16 @@
-import { json, type LoaderFunctionArgs } from "@remix-run/cloudflare"
-import { Link, useLoaderData } from "@remix-run/react"
+import type { LoaderFunctionArgs } from "react-router"
+import { Link, useLoaderData } from "react-router"
 import { Card } from "~/components/ui/card"
-import { loaderClient } from "~/lib/loader-client"
+import { client } from "~/lib/client"
 import { DotPreviewCanvas } from "~/routes/_main._index/components/dot-preview-canvas"
 import { MainHeader } from "~/routes/_main/components/main-header"
 
 export async function loader(args: LoaderFunctionArgs) {
-  const client = loaderClient(
-    args.context.cloudflare.env.API.fetch.bind(args.context.cloudflare.env.API),
-  )
-
-  const resp = await client.api.posts.$get()
+  const resp = await client.posts.$get()
 
   const posts = await resp.json()
 
-  return json(posts)
+  return posts
 }
 
 export default function Route() {

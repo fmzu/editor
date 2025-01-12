@@ -9,6 +9,7 @@ export const posts = sqliteTable("posts", {
   regulation: text("regulation", { length: 256 }).notNull(),
   title: text("title", { length: 256 }),
   description: text("description", { length: 256 }),
+  isPublic: integer("is_public", { mode: "boolean" }).default(true),
   createdAt: integer("created_at", { mode: "timestamp" })
     .notNull()
     .default(sql`CURRENT_TIMESTAMP`),

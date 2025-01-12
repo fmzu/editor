@@ -1,6 +1,6 @@
 import { xtermColors } from "~/utils/xterm-colors"
 
-export function renderDots(
+export function renderGridGuideline(
   ctx: CanvasRenderingContext2D,
   props: {
     dotSize: number

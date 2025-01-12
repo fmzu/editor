@@ -19,6 +19,13 @@ export function ReactCanvas(props: Props) {
       if (ctx === null) return
       ref.current.width = ref.current.clientWidth
       ref.current.height = ref.current.clientHeight
+      // 奇数なら偶数にしてピクセルがズレないようにする
+      if (ref.current.width % 2 === 1) {
+        ref.current.width = (ref.current.clientWidth - 1) & ~1
+      }
+      if (ref.current.height % 2 === 1) {
+        ref.current.height = (ref.current.clientHeight - 1) & ~1
+      }
       props.onDraw(ctx)
     }
     listener()

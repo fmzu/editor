@@ -1,4 +1,4 @@
-import { useNavigate } from "@remix-run/react"
+import { useNavigate } from "react-router"
 import { useMutation } from "@tanstack/react-query"
 import type { InferRequestType, InferResponseType } from "hono/client"
 import { useState } from "react"
@@ -26,7 +26,7 @@ export function DeleteDialog(props: Props) {
 
   const closeModal = () => setIsOpen(false)
 
-  const endpoint = client.api.posts[":post"]
+  const endpoint = client.posts[":post"]
 
   const mutation = useMutation<
     InferResponseType<typeof endpoint.$delete>,

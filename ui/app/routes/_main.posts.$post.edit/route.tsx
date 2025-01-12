@@ -1,4 +1,4 @@
-import { useParams } from "@remix-run/react"
+import { useParams } from "react-router"
 import { useMutation, useQuery } from "@tanstack/react-query"
 import { useState } from "react"
 import { toast } from "sonner"
@@ -8,7 +8,7 @@ import { Button } from "~/components/ui/button"
 import { Card } from "~/components/ui/card"
 import { client } from "~/lib/client"
 import { DotEditCanvas } from "~/routes/_main.posts.$post.edit/components/dot-edit-canvas"
-import { DotXtermColorPalette } from "~/routes/new._index/components/dot-xterm-color-palette"
+import { DotXtermColorPalette } from "~/routes/my.posts._index/components/dot-xterm-color-palette"
 import { NewHeader } from "~/routes/new/components/new-header"
 import { createEmptyDotCells } from "~/utils/create-empty-dot-cells"
 
@@ -42,7 +42,7 @@ export default function Route() {
 
   const mutation = useMutation({
     async mutationFn() {
-      const resp = await client.api.posts.$post({
+      const resp = await client.posts.$post({
         json: {
           dots: grid.flat().join("-"),
           title: title,
@@ -85,7 +85,7 @@ export default function Route() {
   const postData = useQuery({
     queryKey: ["posts", postId, "edit"],
     async queryFn() {
-      const resp = await client.api.posts[":post"].$get({
+      const resp = await client.posts[":post"].$get({
         param: { post: postId },
       })
 
@@ -134,8 +134,8 @@ export default function Route() {
         />
         <div className="flex space-x-2">
           <EraserButton
-            eraserMode={eraserMode}
-            setEraserMode={(eraserMode) => {
+            isActive={eraserMode}
+            onChange={(eraserMode) => {
               setEraserMode(eraserMode)
               setColorIndex(null)
             }}

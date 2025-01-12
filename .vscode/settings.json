@@ -20,8 +20,5 @@
     "tailwind-merge",
     "tailwindcss"
   ],
-  "cSpell.words": [
-    "hascii",
-    "vite"
-  ]
+  "cSpell.words": ["hascii", "vite"]
 }

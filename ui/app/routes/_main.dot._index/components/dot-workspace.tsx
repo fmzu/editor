@@ -72,7 +72,7 @@ export const DotWorkspace = (props: Props) => {
           <DotSizeSelectButton onChange={onResizeDotSize} value={dotSize} />
         </div>
         <div className="flex space-x-2">
-          <EraserButton eraserMode={eraserMode} setEraserMode={setEraserMode} />
+          <EraserButton isActive={eraserMode} onChange={setEraserMode} />
           <ClearCanvasButton onClick={onClearCanvas} />
         </div>
         <div>
