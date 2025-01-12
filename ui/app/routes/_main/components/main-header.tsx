@@ -1,5 +1,5 @@
 import { useSession } from "@hono/auth-js/react"
-import { Link } from "@remix-run/react"
+import { Link } from "react-router"
 import { Button } from "~/components/ui/button"
 import { AvatarPopover } from "~/routes/_main/components/avatar-popover"
 
@@ -22,7 +22,7 @@ export function MainHeader() {
         </div>
       ) : (
         <div className="flex gap-x-4">
-          <Link to={"/new"}>
+          <Link to={"/my/posts"}>
             <Button variant={"secondary"}>{"作成"}</Button>
           </Link>
           <AvatarPopover />

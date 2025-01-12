@@ -1,4 +1,4 @@
-import { useParams } from "@remix-run/react"
+import { useParams } from "react-router"
 import { useQuery } from "@tanstack/react-query"
 import { Award } from "lucide-react"
 import { useState } from "react"
@@ -28,7 +28,7 @@ export default function Route() {
   const postData = useQuery({
     queryKey: ["posts", postId],
     async queryFn() {
-      const resp = await client.api.posts[":post"].$get({
+      const resp = await client.posts[":post"].$get({
         param: { post: postId },
       })
 
@@ -41,7 +41,7 @@ export default function Route() {
   // const likeData = useSuspenseQuery({
   //   queryKey: ["like"],
   //   async queryFn() {
-  //     const resp = await client.api.posts[":post"].likes.$post({
+  //     const resp = await client.posts[":post"].likes.$post({
   //       param: { post: postId },
   //     })
 

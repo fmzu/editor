@@ -1,4 +1,4 @@
-import { useNavigate } from "@remix-run/react"
+import { useNavigate } from "react-router"
 import { useState } from "react"
 import { Button } from "~/components/ui/button"
 import { Input } from "~/components/ui/input"

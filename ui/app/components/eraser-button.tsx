@@ -1,19 +1,19 @@
 import { Button } from "~/components/ui/button"
-import { Eraser } from "lucide-react"
+import { EraserIcon } from "lucide-react"
 
 type Props = {
-  eraserMode: boolean
-  setEraserMode: (eraserMode: boolean) => void
+  isActive: boolean
+  onChange: (eraserMode: boolean) => void
 }
 
 export const EraserButton = (props: Props) => {
   return (
     <Button
-      variant={props.eraserMode ? "default" : "secondary"}
-      className="w-full items-stretch space-x-2"
-      onClick={() => props.setEraserMode(!props.eraserMode)}
+      className="w-full"
+      variant={props.isActive ? "default" : "secondary"}
+      onClick={() => props.onChange(!props.isActive)}
     >
-      <Eraser className=" w-4 mr-2" />
+      <EraserIcon />
     </Button>
   )
 }

@@ -2,8 +2,8 @@
 
 name = "hascii"
 compatibility_date = "2024-05-02"
-pages_build_output_dir = "./build/client"
+compatibility_flags = ["nodejs_compat"]
+assets = { directory = "./build/client", binding = "ASSETS" }
 
-[[services]]
-binding = "API"
-service = "hascii-api"
+[observability]
+enabled = true
