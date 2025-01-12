@@ -9,7 +9,7 @@ import { Card } from "~/components/ui/card"
 import { client } from "~/lib/client"
 import { DotEditCanvas } from "~/routes/_main.posts.$post.edit/components/dot-edit-canvas"
 import { DotXtermColorPalette } from "~/routes/my.posts._index/components/dot-xterm-color-palette"
-import { NewHeader } from "~/routes/new/components/new-header"
+import { NewHeader } from "~/routes/my.posts._index/components/new-header"
 import { createEmptyDotCells } from "~/utils/create-empty-dot-cells"
 
 export default function Route() {
